@@ -1,85 +1,80 @@
 package de.hsb.kss.mc_schnitzeljagd;
 
-import java.util.List;
-
 import android.app.Activity;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+
 public class LocationTest extends Activity {
-	private static final String TAG = LocationTest.class.getSimpleName(); private TextView textview;
-	private LocationManager manager;
-	private LocationListener listener;
+	private static final String TAG = LocationTest.class.getSimpleName();
+	private GoogleMap map;
+	private LocationFacadeImpl lfi;
+
+	TextView lat;
+	TextView lng;
+	TextView quality;
+	TextView conState;
+	TextView count;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState); setContentView(R.layout.locationtest);
-		textview = (TextView) findViewById(R.id.textview);
-	   
-		manager = (LocationManager)getSystemService(LOCATION_SERVICE);
-		List<String> providers = manager.getAllProviders();
-	   
-		for (String name : providers) {
-			LocationProvider lp = manager.getProvider(name); Log.d(TAG, lp.getName() +
-					" --- isProviderEnabled(): " +
-					manager.isProviderEnabled(name));
-		   	Log.d(TAG, "requiresCell(): " +
-					         lp.requiresCell());
-			Log.d(TAG, "requiresNetwork(): " +
-				         lp.requiresNetwork());
-			Log.d(TAG, "requiresSatellite(): " +
-					         lp.requiresSatellite());
-		}
+		super.onCreate(savedInstanceState); 
+		setContentView(R.layout.locationtest);
+		lat = (TextView) findViewById(R.id.curLat);
+		lng = (TextView) findViewById(R.id.curLng);
+		quality = (TextView) findViewById(R.id.curQuality);
+		conState = (TextView) findViewById(R.id.conState);
+		count = (TextView) findViewById(R.id.count);
 		
-		Criteria criteria = new Criteria(); criteria.setAccuracy(Criteria.ACCURACY_COARSE); criteria.setPowerRequirement(Criteria.POWER_LOW);
-		
-		String name = manager.getBestProvider(criteria, true); Log.d(TAG, name);
-		
-		listener = new LocationListener() {
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {
-				Log.d(TAG, "onStatusChanged()");
-			}
-			
-			@Override
-			public void onProviderEnabled(String provider) {
-				Log.d(TAG, "onProviderEnabled()");
-			}
-			
-			@Override
-			public void onProviderDisabled(String provider) {
-				Log.d(TAG, "onProviderDisabled()");
-			}
-			
-			@Override
-			public void onLocationChanged(Location location) {
-				Log.d(TAG, "onLocationChanged()");
-				if (location != null) {
-					String s = "Breite: " +	location.getLatitude() +
-					"\nLänge: " + location.getLongitude();
-					textview.setText(s);
-				}
-			}
-			
-		}; 
+	    try {
+            // Loading map
+	    	lfi = LocationFacadeImpl.getInstance();
+	    	lfi.init(this);
+	    	
+	    	map = lfi.getMap();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
+
+	public void updateUI(double lat, double lng, float quality, 
+			boolean conSta, int cnt){
+		this.lat.setText(Double.toString(lat));
+		this.lng.setText(Double.toString(lng));
+		this.count.setText(Integer.toString(cnt));
+		this.quality.setText(Float.toString(quality));
+		this.conState.setText(Boolean.toString(conSta));
+	}
+	
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		Log.d(TAG, "onStart()");
-		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0,listener);
+		lfi.onStart();
 	}
 	
 	@Override
 	protected void onPause() {
+		lfi.onPause();
 		super.onPause();
 		Log.d(TAG, "onPause()");
-		manager.removeUpdates(listener);
+	}
+	
+	@Override
+	protected void onStop() {
+		lfi.onStop();
+		super.onStop();
+		Log.d(TAG, "onStop()");
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		lfi.onResume();
+		Log.d(TAG, "onResume()");
 	}
 }

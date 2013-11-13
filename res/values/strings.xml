@@ -5,5 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="locationTest">To Location Test</string>
+    <string name="lat">Current Latitude</string>
+    <string name="lng">Current Longitude</string>
+    <string name="quality">Signal</string>
+    <string name="conStateInfo">Listener connected</string>
+    <string name="count">Count</string>
 
 </resources>

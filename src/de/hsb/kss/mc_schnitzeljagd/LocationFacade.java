@@ -2,7 +2,8 @@ package de.hsb.kss.mc_schnitzeljagd;
 
 import android.location.Location;
 
-import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * 
@@ -11,23 +12,30 @@ import com.google.android.gms.location.LocationClient;
  * to abstract location based services from the app and supply methods to gather the required information.
  *
  */
-public class LocationFacade {
+public interface LocationFacade {
 	/**
-	 * Singlton: Location client
+	 * 
+	 * @return the current location of the user as LatLng-object
 	 */
-	private static LocationClient locationClient;
-	
+	public LatLng getLocation();
 	
 	/**
 	 * 
-	 * @return the current location of the user
+	 * @param location
+	 * @return the longitude
 	 */
-	public Location getLocation() {
-		Location currentLocation = locationClient.getLastLocation();
-		return currentLocation;
-	}
+	public double getLongitude(Location location);
 	
-	public void getMap(Location location) {
-		
-	}
+	/**
+	 * 
+	 * @param location
+	 * @return the ladtitude
+	 */
+	public double getLatitude(Location location);
+	
+	/**
+	 * Returns a GoogleMap object zoomed into the current position of the user
+	 * @return GoogleMap map
+	 */
+	public GoogleMap getMap();
 }
