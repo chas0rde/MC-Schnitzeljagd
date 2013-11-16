@@ -1,15 +1,23 @@
 package de.hsb.kss.mc_schnitzeljagd;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -30,10 +38,19 @@ import com.google.android.maps.MapView;
  * @author Ingo Pohlschneider
  *
  */
-public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesClient.ConnectionCallbacks, 
+public class LocationFacadeImpl extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
 											GooglePlayServicesClient.OnConnectionFailedListener,
 									        LocationListener {
-	String TAG = "LocationFacadeImpl";
+	// Global constants
+    /**
+     * Define a request code to send to Google Play services
+     * This code is returned in Activity.onActivityResult
+     */
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    /**
+     * Tag for logging purposes
+     */
+    private String TAG = "LocationFacadeImpl";
 	/**
 	 *  Milliseconds per second
 	 */
@@ -82,10 +99,6 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 		NONE
 	}
 	/**
-	 * Singleton
-	 */
-	private static LocationFacadeImpl INSTANCE;
-	/**
 	 * The map object
 	 */
 	private GoogleMap map;
@@ -110,10 +123,6 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	 */
 	private MapFragment mapFragment;
 	/**
-	 * The Activity's context
-	 */
-	private Context context;
-	/**
 	 * The location manager
 	 */
 	private LocationManager locationManager;
@@ -132,7 +141,6 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	/**
 	 * The parent Activity
 	 */
-	private Activity linkedActivity;
 	private MapController mapController;
 	private String provider;
 	private MapView mapView;
@@ -140,39 +148,119 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	private SharedPreferences prefs;
 	private SharedPreferences.Editor editor;
 	private int count = 0;
-
-	/**
-	 * Private constructor - Singleton Design Pattern
-	 */
-	private LocationFacadeImpl() {
-		super();
-		//TODO: Implement check for google play services
-		//TODO: Implement check for google maps API key
-		/*
-         * Create a new location client, using the enclosing class to
-         * handle callbacks.
-         */
-	}
 	
-	/**
-	 * Initializes the LocationFacadeImpl
-	 */
-	public void init(Activity activity) {
-		setActivity(activity);
+	private TextView lat;
+	private TextView lng;
+	private TextView quality;
+	private TextView conState;
+	private TextView refreshCount;
+	private TextView listenerName;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.location_facade);
+		
+		lat = (TextView) findViewById(R.id.curLat);
+		lng = (TextView) findViewById(R.id.curLng);
+		quality = (TextView) findViewById(R.id.curQuality);
+		conState = (TextView) findViewById(R.id.conState);
+		refreshCount = (TextView) findViewById(R.id.count);
+		listenerName = (TextView) findViewById(R.id.listener);
+		
+		servicesConnected();
+		
+		mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 		if (mapFragment != null){
 			initilizeMap();
 			configureLocationClient();
 			
-		    locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 	        // Start with updates turned off
 	        updatesRequested = true;
 
-		    locationClient = new LocationClient(context, this, this);
+		    locationClient = new LocationClient(this, this, this);
 		    
 		}
 		Log.d(TAG, "LocationFacade has been initialized");
 	}
+	
+	// Define a DialogFragment that displays the error dialog
+    public static class ErrorDialogFragment extends DialogFragment {
+        // Global field to contain the error dialog
+        private Dialog mDialog;
+        // Default constructor. Sets the dialog field to null
+        public ErrorDialogFragment() {
+            super();
+            mDialog = null;
+        }
+        // Set the dialog to display
+        public void setDialog(Dialog dialog) {
+            mDialog = dialog;
+        }
+        // Return a Dialog to the DialogFragment.
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return mDialog;
+        }
+    }
+
+    /*
+     * Handle results returned to the FragmentActivity
+     * by Google Play services
+     */
+    @Override
+    protected void onActivityResult(
+        int requestCode, int resultCode, Intent data) {
+	        // Decide what to do based on the original request code
+	        switch (requestCode) {
+	            case CONNECTION_FAILURE_RESOLUTION_REQUEST :
+	            /*
+	             * If the result code is Activity.RESULT_OK, try
+	             * to connect again
+	             */
+                switch (resultCode) {
+                    case Activity.RESULT_OK :
+                    /*
+                     * Try the request again
+                     */
+                    break;
+                }
+	        }
+     }
+    
+    private boolean servicesConnected() {
+        // Check that Google Play services is available
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        // If Google Play services is available
+        if (ConnectionResult.SUCCESS == resultCode) {
+            // In debug mode, log the status
+            Log.d("Location Updates", "Google Play services is available.");
+            // Continue
+            return true;
+        // Google Play services was not available for some reason
+        } else {
+            // Get the error code
+            int errorCode = resultCode;//connectionResult.getErrorCode();
+            // Get the error dialog from Google Play services
+            Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this,CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+            // If Google Play services can provide an error dialog
+            if (errorDialog != null) {
+                // Create a new DialogFragment for the error dialog
+                ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+                // Set the dialog in the DialogFragment
+                errorFragment.setDialog(errorDialog);
+                // Show the error dialog in the DialogFragment
+                errorFragment.show(getSupportFragmentManager(),"Location Updates");
+            }
+            
+            return false;
+        }
+    }
+
+
 	private void configureLocationClient() {
 		// Create the LocationRequest object
         locationRequest = LocationRequest.create();
@@ -184,7 +272,7 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
         locationRequest.setFastestInterval(FASTEST_INTERVAL);
         
         // Open the shared preferences
-        prefs = linkedActivity.getSharedPreferences("SharedPreferences",Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("SharedPreferences",Context.MODE_PRIVATE);
         // Get a SharedPreferences editor
         editor = prefs.edit();
 	}
@@ -193,7 +281,7 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
      * function to load map. If map is not created it will create it for you
      * */
     private void initilizeMap() {
-        if (map == null) {
+    	if (map == null) {
             map = mapFragment.getMap();
  
             // check if map is created successfully or not
@@ -206,23 +294,18 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
             }
         }
     }
-    /**
-     * Callback-method called if location has changed
-     */
-    @Override
-	public void onLocationChanged(Location location) {
-		Log.d(TAG, "onStatusChanged(): new location: " + location.getLatitude() + "/" + location.getLongitude());
-        count++;
-        // Update the location information
-        updateLocationInfos();        
-	}
+    
+    public void refreshLocation(View v) {
+    	updateLocationInfos();
+    }
+    
     /**
      * Updates the location infos after the location has changed
      */
     private void updateLocationInfos() {
 	    currentLocation  = locationClient.getLastLocation();
 		currentLatitude  = currentLocation.getLatitude();
-        currentLongitude = currentLocation.getLatitude();
+        currentLongitude = currentLocation.getLongitude();
         currentLatLng    = new LatLng(currentLatitude, currentLongitude);
         
         // Center map on users location
@@ -232,23 +315,15 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
  	    map.moveCamera(center);
  	    map.animateCamera(zoom);
         
- 	    //TODO: update infos on screen
- 	    LocationTest act = (LocationTest) linkedActivity;
- 	    act.updateUI(currentLatitude, currentLongitude, 
- 	    		currentLocation.getAccuracy(), locationClient.isConnected(), count);
+ 	    lat.setText(Double.toString(currentLatitude));
+ 	    lng.setText(Double.toString(currentLongitude)); 
+ 	    quality.setText(Float.toString(currentLocation.getAccuracy()));
+ 	    conState.setText(Boolean.toString(locationClient.isConnected()));
+ 	    refreshCount.setText(Integer.toString(count));
+ 	    listenerName.setText(locationClient.toString());
  	    
         Log.d(TAG, "Current location: " + currentLatitude + "/" + currentLongitude);  
     }
-	/**
-	 * Getter for the single instance of the LocationFacadeImpl
-	 * @return the single INSTANCE of the LocationFacadeImpl
-	 */
-	public static synchronized LocationFacadeImpl getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new LocationFacadeImpl();
-	    }
-	    return INSTANCE;
-	}
 	/**
 	 * Alters the current map type of the map
 	 * @param type mapType The type to alter the map type to
@@ -281,9 +356,33 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
      */
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-	    //TODO: handle this stuff
-       Log.e(TAG, "LocationClient connect failed: " + connectionResult.getErrorCode());
-	}
+		/*
+         * Google Play services can resolve some errors it detects.
+         * If the error has a resolution, try sending an Intent to
+         * start a Google Play services activity that can resolve
+         * error.
+         */
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this,CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                /*
+                 * Thrown if Google Play services canceled the original
+                 * PendingIntent
+                 */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+            /*
+             * If no resolution is available, display a dialog to the
+             * user with the error.
+             */
+            //TODO: showErrorDialog(connectionResult.getErrorCode());
+        }
+    }
+
 	/**
      * Called by Location Services when the request to connect the
      * client finishes successfully. At this point, you can
@@ -293,7 +392,7 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	public void onConnected(Bundle connectionHint) {
 		Log.d(TAG, "LocationClient connected");
 		// If already requested, start periodic updates
-        if (updatesRequested) {
+		if (updatesRequested) {
             locationClient.requestLocationUpdates(locationRequest, this);
         }
 
@@ -309,20 +408,10 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 		Log.d(TAG, "LocationClient disconnected");
 	}
 	/**
-	 * Sets the calling activity to inject map etc.
-	 * @param activity
-	 */
-	public void setActivity(Activity activity) {
-		if(activity != null) {
-			linkedActivity = activity;
-	    	mapFragment = (MapFragment) linkedActivity.getFragmentManager().findFragmentById(R.id.map);
-	    	context = linkedActivity.getBaseContext();
-		}
-	}
-	/**
 	 * Must be called if the parent Activity is started
 	 */
 	public void onStart() {
+		super.onStart();
 		// Connect the location client
 		locationClient.connect();
 	}
@@ -335,6 +424,7 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
         editor.commit();
         // Disconnect the location client
 		locationClient.disconnect();
+		super.onPause();
 	}
 	/**
 	 * Must be called if the parent Activity is stopped
@@ -348,19 +438,19 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
              * the argument is "this".
              */
             locationClient.removeLocationUpdates(this);
-    		Log.d(TAG, "Periodic updates disabled");
         }
         /*
          * After disconnect() is called, the client is
          * considered "dead".
          */
         locationClient.disconnect();
-
+        super.onStop();
 	}
 	/**
 	 * Must be called if the parent Activity is resumed
 	 */
 	public void onResume() {
+		super.onResume();
 		/*
          * Get any previous setting for location updates
          * Gets "false" if an error occurs
@@ -388,14 +478,12 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	/**
 	 * @return the longitude of the location
 	 */
-	@Override
 	public double getLongitude(Location location) {
 		return currentLongitude;
 	}
 	/**
 	 * @return the latitude of the location
 	 */
-	@Override
 	public double getLatitude(Location location) {
 		return currentLatitude;
 	}
@@ -405,5 +493,22 @@ public class LocationFacadeImpl implements LocationFacade, GooglePlayServicesCli
 	 */
 	public int getApproximateDistance(Location location) {
 		return distance;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		count++;
+		// Report to the UI that the location was updated
+		updateLocationInfos();
+	}
+	public void toggleUpdates(View v) {
+		updatesRequested = !updatesRequested;
+		if(updatesRequested) {
+            locationClient.requestLocationUpdates(locationRequest, this);
+            Log.d(TAG, "Location updates enabled");			
+		} else {
+			locationClient.removeLocationUpdates(this);
+            Log.d(TAG, "Location updates disabled");
+		}
 	}
 }

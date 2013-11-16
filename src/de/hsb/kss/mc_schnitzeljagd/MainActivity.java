@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void startActivityLocationTest(View v) {
-		Intent i = new Intent(this, LocationTest.class);
+		Intent i = new Intent(this, LocationFacadeImpl.class);
 		startActivity(i);
 	}
 }

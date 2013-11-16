@@ -9,6 +9,9 @@
     <string name="lng">Current Longitude</string>
     <string name="quality">Signal</string>
     <string name="conStateInfo">Listener connected</string>
-    <string name="count">Count</string>
+    <string name="updates">Updates</string>
+    <string name="listener">Listener</string>
+    <string name="refresh">Refresh</string>
+    <string name="toggleUpdates">Toogle Updates</string>
 
 </resources>

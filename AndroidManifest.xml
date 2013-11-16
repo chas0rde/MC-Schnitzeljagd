@@ -41,13 +41,13 @@
             </intent-filter>
         </activity>
         <activity android:name="LocationTest"></activity>
+        <activity android:name="LocationFacadeImpl"></activity>
         <uses-library android:name="com.google.android.maps" />
 
 		<!-- Goolge Maps API Key -->
-		<meta-data
-	    	android:name="com.google.android.maps.v2.API_KEY"
-	     	android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
 		
+		<!-- Google Play Services Version -->
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	        
     </application>

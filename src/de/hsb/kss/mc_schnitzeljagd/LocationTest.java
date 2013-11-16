@@ -2,8 +2,8 @@ package de.hsb.kss.mc_schnitzeljagd;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -23,16 +23,11 @@ public class LocationTest extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.locationtest);
-		lat = (TextView) findViewById(R.id.curLat);
-		lng = (TextView) findViewById(R.id.curLng);
-		quality = (TextView) findViewById(R.id.curQuality);
-		conState = (TextView) findViewById(R.id.conState);
-		count = (TextView) findViewById(R.id.count);
 		
 	    try {
             // Loading map
-	    	lfi = LocationFacadeImpl.getInstance();
-	    	lfi.init(this);
+//	    	lfi = LocationFacadeImpl.getInstance();
+//	    	lfi.init(this);
 	    	
 	    	map = lfi.getMap();
         } catch (Exception e) {
