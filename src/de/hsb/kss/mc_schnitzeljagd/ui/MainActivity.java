@@ -1,5 +1,7 @@
-package de.hsb.kss.mc_schnitzeljagd;
+package de.hsb.kss.mc_schnitzeljagd.ui;
 
+import de.hsb.kss.mc_schnitzeljagd.LocationFacadeImpl;
+import de.hsb.kss.mc_schnitzeljagd.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +23,20 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	public void startOrganizerActivity(View v)
+	{
+		Intent i = new Intent(this, OrganizerHomeActivity.class);
+		startActivity(i);
+	}
+	
+
+	public void starPlayerActivty(View v)
+	{
+		Intent i = new Intent(this, LocationFacadeImpl.class);
+		startActivity(i);
+	}
+	
 	
 	public void startActivityLocationTest(View v) {
 		Intent i = new Intent(this, LocationFacadeImpl.class);

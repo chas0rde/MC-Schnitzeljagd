@@ -4,35 +4,41 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="19" />
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+
     <permission
         android:name="googlemapsv2.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
- 
+
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
- 
+
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
-    
-    <!--  Required to access the internet and check the network state -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- Required to access the internet and check the network state -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    <!--  Required by Google Maps API v2 -->
+
+    <!-- Required by Google Maps API v2 -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="de.hsb.kss.mc_schnitzeljagd.MainActivity"
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,16 +46,44 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="LocationTest"></activity>
-        <activity android:name="LocationFacadeImpl"></activity>
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationTest" >
+        </activity>
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationFacadeImpl" >
+        </activity>
+
         <uses-library android:name="com.google.android.maps" />
 
-		<!-- Goolge Maps API Key -->
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
-		
-		<!-- Google Play Services Version -->
-		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-	        
+        <!-- Goolge Maps API Key -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
+
+        <!-- Google Play Services Version -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="2" />
+
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.MainGameActivity"
+            android:label="@string/title_activity_main_game" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerHomeActivity"
+            android:label="@string/title_activity_organizer_home" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.LoadGameActivity"
+            android:label="@string/title_activity_load_game" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.SetupGameActivity"
+            android:label="@string/title_activity_setup_game" >
+        </activity>
     </application>
-	
+
 </manifest>

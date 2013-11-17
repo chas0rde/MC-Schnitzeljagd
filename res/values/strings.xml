@@ -4,7 +4,7 @@
     <string name="app_name">MC-Schnitzeljagd</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="locationTest">To Location Test</string>
+    <string name="locationTest">Ingos Test Button</string>
     <string name="lat">Current Latitude</string>
     <string name="lng">Current Longitude</string>
     <string name="quality">Signal</string>
@@ -13,5 +13,22 @@
     <string name="listener">Listener</string>
     <string name="refresh">Refresh</string>
     <string name="toggleUpdates">Toogle Updates</string>
+    <string name="title_activity_main_game">MainGameActivity</string>
+    <string name="organizer_mode_button">Organizer</string>
+    <string name="player_mode_button">Player</string>
+    <string name="welcome_message">Welcome to MC Schnitzeljagd</string>
+    <string name="title_activity_organizer_home">OrganizerHomeActivity</string>
+    <string name="organizer_start_game_button">Start Quest</string>
+    <string name="organizer_load_game_button">Load Quest</string>
+    <string name="title_activity_load_game">LoadGameActivity</string>
+    <string name="load_game">Load Quest</string>
+    <string name="load_game_hint">Enter Quest Id</string>
+    <string name="title_activity_setup_game">SetupGameActivity</string>
+    <string name="setup_game_name">Enter gamename here</string>
+    <string name="setup_game_toggle_record">Record</string>
+    <string name="setup_game_toggle_live">Live</string>
+    <string name="setup_game_live_head_start">Enter head start time</string>
+    <string name="setup_game_create">Create Quest</string>
+    <string name="setup_game_description">Description goes here</string>
 
 </resources>
