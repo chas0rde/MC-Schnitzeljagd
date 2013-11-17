@@ -30,5 +30,14 @@
     <string name="setup_game_live_head_start">Enter head start time</string>
     <string name="setup_game_create">Create Quest</string>
     <string name="setup_game_description">Description goes here</string>
+    <string name="title_activity_player_home">PlayerHomeActivity</string>
+    <string name="save_play_name_button">Save Name</string>
+    <string name="player_home_info_text">Here comes the infotext for the Player...</string>
+    <string name="player_name_hint">Player Name</string>
+    <string name="title_activity_quest">QuestActivity</string>
+    <string name="mandatory_riddle_button">Mandatory Riddle</string>
+    <string name="additional_riddle_button">Additional Riddle</string>
+    <string name="title_activity_riddle">RiddleActivity</string>
+    <string name="title_activity_player_riddle">PlayerRiddleActivity</string>
 
 </resources>

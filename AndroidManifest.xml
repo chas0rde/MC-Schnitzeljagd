@@ -64,15 +64,6 @@
             android:value="2" />
 
         <activity
-            android:name="de.hsb.kss.mc_schnitzeljagd.ui.MainGameActivity"
-            android:label="@string/title_activity_main_game" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerHomeActivity"
             android:label="@string/title_activity_organizer_home" >
         </activity>
@@ -83,6 +74,22 @@
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.SetupGameActivity"
             android:label="@string/title_activity_setup_game" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerHomeActivity"
+            android:label="@string/title_activity_player_home" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.QuestActivity"
+            android:label="@string/title_activity_quest" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.RiddleActivity"
+            android:label="@string/title_activity_riddle" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerRiddleActivity"
+            android:label="@string/title_activity_player_riddle" >
         </activity>
     </application>
 

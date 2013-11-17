@@ -19,7 +19,6 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		// test....
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -31,9 +30,9 @@ public class MainActivity extends Activity {
 	}
 	
 
-	public void starPlayerActivty(View v)
+	public void startPlayerActivity(View v)
 	{
-		Intent i = new Intent(this, LocationFacadeImpl.class);
+		Intent i = new Intent(this, PlayerHomeActivity.class);
 		startActivity(i);
 	}
 	

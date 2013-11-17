@@ -40,7 +40,7 @@
             android:textOn="@string/setup_game_toggle_live" />   
             
              <EditText
-                    android:id="@+id/setup_game_live_head_start_id"
+                    android:id="@+id/player_name_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
