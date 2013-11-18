@@ -91,6 +91,22 @@
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerRiddleActivity"
             android:label="@string/title_activity_player_riddle" >
         </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerHomeActivity"
+            android:label="@string/title_activity_player_home" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.HintActivity"
+            android:label="@string/title_activity_hint" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.RiddleListActivity"
+            android:label="@string/title_activity_riddle_list" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.OrganizerCreatePoiActivity"
+            android:label="@string/title_activity_organizer_create_poi" >
+        </activity>
     </application>
 
 </manifest>
