@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class QuestActivity extends Activity {
+public class QuestActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

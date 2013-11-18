@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class OrganizerCreatePoiActivity extends Activity {
+public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

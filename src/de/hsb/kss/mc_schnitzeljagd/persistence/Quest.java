@@ -40,4 +40,10 @@ public class Quest {
     public void setPointList(List<Point> pointList) {
         this.pointList = pointList;
     }
+    
+    //TODO: Meleanie schön machen mit Strings xml und so
+    public String toString()
+    {
+    	return "Author= " + getAuthor() + "\n No. waypoints= 2";    
+    }
 }

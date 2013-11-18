@@ -8,15 +8,31 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class HintActivity extends Activity {
+public class HintActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hint);		
+		setContentView(R.layout.activity_hint);
+		
+		initView();
 	}
-	
+		
+	private void initView() {
+		if(app != null)
+		{
+			TextView gameInfo = (TextView)findViewById(R.id.current_game_info);
+			if(gameInfo != null)
+			{
+				gameInfo.setText(app.getGameLogic().getPlayer().getName());
+			}
+		}	
+		
+	}
+
 	public void goToQuestActivity(View view) {
 		Intent goToQuest = new Intent(this, QuestActivity.class);
 		startActivity(goToQuest);

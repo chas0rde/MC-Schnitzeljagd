@@ -8,7 +8,7 @@ import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
 
-public class SetupGameActivity extends Activity {
+public class SetupGameActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

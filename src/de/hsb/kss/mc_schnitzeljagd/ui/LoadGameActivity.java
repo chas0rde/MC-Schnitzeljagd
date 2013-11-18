@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-public class LoadGameActivity extends Activity {
+public class LoadGameActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

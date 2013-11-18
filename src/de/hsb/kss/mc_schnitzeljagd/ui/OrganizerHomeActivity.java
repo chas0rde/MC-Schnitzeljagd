@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class OrganizerHomeActivity extends Activity {
+public class OrganizerHomeActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

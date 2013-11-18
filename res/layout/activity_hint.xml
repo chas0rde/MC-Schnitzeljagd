@@ -58,7 +58,7 @@
           </ViewFlipper>
 
           <TextView
-              android:id="@+id/publish_game_text_id"
+              android:id="@+id/current_game_info"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />

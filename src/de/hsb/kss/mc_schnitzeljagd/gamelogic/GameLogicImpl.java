@@ -4,6 +4,7 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Riddle;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Stack;
 
 class GameLogicImpl implements GameLogic {
 
+	private Player player;
     private Quest quest;
     private Point currentPoint;
     private Riddle mandatoryRiddle;
@@ -22,6 +24,25 @@ class GameLogicImpl implements GameLogic {
         return quest;
     }
 
+    //TODO: @Melanie nur zum testen drin 
+    public void playNewGame(String name)
+    {
+    	this.player = new Player();
+    	this.player.setName(name);    	
+    }     
+    
+    public void playNewGame(String name, String code)
+    {
+    	getQuestByAccessCode(code);
+    	this.player = new Player();
+    	this.player.setName(name);    	
+    }   
+    
+    public Player getPlayer()
+    {
+    	return this.player;
+    }
+    
     @Override
     public Point getNextPoint() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -50,7 +71,7 @@ class GameLogicImpl implements GameLogic {
 
     private void init() {
         quest= new Quest();
-        currentPoint=quest.getPointList().get(0);
+        //currentPoint=quest.getPointList().get(0);
     }
 
 

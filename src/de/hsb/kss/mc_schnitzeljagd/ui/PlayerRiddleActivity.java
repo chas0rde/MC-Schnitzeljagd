@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class PlayerRiddleActivity extends Activity {
+public class PlayerRiddleActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
