@@ -25,56 +25,60 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int logo=0x7f020001;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f09001f;
-        public static final int action_settings=0x7f090030;
+        public static final int Button01=0x7f090015;
+        public static final int LinearLayout1=0x7f090022;
+        public static final int action_settings=0x7f090033;
+        public static final int additional_riddle_button=0x7f090014;
         public static final int button1=0x7f09000d;
         public static final int buy_hint=0x7f090004;
-        public static final int conState=0x7f090028;
-        public static final int conStateInfo=0x7f090027;
-        public static final int count=0x7f09002a;
-        public static final int curLat=0x7f090022;
-        public static final int curLng=0x7f090024;
-        public static final int curQuality=0x7f090026;
-        public static final int fragment1=0x7f09002f;
+        public static final int conState=0x7f09002b;
+        public static final int conStateInfo=0x7f09002a;
+        public static final int count=0x7f09002d;
+        public static final int curLat=0x7f090025;
+        public static final int curLng=0x7f090027;
+        public static final int curQuality=0x7f090029;
+        public static final int fragment1=0x7f090032;
         public static final int game_description_text=0x7f090010;
         public static final int group_name_id=0x7f090011;
         public static final int imageView1=0x7f090003;
         public static final int imageView2=0x7f090002;
-        public static final int latInfo=0x7f090021;
+        public static final int latInfo=0x7f090024;
         public static final int linearLayout1=0x7f090007;
-        public static final int listener=0x7f09002c;
-        public static final int listenerInfo=0x7f09002b;
-        public static final int lngInfo=0x7f090023;
+        public static final int listener=0x7f09002f;
+        public static final int listenerInfo=0x7f09002e;
+        public static final int lngInfo=0x7f090026;
         public static final int load_game_button=0x7f090006;
         public static final int load_game_id=0x7f090005;
-        public static final int map=0x7f090020;
+        public static final int mandatory_riddle_button=0x7f090013;
+        public static final int map=0x7f090023;
         public static final int organizer_load_game_button=0x7f09000e;
         public static final int organizer_mode_button=0x7f09000a;
         public static final int organizer_start_game_button=0x7f09000f;
         public static final int player_mode_button=0x7f090009;
-        public static final int player_name_id=0x7f09001e;
-        public static final int quality=0x7f090025;
-        public static final int radio0=0x7f090016;
-        public static final int radio1=0x7f090017;
-        public static final int radio2=0x7f090018;
-        public static final int radio3=0x7f090019;
-        public static final int radioGroup1=0x7f090015;
-        public static final int refresh=0x7f09002d;
-        public static final int refreshInfo=0x7f090029;
-        public static final int setup_game_name_id=0x7f09001c;
-        public static final int setup_game_toggle_id=0x7f09001d;
+        public static final int player_name_id=0x7f090021;
+        public static final int quality=0x7f090028;
+        public static final int radio0=0x7f090019;
+        public static final int radio1=0x7f09001a;
+        public static final int radio2=0x7f09001b;
+        public static final int radio3=0x7f09001c;
+        public static final int radioGroup1=0x7f090018;
+        public static final int refresh=0x7f090030;
+        public static final int refreshInfo=0x7f09002c;
+        public static final int setup_game_name_id=0x7f09001f;
+        public static final int setup_game_toggle_id=0x7f090020;
         public static final int spinner1=0x7f09000c;
         public static final int start_game_button=0x7f090012;
-        public static final int tab1=0x7f090013;
-        public static final int tab2=0x7f09001a;
-        public static final int tab3=0x7f09001b;
+        public static final int tab1=0x7f090016;
+        public static final int tab2=0x7f09001d;
+        public static final int tab3=0x7f09001e;
         public static final int textView1=0x7f090001;
-        public static final int textView2=0x7f090014;
+        public static final int textView2=0x7f090017;
         public static final int textview=0x7f090008;
         public static final int toLocationTestActivity=0x7f09000b;
-        public static final int toggleUpdates=0x7f09002e;
+        public static final int toggleUpdates=0x7f090031;
         public static final int viewFlipper1=0x7f090000;
     }
     public static final class layout {
@@ -84,10 +88,12 @@ public final class R {
         public static final int activity_organizer_create_poi=0x7f030003;
         public static final int activity_organizer_home=0x7f030004;
         public static final int activity_player_home=0x7f030005;
-        public static final int activity_riddle_list=0x7f030006;
-        public static final int activity_setup_game=0x7f030007;
-        public static final int location_facade=0x7f030008;
-        public static final int locationtest=0x7f030009;
+        public static final int activity_player_riddle=0x7f030006;
+        public static final int activity_quest=0x7f030007;
+        public static final int activity_riddle_list=0x7f030008;
+        public static final int activity_setup_game=0x7f030009;
+        public static final int location_facade=0x7f03000a;
+        public static final int locationtest=0x7f03000b;
     }
     public static final class menu {
         public static final int hint=0x7f080000;
@@ -97,8 +103,11 @@ public final class R {
         public static final int organizer_create_poi=0x7f080004;
         public static final int organizer_home=0x7f080005;
         public static final int player_home=0x7f080006;
-        public static final int riddle_list=0x7f080007;
-        public static final int setup_game=0x7f080008;
+        public static final int player_riddle=0x7f080007;
+        public static final int quest=0x7f080008;
+        public static final int riddle=0x7f080009;
+        public static final int riddle_list=0x7f08000a;
+        public static final int setup_game=0x7f08000b;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
