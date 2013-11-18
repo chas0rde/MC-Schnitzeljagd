@@ -1,9 +1,9 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
 public class Hinweis {
-    private int hinweisId;
+    private int hinweisId;        //Test
     private String beschreibung;
-
+                        //test
     public int getHinweisId() {
         return hinweisId;
     }
