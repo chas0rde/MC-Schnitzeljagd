@@ -5,15 +5,15 @@ import java.util.List;
 public class Quest {
     private int questId;
     private String author;
-    private String managementCode;
+    private String accessCode;
     private List<Point> pointList;
 
-    public String getManagementCode() {
-        return managementCode;
+    public String getAccessCode() {
+        return accessCode;
     }
 
-    public void setManagementCode(String managementCode) {
-        this.managementCode = managementCode;
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
     }
 
     public String getAuthor() {
