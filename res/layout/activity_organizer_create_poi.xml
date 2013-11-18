@@ -21,7 +21,7 @@
             android:orientation="horizontal" >
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/record_hint_spinner"
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.06"
@@ -32,7 +32,9 @@
                 android:id="@+id/back_to_main_button"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/organizer_create_hint" />
+                android:text="@string/organizer_create_hint" 
+                android:onClick="createRiddle"/>
+            
         </LinearLayout>
 
         <LinearLayout

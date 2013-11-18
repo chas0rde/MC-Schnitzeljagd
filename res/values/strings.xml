@@ -70,5 +70,8 @@
     <string name="publish_game_text">Publish Game</string>
     <string name="save_game_admin_code">Save administration code</string>
     <string name="back_to_main_button">Back to Start</string>
+    <string name="record_hint_button">Record hint</string>
+    <string name="hint_spinner_entry_audio">Audio Snippet</string>
+    <string name="save_hint_button">Save hint</string>
 
 </resources>
