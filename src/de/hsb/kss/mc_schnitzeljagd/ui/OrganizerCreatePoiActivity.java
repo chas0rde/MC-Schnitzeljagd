@@ -5,7 +5,9 @@ import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 
@@ -13,6 +15,11 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_organizer_create_poi);
+	}
+	
+	public void createRiddle(View view){
+		Intent intent = new Intent(this, PlayerRiddleActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

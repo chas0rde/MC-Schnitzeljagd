@@ -36,14 +36,20 @@ public final class R {
         public static final int LinearLayout1=0x7f09002a;
         public static final int action_settings=0x7f09003b;
         public static final int additional_riddle_button=0x7f09001d;
+<<<<<<< HEAD
         public static final int back_to_main_button=0x7f09000e;
         public static final int buy_hint=0x7f090005;
+=======
+        public static final int back_to_main_button=0x7f09000d;
+        public static final int buy_hint=0x7f090004;
+>>>>>>> origin/master
         public static final int conState=0x7f090033;
         public static final int conStateInfo=0x7f090032;
         public static final int count=0x7f090035;
         public static final int curLat=0x7f09002d;
         public static final int curLng=0x7f09002f;
         public static final int curQuality=0x7f090031;
+<<<<<<< HEAD
         public static final int current_game_info=0x7f090003;
         public static final int fragment1=0x7f09003a;
         public static final int game_description_text=0x7f090011;
@@ -51,10 +57,19 @@ public final class R {
         public static final int imageView2=0x7f090002;
         public static final int latInfo=0x7f09002c;
         public static final int linearLayout1=0x7f090008;
+=======
+        public static final int fragment1=0x7f09003a;
+        public static final int game_description_text=0x7f090010;
+        public static final int group_name_id=0x7f090011;
+        public static final int imageView2=0x7f090002;
+        public static final int latInfo=0x7f09002c;
+        public static final int linearLayout1=0x7f090007;
+>>>>>>> origin/master
         public static final int linearLayout2=0x7f090018;
         public static final int listener=0x7f090037;
         public static final int listenerInfo=0x7f090036;
         public static final int lngInfo=0x7f09002e;
+<<<<<<< HEAD
         public static final int load_game_button=0x7f090007;
         public static final int load_game_code=0x7f090012;
         public static final int load_game_id=0x7f090006;
@@ -64,6 +79,16 @@ public final class R {
         public static final int organizer_mode_button=0x7f09000b;
         public static final int organizer_start_game_button=0x7f090010;
         public static final int player_mode_button=0x7f09000a;
+=======
+        public static final int load_game_button=0x7f090006;
+        public static final int load_game_id=0x7f090005;
+        public static final int mandatory_riddle_button=0x7f09001c;
+        public static final int map=0x7f09002b;
+        public static final int organizer_load_game_button=0x7f09000e;
+        public static final int organizer_mode_button=0x7f09000a;
+        public static final int organizer_start_game_button=0x7f09000f;
+        public static final int player_mode_button=0x7f090009;
+>>>>>>> origin/master
         public static final int player_name_id=0x7f090029;
         public static final int publish_game_text_id=0x7f090001;
         public static final int quality=0x7f090030;
@@ -72,24 +97,43 @@ public final class R {
         public static final int radio2=0x7f090023;
         public static final int radio3=0x7f090024;
         public static final int radioGroup1=0x7f090020;
+<<<<<<< HEAD
         public static final int refresh=0x7f090038;
         public static final int refreshInfo=0x7f090034;
+=======
+        public static final int record_hint_button=0x7f090013;
+        public static final int record_hint_spinner=0x7f09000c;
+        public static final int refresh=0x7f090038;
+        public static final int refreshInfo=0x7f090034;
+        public static final int save_hint_button=0x7f090014;
+>>>>>>> origin/master
         public static final int setup_game_name_id=0x7f090027;
         public static final int setup_game_toggle_id=0x7f090028;
         public static final int share_admincode_mail_id=0x7f09001a;
         public static final int share_fb_id=0x7f090015;
         public static final int share_mail_id=0x7f090017;
+<<<<<<< HEAD
         public static final int share_pinterest_id=0x7f090004;
         public static final int share_twitter_id=0x7f090016;
         public static final int spinner1=0x7f09000d;
         public static final int start_game_button=0x7f090014;
+=======
+        public static final int share_pinterest_id=0x7f090003;
+        public static final int share_twitter_id=0x7f090016;
+        public static final int start_game_button=0x7f090012;
+>>>>>>> origin/master
         public static final int tab1=0x7f09001f;
         public static final int tab2=0x7f090025;
         public static final int tab3=0x7f090026;
         public static final int textView1=0x7f090019;
         public static final int textView2=0x7f09001b;
+<<<<<<< HEAD
         public static final int textview=0x7f090009;
         public static final int toLocationTestActivity=0x7f09000c;
+=======
+        public static final int textview=0x7f090008;
+        public static final int toLocationTestActivity=0x7f09000b;
+>>>>>>> origin/master
         public static final int toggleUpdates=0x7f090039;
         public static final int viewFlipper1=0x7f090000;
     }
@@ -133,6 +177,7 @@ public final class R {
         public static final int hint_buy_hint_button=0x7f05002b;
         public static final int hint_info=0x7f05002a;
         public static final int hint_prompt=0x7f050034;
+        public static final int hint_spinner_entry_audio=0x7f05003e;
         public static final int lat=0x7f050004;
         public static final int listener=0x7f050009;
         public static final int lng=0x7f050005;
@@ -157,13 +202,19 @@ public final class R {
         public static final int player_name_hint=0x7f050020;
         public static final int publish_game_text=0x7f05003b;
         public static final int quality=0x7f050006;
+        public static final int record_hint_button=0x7f05003d;
         public static final int refresh=0x7f05000a;
         public static final int riddle_answer_a=0x7f05002f;
         public static final int riddle_answer_b=0x7f050030;
         public static final int riddle_answer_c=0x7f050031;
         public static final int riddle_answer_d=0x7f050032;
         public static final int riddle_questions=0x7f05002e;
+<<<<<<< HEAD
         public static final int save_game_admin_code=0x7f05003c;
+=======
+        public static final int save_game_admin_code=0x7f05003b;
+        public static final int save_hint_button=0x7f05003f;
+>>>>>>> origin/master
         public static final int save_play_name_button=0x7f05001e;
         public static final int setup_game_create=0x7f05001b;
         public static final int setup_game_description=0x7f05001c;
