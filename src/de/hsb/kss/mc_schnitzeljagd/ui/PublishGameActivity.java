@@ -9,23 +9,24 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class HintActivity extends Activity {
+public class PublishGameActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hint);		
-	}
-	
-	public void goToQuestActivity(View view) {
-		Intent goToQuest = new Intent(this, QuestActivity.class);
-		startActivity(goToQuest);
+		setContentView(R.layout.activity_publish_game);
 	}
 
+	public void backToMainActivity(View view){
+		Intent goBackToMain = new Intent(this, MainActivity.class);
+		startActivity(goBackToMain);
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.hint, menu);
+		getMenuInflater().inflate(R.menu.publish_game, menu);
 		return true;
 	}
 

@@ -104,8 +104,12 @@
             android:label="@string/title_activity_riddle_list" >
         </activity>
         <activity
-            android:name="de.hsb.kss.mc_schnitzeljagd.OrganizerCreatePoiActivity"
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerCreatePoiActivity"
             android:label="@string/title_activity_organizer_create_poi" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PublishGameActivity"
+            android:label="@string/title_activity_publish_game" >
         </activity>
     </application>
 

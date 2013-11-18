@@ -55,7 +55,7 @@
                 android:text="@string/setup_game_create" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/publish_game_text_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setup_game_description"

@@ -16,7 +16,7 @@
       android:orientation="vertical" >
 
       <ImageView
-          android:id="@+id/imageView1"
+          android:id="@+id/share_pinterest_id"
           android:layout_width="match_parent"
           android:layout_height="100dp"
           android:src="@drawable/ic_launcher" />

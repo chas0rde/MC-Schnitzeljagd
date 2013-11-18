@@ -18,7 +18,7 @@ public class QuestActivity extends Activity {
 	}
 	
 	public void riddleActivity(View view) {
-		Intent goToRiddle = new Intent(this, PlayerRiddleActivity.class);
+		Intent goToRiddle = new Intent(this, RiddleListActivity.class);
 		startActivity(goToRiddle);
 	}
 

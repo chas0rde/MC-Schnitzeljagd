@@ -21,7 +21,7 @@
               android:layout_height="200dp" >
           
               <TextView
-              android:id="@+id/textView1"
+              android:id="@+id/publish_game_text_id"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
@@ -33,7 +33,7 @@
                   android:src="@drawable/ic_launcher" />
 
                             <TextView
-              android:id="@+id/textView1"
+              android:id="@+id/publish_game_text_id"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
@@ -45,7 +45,7 @@
                   android:src="@drawable/ic_launcher" />
               
                             <TextView
-              android:id="@+id/textView1"
+              android:id="@+id/publish_game_text_id"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
@@ -58,13 +58,13 @@
           </ViewFlipper>
 
           <TextView
-              android:id="@+id/textView1"
+              android:id="@+id/publish_game_text_id"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
           
           <ImageView
-              android:id="@+id/imageView1"
+              android:id="@+id/share_pinterest_id"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:src="@drawable/ic_launcher" />
@@ -73,6 +73,7 @@
               android:id="@+id/buy_hint"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:onClick="goToQuestActivity"
               android:text="@string/hint_buy_hint_button" />
 
           

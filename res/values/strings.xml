@@ -53,18 +53,22 @@
     <string name="riddle_answer_c">C</string>
     <string name="riddle_answer_d">D</string>
     <string name="title_activity_organizer_create_poi">OrganizerCreatePoiActivity</string>
+    <string name="hint_prompt">Text</string>
 
-      <string name="hint_prompt">Text</string>
- 
     <string-array name="hint_arrays">
         <item>Text</item>
         <item>Image</item>
         <item>Sound</item>
         <item>Video</item>
     </string-array>
-        <string name="organizer_create_hint">Create Hint</string>
-        <string name="organizer_create_man_riddle">Create riddle</string>
-        <string name="organizer_finish_game">Finish game</string>
-        <string name="organizer_create_next_hint">Save go to next station</string>
-    
+
+    <string name="organizer_create_hint">Create Hint</string>
+    <string name="organizer_create_man_riddle">Create riddle</string>
+    <string name="organizer_finish_game">Finish game</string>
+    <string name="organizer_create_next_hint">Save go to next station</string>
+    <string name="title_activity_publish_game">PublishGameActivity</string>
+    <string name="publish_game_text">Publish Game</string>
+    <string name="save_game_admin_code">Save administration code</string>
+    <string name="back_to_main_button">Back to Start</string>
+
 </resources>
