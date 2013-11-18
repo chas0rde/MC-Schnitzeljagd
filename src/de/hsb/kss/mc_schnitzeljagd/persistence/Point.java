@@ -2,20 +2,20 @@ package de.hsb.kss.mc_schnitzeljagd.persistence;
 
 import java.util.List;
 
-public class Punkt {
-    private int punktId;
+public class Point {
+    private int pointId;
     private double longitude;
     private double latitude;
     private String name;
-    private String beschreibung;
-    private List<Raetsel> raetsel;
+    private String description;
+    private List<Riddle> riddles;
 
-    public int getPunktId() {
-        return punktId;
+    public int getPointId() {
+        return pointId;
     }
 
-    public void setPunktId(int punktId) {
-        this.punktId = punktId;
+    public void setPointId(int pointId) {
+        this.pointId = pointId;
     }
 
     public double getLongitude() {
@@ -42,19 +42,19 @@ public class Punkt {
         this.name = name;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Raetsel> getRaetsel() {
-        return raetsel;
+    public List<Riddle> getRiddles() {
+        return riddles;
     }
 
-    public void setRaetsel(List<Raetsel> raetsel) {
-        this.raetsel = raetsel;
+    public void setRiddles(List<Riddle> riddles) {
+        this.riddles = riddles;
     }
 }
