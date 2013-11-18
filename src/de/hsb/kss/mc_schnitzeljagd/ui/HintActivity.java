@@ -12,8 +12,8 @@ public class HintActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hint);
-		// mein code
+		setContentView(R.layout.activity_hint);		
+		//fasg
 	}
 
 	@Override
