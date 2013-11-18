@@ -18,7 +18,7 @@ public class SetupGameActivity extends Activity {
 	
 	public void startLoadQuestById(View view) {
 		
-		
+		 //...
 	}
 
 	@Override
