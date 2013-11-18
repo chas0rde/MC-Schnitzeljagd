@@ -92,10 +92,6 @@
             android:label="@string/title_activity_player_riddle" >
         </activity>
         <activity
-            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerHomeActivity"
-            android:label="@string/title_activity_player_home" >
-        </activity>
-        <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.HintActivity"
             android:label="@string/title_activity_hint" >
         </activity>
