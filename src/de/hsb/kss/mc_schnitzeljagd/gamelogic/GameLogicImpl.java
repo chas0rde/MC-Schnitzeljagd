@@ -19,7 +19,7 @@ class GameLogicImpl implements GameLogic {
     private List<Riddle> additionalRiddle=new ArrayList<Riddle>();
 
     @Override
-    public final Quest getQuestByAccessCode(String managementCode) {
+    public final Quest getQuestByAccessCode(String managementCode, Player player) {
         init();
         return quest;
     }
@@ -33,9 +33,9 @@ class GameLogicImpl implements GameLogic {
     
     public void playNewGame(String name, String code)
     {
-    	getQuestByAccessCode(code);
-    	this.player = new Player();
-    	this.player.setName(name);    	
+        this.player = new Player();
+        this.player.setName(name);
+        getQuestByAccessCode(code,this.player);
     }   
     
     public Player getPlayer()
@@ -54,7 +54,7 @@ class GameLogicImpl implements GameLogic {
     }
 
     @Override
-    public Riddle getNextAdditionalRiddles() {
+    public Riddle getNextAdditionalRiddle() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -66,6 +66,11 @@ class GameLogicImpl implements GameLogic {
     @Override
     public Tip getNextTipForAdditionalRiddle() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public int getCurrentPointsForPlayer() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 

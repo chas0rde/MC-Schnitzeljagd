@@ -13,10 +13,11 @@ public interface GameLogic {
 	void playNewGame(String name);
 	void playNewGame(String name, String code);
 	Player getPlayer();
-    Quest getQuestByAccessCode(String accessCode);
+    Quest getQuestByAccessCode(String accessCode,Player player);
     Point getNextPoint();
     Riddle getMandatoryRiddleForCurrentPoint();
-    Riddle getNextAdditionalRiddles();
+    Riddle getNextAdditionalRiddle();
     Tip getNextTipForCurrentMandatoryRiddle();
     Tip getNextTipForAdditionalRiddle();
+    int getCurrentPointsForPlayer();
 }
