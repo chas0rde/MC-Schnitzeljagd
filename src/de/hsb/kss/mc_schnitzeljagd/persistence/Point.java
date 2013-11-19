@@ -1,5 +1,6 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Point {
@@ -8,7 +9,7 @@ public class Point {
     private double latitude;
     private String name;
     private String description;
-    private List<Riddle> riddles;
+    private List<Riddle> riddles=new ArrayList<Riddle>();
 
     public int getPointId() {
         return pointId;

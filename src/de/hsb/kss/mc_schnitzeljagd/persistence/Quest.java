@@ -1,12 +1,13 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Quest {
     private int questId;
     private String author;
     private String accessCode;
-    private List<Point> pointList;
+    private List<Point> pointList= new ArrayList<Point>();
 
     public String getAccessCode() {
         return accessCode;
@@ -41,7 +42,7 @@ public class Quest {
         this.pointList = pointList;
     }
     
-    //TODO: Meleanie schön machen mit Strings xml und so
+    //TODO: Meleanie schï¿½n machen mit Strings xml und so
     public String toString()
     {
     	return "Author= " + getAuthor() + "\n No. waypoints= 2";    
