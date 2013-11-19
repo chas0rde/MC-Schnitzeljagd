@@ -4,6 +4,7 @@ import de.hsb.kss.mc_schnitzeljagd.McSchnitzelJagdApplication;
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class PlayerHomeActivity extends SchnitzelActivity {
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		
 		if(code != null && desc != null && app != null)
 		{			
-			Quest q = app.getGameLogic().getQuestByAccessCode(code.getText().toString());
+			Quest q = app.getGameLogic().getQuestByAccessCode(code.getText().toString(), new Player());
 			desc.setText(q.toString());
 		}
 	}
