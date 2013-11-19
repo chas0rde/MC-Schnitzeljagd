@@ -1,12 +1,13 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Riddle {
     private int riddleId;
     private boolean mandatory;
     private int maxPoints;
-    private List<Tip> tipList;
+    private List<Tip> tipList=new ArrayList<Tip>();
 
     public int getRiddleId() {
         return riddleId;
