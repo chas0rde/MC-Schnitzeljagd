@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * @author suhaila
+ *
+ */
 class GameLogicImpl implements GameLogic {
 
 	private Player player;
