@@ -23,15 +23,7 @@
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
  	<permission android:name="googlemapsv2.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
     <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
-    
-    <!-- Goolge Maps API Key -->
-    <meta-data android:name="com.google.android.maps.v2.API_KEY"
-               android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
-
-	<!-- Google Play Services Version -->
-	<meta-data android:name="com.google.android.gms.version"
-               android:value="2" />
-        
+     
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -48,7 +40,7 @@
         </activity>
         <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationTest" >
         </activity>
-        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationFacadeImpl" >
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationFragmentActivity" >
         </activity>
 
         <activity
@@ -96,6 +88,13 @@
             android:label="@string/title_activity_publish_game" >
         </activity>
         
-        <uses-library android:name="com.google.android.maps" />
+        <!-- Google Play Services Version -->
+		<meta-data android:name="com.google.android.gms.version"
+               	   android:value="@integer/google_play_services_version" />
+		
+		<!-- Goolge Maps API Key -->
+    	<meta-data android:name="com.google.android.maps.v2.API_KEY"
+               	   android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
+      
     </application>
 </manifest>

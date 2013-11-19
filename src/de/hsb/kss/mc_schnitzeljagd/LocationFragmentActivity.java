@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -26,8 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 
 /**
  * Facade to ease the use of the location frameworks
@@ -38,7 +37,7 @@ import com.google.android.maps.MapView;
  * @author Ingo Pohlschneider
  *
  */
-public class LocationFacadeImpl extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
+public class LocationFragmentActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, 
 											GooglePlayServicesClient.OnConnectionFailedListener,
 									        LocationListener {
 	// Global constants
@@ -138,12 +137,8 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 	 * The location request
 	 */
 	LocationRequest locationRequest;
-	/**
-	 * The parent Activity
-	 */
-	private MapController mapController;
-	private String provider;
-	private MapView mapView;
+	
+
 	private boolean updatesRequested;
 	private SharedPreferences prefs;
 	private SharedPreferences.Editor editor;
@@ -410,7 +405,8 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 	/**
 	 * Must be called if the parent Activity is started
 	 */
-	public void onStart() {
+	@Override
+	protected void onStart() {
 		super.onStart();
 		// Connect the location client
 		locationClient.connect();
@@ -418,7 +414,8 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 	/**
 	 * Must be called if the parent Activity is paused
 	 */
-	public void onPause() {
+	@Override
+	protected void onPause() {
 		// Save the current setting for updates
         editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
         editor.commit();
@@ -429,7 +426,8 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 	/**
 	 * Must be called if the parent Activity is stopped
 	 */
-	public void onStop() {
+	@Override
+	protected void onStop() {
 		// If the client is connected
         if (locationClient.isConnected()) {
             /*
@@ -449,7 +447,8 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 	/**
 	 * Must be called if the parent Activity is resumed
 	 */
-	public void onResume() {
+	@Override
+	protected void onResume() {
 		super.onResume();
 		/*
          * Get any previous setting for location updates
@@ -502,7 +501,7 @@ public class LocationFacadeImpl extends FragmentActivity implements GooglePlaySe
 		updateLocationInfos();
 	}
 	public void toggleUpdates(View v) {
-		updatesRequested = !updatesRequested;
+		boolean updatesRequested = ((ToggleButton) v).isChecked();
 		if(updatesRequested) {
             locationClient.requestLocationUpdates(locationRequest, this);
             Log.d(TAG, "Location updates enabled");			

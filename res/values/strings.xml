@@ -75,5 +75,7 @@
     <string name="record_hint_button">Record hint</string>
     <string name="hint_spinner_entry_audio">Audio Snippet</string>
     <string name="save_hint_button">Save hint</string>
+    <string name="locationUpdatesOff">Updates Off</string>
+    <string name="locationUpdatesOn">Updates On</string>
 
 </resources>

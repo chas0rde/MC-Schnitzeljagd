@@ -1,12 +1,10 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
-import de.hsb.kss.mc_schnitzeljagd.LocationFacadeImpl;
-import de.hsb.kss.mc_schnitzeljagd.R;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import de.hsb.kss.mc_schnitzeljagd.R;
 
 public class MainActivity extends SchnitzelActivity {
 
@@ -38,7 +36,7 @@ public class MainActivity extends SchnitzelActivity {
 	
 	
 	public void startActivityLocationTest(View v) {
-		Intent i = new Intent(this, LocationFacadeImpl.class);
+		Intent i = new Intent(this, de.hsb.kss.mc_schnitzeljagd.LocationFragmentActivity.class);
 		startActivity(i);
 	}
 }

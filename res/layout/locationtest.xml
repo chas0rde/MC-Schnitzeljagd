@@ -7,10 +7,139 @@
     android:orientation="vertical" >
 
     <fragment
-        android:id="@+id/fragment1"
-        android:name="de.hsb.kss.mc_schnitzeljagd.LocationFacadeImpl"
+        android:id="@+id/map"
+        android:name="de.hsb.kss.mc_schnitzeljagd.LocationFragmentActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/location_facade" />
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
+        <TextView
+            android:id="@+id/latInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lat" />
+
+        <TextView
+            android:id="@+id/curLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/lngInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lng" />
+
+        <TextView
+            android:id="@+id/curLng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/quality"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quality" />
+
+        <TextView
+            android:id="@+id/curQuality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/conStateInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/conStateInfo" />
+
+        <TextView
+            android:id="@+id/conState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/refreshInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/updates" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/listenerInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/listener" />
+
+        <TextView
+            android:id="@+id/listener"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:onClick="refreshLocation"
+            android:text="@string/refresh" />
+
+        <ToggleButton
+            android:id="@+id/toggleUpdates"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textOff="@string/locationUpdatesOff"
+			android:textOn="@string/locationUpdatesOn"
+            android:onClick="toggleUpdates"
+            android:text="@string/toggleUpdates" />
+
+    </LinearLayout>
 </LinearLayout>
