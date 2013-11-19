@@ -33,7 +33,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="@string/organizer_create_hint" 
-                android:onClick="createRiddle"/>
+                android:onClick="createHint"/>
             
         </LinearLayout>
 
@@ -43,9 +43,10 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/back_to_main_button"
+                android:id="@+id/create_riddle_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="createRiddle"
                 android:text="@string/organizer_create_man_riddle" />
         </LinearLayout>
 
@@ -71,6 +72,7 @@
             android:layout_alignLeft="@+id/linearLayout1"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
+            android:onClick="publishQuest"
             android:text="@string/organizer_finish_game" />
 
         <Button

@@ -1,6 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,7 +19,8 @@ public class SetupGameActivity extends SchnitzelActivity {
 	
 	public void startLoadQuestById(View view) {
 		
-		 //...
+		 Intent startQuest = new Intent(this, OrganizerCreatePoiActivity.class);
+		 startActivity(startQuest);
 	}
 
 	@Override

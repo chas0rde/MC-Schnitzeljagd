@@ -22,6 +22,16 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 		startActivity(intent);
 	}
 
+	public void createHint(View view){
+		Intent intent = new Intent(this, PlayerRiddleActivity.class);
+		startActivity(intent);
+	}
+	public void publishQuest(View view){
+		
+		Intent publishQuest = new Intent(this, PublishGameActivity.class);
+		startActivity(publishQuest);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
