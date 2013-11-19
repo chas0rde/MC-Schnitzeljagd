@@ -36,7 +36,7 @@ public class MainActivity extends SchnitzelActivity {
 	
 	
 	public void startActivityLocationTest(View v) {
-		Intent i = new Intent(this, de.hsb.kss.mc_schnitzeljagd.LocationFragmentActivity.class);
+		Intent i = new Intent(this, de.hsb.kss.mc_schnitzeljagd.LocationTest.class);
 		startActivity(i);
 	}
 }

@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="18" />
 
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -88,13 +88,12 @@
             android:label="@string/title_activity_publish_game" >
         </activity>
         
-        <!-- Google Play Services Version -->
-		<meta-data android:name="com.google.android.gms.version"
-               	   android:value="@integer/google_play_services_version" />
-		
 		<!-- Goolge Maps API Key -->
     	<meta-data android:name="com.google.android.maps.v2.API_KEY"
                	   android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
       
+    	<!-- Google Play Services Version -->
+		<meta-data android:name="com.google.android.gms.version"
+               	   android:value="@integer/google_play_services_version" />
     </application>
 </manifest>

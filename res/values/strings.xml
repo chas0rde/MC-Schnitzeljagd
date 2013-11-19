@@ -77,5 +77,6 @@
     <string name="save_hint_button">Save hint</string>
     <string name="locationUpdatesOff">Updates Off</string>
     <string name="locationUpdatesOn">Updates On</string>
+    <string name="distanceInfo">Distance to Weserstadion</string>
 
 </resources>
