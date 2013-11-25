@@ -10,7 +10,7 @@ class AbstractGameLogic{
     protected Player player;
     protected Quest quest;
     protected Point currentPoint;
-    protected List<Tip> hints = new ArrayList<Tip>();
+    protected List<Hint> hints = new ArrayList<Hint>();
     protected Riddle mandatoryRiddle;
     protected List<Riddle> additionalRiddle=new ArrayList<Riddle>();
 

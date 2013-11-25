@@ -7,7 +7,7 @@ public class Riddle {
     private int riddleId;
     private boolean mandatory;
     private int maxPoints;
-    private List<Tip> tipList=new ArrayList<Tip>();
+    private List<Hint> hintList =new ArrayList<Hint>();
 
     public int getRiddleId() {
         return riddleId;
@@ -33,11 +33,11 @@ public class Riddle {
         this.maxPoints = maxPoints;
     }
 
-    public List<Tip> getTipList() {
-        return tipList;
+    public List<Hint> getHintList() {
+        return hintList;
     }
 
-    public void setTipList(List<Tip> tipList) {
-        this.tipList = tipList;
+    public void setHintList(List<Hint> hintList) {
+        this.hintList = hintList;
     }
 }

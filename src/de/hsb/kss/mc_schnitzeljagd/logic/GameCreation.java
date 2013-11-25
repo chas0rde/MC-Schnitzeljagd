@@ -1,7 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.logic;
 
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
 
 public interface GameCreation {
 
@@ -10,7 +10,7 @@ public interface GameCreation {
 	Quest getCurrentQuest();
 	void setQuestInfo(String name, String author);
 	boolean save();
-	void addHint(Tip t);
+	void addHint(Hint hint);
 	void deleteHint(int index);
-	Tip getHint(int index);
+	Hint getHint(int index);
 }

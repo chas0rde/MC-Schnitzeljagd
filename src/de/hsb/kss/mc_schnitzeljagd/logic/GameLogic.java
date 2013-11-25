@@ -1,10 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.logic;
 
-import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Riddle;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
+import de.hsb.kss.mc_schnitzeljagd.persistence.*;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 
 public interface GameLogic {
 
@@ -15,7 +12,7 @@ public interface GameLogic {
     Point getNextPoint();
     Riddle getMandatoryRiddleForCurrentPoint();
     Riddle getNextAdditionalRiddle();
-    Tip getNextTipForCurrentMandatoryRiddle();
-    Tip getNextTipForAdditionalRiddle();
+    Hint getNextHintForCurrentMandatoryRiddle();
+    Hint getNextHintForAdditionalRiddle();
     int getCurrentPointsForPlayer();
 }

@@ -1,15 +1,15 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
-public class Tip {
-    private int tipId;        //Test
+public class Hint {
+    private int hintId;
     private String description;
-                        //test
-    public int getTipId() {
-        return tipId;
+
+    public int getHintId() {
+        return hintId;
     }
 
-    public void setTipId(int tipId) {
-        this.tipId = tipId;
+    public void setHintId(int hintId) {
+        this.hintId = hintId;
     }
 
     public String getDescription() {

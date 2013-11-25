@@ -1,7 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.logic;
 
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
 
 class GameCreationImpl extends AbstractGameLogic implements GameCreation{
 
@@ -38,10 +38,10 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
     }
 
     @Override
-    public void addHint(Tip t) {
+    public void addHint(Hint hint) {
         if(hints != null)
         {
-            hints.add(t);
+            hints.add(hint);
         }
     }
 
@@ -54,7 +54,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
     }
 
     @Override
-    public Tip getHint(int index) {
+    public Hint getHint(int index) {
         if(hints != null)
         {
             return hints.get(index);

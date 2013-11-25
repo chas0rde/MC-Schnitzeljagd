@@ -1,10 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.logic;
 
-import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Riddle;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
+import de.hsb.kss.mc_schnitzeljagd.persistence.*;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 
 class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
@@ -57,12 +54,12 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     }
 
     @Override
-    public Tip getNextTipForCurrentMandatoryRiddle() {
+    public Hint getNextHintForCurrentMandatoryRiddle() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public Tip getNextTipForAdditionalRiddle() {
+    public Hint getNextHintForAdditionalRiddle() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
