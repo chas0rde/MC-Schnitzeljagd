@@ -30,11 +30,13 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 		}
 		else
 		{
-			errorLabel.setText(R.string.unkownError);
+			if(errorLabel != null)
+			{
+				errorLabel.setText(R.string.unkownError);	
+			}			
 		}
 	}
 	
-
 	public void startLoadQuestActivity(View v)
 	{
 		EditText code = (EditText)findViewById(R.id.load_game_code);

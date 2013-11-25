@@ -42,10 +42,16 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		if(groupName != null && code != null && app != null)
 		{			
 			app.getGameLogic().playNewGame(groupName.getText().toString(), code.getText().toString());
+			Intent i = new Intent(this, HintActivity.class);
+			startActivity(i);
+		}					
+		else
+		{
+			if(errorLabel != null)
+			{
+				errorLabel.setText(R.string.unkownError);	
+			}
 		}
-		
-		Intent i = new Intent(this, HintActivity.class);
-		startActivity(i);				
 	}
 	
 	@Override

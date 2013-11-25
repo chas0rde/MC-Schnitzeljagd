@@ -73,7 +73,15 @@
               android:layout_height="wrap_content"
               android:onClick="startQuest"
               android:text="@string/play_game_start_game_button" />
-         
+
+		<TextView
+                android:id="@+id/error_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000" 
+             />
+          
       </LinearLayout>
      
   </LinearLayout>
