@@ -1,12 +1,10 @@
-package de.hsb.kss.mc_schnitzeljagd.gamelogic;
+package de.hsb.kss.mc_schnitzeljagd.logic;
 
 import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Riddle;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
-
-import java.util.List;
 
 public interface GameLogic {
 

@@ -1,6 +1,6 @@
-package de.hsb.kss.mc_schnitzeljagd.gamelogic;
+package de.hsb.kss.mc_schnitzeljagd.logic;
 
-public class GameLogicFactory {
+public class GameFactory {
 	
 	private static final GameLogicImpl instanceGameLogic = new GameLogicImpl();
     private static final GameCreationImpl instanceCreationLogic = new GameCreationImpl();

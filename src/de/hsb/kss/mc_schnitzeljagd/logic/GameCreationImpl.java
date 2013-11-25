@@ -1,4 +1,4 @@
-package de.hsb.kss.mc_schnitzeljagd.gamelogic;
+package de.hsb.kss.mc_schnitzeljagd.logic;
 
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;

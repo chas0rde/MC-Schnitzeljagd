@@ -27,3 +27,4 @@ gen/*
 /.idea/
 /bin/
 /out/
+*.iml
