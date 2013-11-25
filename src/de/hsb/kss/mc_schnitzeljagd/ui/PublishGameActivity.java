@@ -8,13 +8,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class PublishGameActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if(app != null)
+		{
+			app.getGameCreation().save();
+		}
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_publish_game);
+		setContentView(R.layout.activity_publish_game);		
+	}
+	
+	protected void initUi()
+	{
+		super.initUi();
+		TextView code = (TextView)findViewById(R.id.share_access_code_id); 
+		if(code != null && app != null)
+		{
+			code.setText(app.getGameCreation().getCurrentQuest().getAccessCode());
+		}
 	}
 
 	public void backToMainActivity(View view){

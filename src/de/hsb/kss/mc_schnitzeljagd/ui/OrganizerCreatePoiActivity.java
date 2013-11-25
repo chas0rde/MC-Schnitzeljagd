@@ -17,6 +17,11 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 		setContentView(R.layout.activity_organizer_create_poi);
 	}
 	
+	protected void initUi()
+	{
+		super.initUi();
+	}
+	
 	public void createRiddle(View view){
 		Intent intent = new Intent(this, PlayerRiddleActivity.class);
 		startActivity(intent);
@@ -26,8 +31,8 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 		Intent intent = new Intent(this, PlayerRiddleActivity.class);
 		startActivity(intent);
 	}
-	public void publishQuest(View view){
-		
+	public void publishQuest(View view)
+	{
 		Intent publishQuest = new Intent(this, PublishGameActivity.class);
 		startActivity(publishQuest);
 	}

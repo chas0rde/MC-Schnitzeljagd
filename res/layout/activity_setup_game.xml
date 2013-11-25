@@ -25,12 +25,22 @@
             <requestFocus />
         </EditText>
 
+        <EditText
+            android:id="@+id/setup_game_author_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/setup_game_author_name_hint" >
 
+            <requestFocus />
+        </EditText>
 
         <LinearLayout
+            android:id="@+id/setup_game_live_game_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
             
           <ToggleButton
             android:id="@+id/setup_game_toggle_id"
@@ -40,7 +50,7 @@
             android:textOn="@string/setup_game_toggle_live" />   
             
              <EditText
-                    android:id="@+id/player_name_id"
+                    android:id="@+id/setup_game_head_start_time_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -51,16 +61,23 @@
                 android:id="@+id/load_game_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="startLoadQuestById"
+                android:onClick="startCreateQuest"
                 android:text="@string/setup_game_create" />
 
             <TextView
-                android:id="@+id/publish_game_text_id"
-                android:layout_width="wrap_content"
+                android:id="@+id/setup_game_description_text_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/setup_game_description"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FF0000" 
+             />
     </LinearLayout>
 
 </RelativeLayout>

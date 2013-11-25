@@ -78,5 +78,11 @@
     <string name="locationUpdatesOff">Updates Off</string>
     <string name="locationUpdatesOn">Updates On</string>
     <string name="distanceInfo">Distance to Weserstadion</string>
+    <string name="questNotFound">Quest not found!</string>
+    <string name="unkownError">Unkown error. Game not initialized!</string>
+    <string name="setup_game_author_name_hint">Enter Author name here</string>
+    <string name="requiredFiledNotSet">Required field not set!</string>
+    
+    
 
 </resources>

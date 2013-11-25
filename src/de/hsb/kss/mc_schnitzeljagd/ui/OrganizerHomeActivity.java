@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import de.hsb.kss.mc_schnitzeljagd.R;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 
 public class OrganizerHomeActivity extends SchnitzelActivity {
 
@@ -16,15 +20,41 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 
 	public void  startStartQuestActivity(View v)
 	{
-		Intent i = new Intent(this, SetupGameActivity.class);
-		startActivity(i);
+		TextView errorLabel = (TextView)findViewById(R.id.error_text);
+		
+		if(app != null && errorLabel != null)
+		{			
+			app.getGameCreation().createNewQuest();
+			Intent i = new Intent(this, SetupGameActivity.class);
+			startActivity(i);
+		}
+		else
+		{
+			errorLabel.setText(R.string.unkownError);
+		}
 	}
 	
 
 	public void startLoadQuestActivity(View v)
 	{
-		Intent i = new Intent(this, LoadGameActivity.class);
-		startActivity(i);
+		EditText code = (EditText)findViewById(R.id.load_game_code);
+		
+		if(code != null && errorLabel != null && app != null)
+		{			
+			if(app.getGameCreation().loadQuestByAccessCode(code.getText().toString()))
+			{
+				Intent i = new Intent(this, SetupGameActivity.class);
+				startActivity(i);
+			}
+			else
+			{
+				errorLabel.setText(R.string.questNotFound);
+			}
+		}	
+		else
+		{
+			errorLabel.setText(R.string.unkownError);
+		}
 	}
 	
 	@Override
@@ -33,5 +63,4 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 		getMenuInflater().inflate(R.menu.organizer_home, menu);
 		return true;
 	}
-
 }

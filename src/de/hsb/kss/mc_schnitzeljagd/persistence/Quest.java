@@ -6,9 +6,18 @@ import java.util.List;
 public class Quest {
     private int questId;
     private String author;
-    private String accessCode;
+    private String name;
+	private String accessCode;
     private List<Point> pointList= new ArrayList<Point>();
 
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+    
     public String getAccessCode() {
         return accessCode;
     }
@@ -42,9 +51,24 @@ public class Quest {
         this.pointList = pointList;
     }
     
-    //TODO: Meleanie sch�n machen mit Strings xml und so
+    //TODO: Meleanie schn machen mit Strings xml und so
     public String toString()
     {
-    	return "Author= " + getAuthor() + "\n No. waypoints= 2";    
+    	StringBuilder desc = new StringBuilder();
+    	
+    	if(!name.isEmpty())
+    	{
+    		desc.append("Name: " + name + "\n");
+    	}
+    	if(!author.isEmpty())
+    	{
+    		desc.append("Author: " + author + "\n");
+    	}
+    	if(pointList != null && pointList.size() > 0)
+    	{    		
+    		desc.append("No. waypoints:" + getPointList().size());
+    	}     		
+    	
+    	return desc.toString();
     }
 }

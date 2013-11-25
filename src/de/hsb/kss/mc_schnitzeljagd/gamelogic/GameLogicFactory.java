@@ -1,11 +1,14 @@
 package de.hsb.kss.mc_schnitzeljagd.gamelogic;
 
-import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Riddle;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
-
 public class GameLogicFactory {
+	
+	private static final GameLogicImpl instanceGameLogic = new GameLogicImpl();  
+	
+	public static GameCreation createGameCreation(){
+        return instanceGameLogic;
+    }
+	
     public static GameLogic createGameLogic(){
-        return new GameLogicImpl();
+        return instanceGameLogic;
     }
 }

@@ -66,17 +66,15 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/back_to_main_button"
+            android:id="@+id/finish_game_main_button_id"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/linearLayout1"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
             android:onClick="publishQuest"
             android:text="@string/organizer_finish_game" />
 
         <Button
-            android:id="@+id/back_to_main_button"
+            android:id="@+id/create_next_poi_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

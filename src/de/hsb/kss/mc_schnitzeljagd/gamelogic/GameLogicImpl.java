@@ -14,7 +14,7 @@ import java.util.Stack;
  * @author suhaila
  *
  */
-class GameLogicImpl implements GameLogic {
+class GameLogicImpl implements GameLogic, GameCreation {
 
 	private Player player;
     private Quest quest;
@@ -82,6 +82,66 @@ class GameLogicImpl implements GameLogic {
         quest= new Quest();
         //currentPoint=quest.getPointList().get(0);
     }
+    
+    private boolean loadQuest(String code)
+    {    	  
+    	boolean found = false;
+    	
+    	if( code.isEmpty() )
+    	{
+    		quest = new Quest();
+    		found = true;
+    	}
+    	else
+    	{
+    		//TODO: load from DataStore
+    		//TODO: Remove Dummy Code
+    		if(code.equals("3000"))
+    		{    	
+    			quest = new Quest();
+    			quest.setName("Futurama");
+    			quest.setAuthor("Nibbler");
+    			found = true;
+    		}
+    		else
+    		{
+    			found = false;
+    		}
+    	}
+    	return found; // If found else false;
+    }
+
+	@Override
+	public boolean loadQuestByAccessCode(String code) {
+		return loadQuest(code);		
+	}
+
+	@Override
+	public void createNewQuest() {
+		loadQuest("");	
+	}
+
+	@Override
+	public Quest getCurrentQuest() {
+		return quest;
+	}
+
+	@Override
+	public void setQuestInfo(String name, String author) {
+		if(quest != null)
+		{
+			quest.setName(name);
+			quest.setAuthor(author);			
+		}
+		
+	}
+
+	@Override
+	public boolean save() {
+		quest.setAccessCode("42"); //TODO: Create New Code;
+		//TODO: Save in DataStore
+		return true;
+	}
 
 
 
