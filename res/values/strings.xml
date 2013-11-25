@@ -32,7 +32,7 @@
     <string name="setup_game_description">Description goes here</string>
     <string name="title_activity_player_home">PlayerHomeActivity</string>
     <string name="save_play_name_button">Save Name</string>
-    <string name="player_home_info_text">Here comes the infotext for the Player...</string>
+    <string name="player_home_info_text">Here comes the infotext for the Player</string>
     <string name="player_name_hint">Player Name</string>
     <string name="title_activity_quest">QuestActivity</string>
     <string name="mandatory_riddle_button">Mandatory Riddle</string>
@@ -56,6 +56,7 @@
     <string name="hint_prompt">Text</string>
     <string name="load_game_button">Load Game</string>
     <string name="errorEnterCode">Enter game code first!</string>
+    <string name="text_hint_hint">Enter your hint here!</string>
 
     <string-array name="hint_arrays">
         <item>Text</item>
@@ -82,7 +83,6 @@
     <string name="unkownError">Unkown error. Game not initialized!</string>
     <string name="setup_game_author_name_hint">Enter Author name here</string>
     <string name="requiredFiledNotSet">Required field not set!</string>
-    
-    
+    <string name="title_activity_player_text_hint">PlayerTextHintActivity</string>
 
 </resources>

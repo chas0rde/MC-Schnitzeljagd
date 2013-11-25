@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Spinner;
 
 public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 
@@ -28,8 +29,18 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 	}
 
 	public void createHint(View view){
-		Intent intent = new Intent(this, PlayerRiddleActivity.class);
-		startActivity(intent);
+		Spinner hintType = (Spinner)findViewById(R.id.record_hint_spinner_id);
+		
+		if(hintType != null)
+		{	
+			Intent intent = null;
+			
+			if(hintType.getSelectedItemPosition() == 0)
+			{		
+				intent = new Intent(this, PlayerTextHintActivity.class);
+				startActivity(intent);
+			}					
+		}
 	}
 	public void publishQuest(View view)
 	{

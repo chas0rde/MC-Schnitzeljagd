@@ -19,6 +19,7 @@ class GameLogicImpl implements GameLogic, GameCreation {
 	private Player player;
     private Quest quest;
     private Point currentPoint;
+    private List<Tip> hints = new ArrayList<Tip>();
     private Riddle mandatoryRiddle;
     private List<Riddle> additionalRiddle=new ArrayList<Riddle>();
 
@@ -149,6 +150,28 @@ class GameLogicImpl implements GameLogic, GameCreation {
 		return true;
 	}
 
+	@Override
+	public void addHint(Tip t) {
+		if(hints != null)
+		{
+			hints.add(t);
+		}		
+	}
 
+	@Override
+	public void deleteHint(int index) {
+		if(hints != null)
+		{
+			hints.remove(index);
+		}
+	}
 
+	@Override
+	public Tip getHint(int index) {
+		if(hints != null)
+		{
+			return hints.get(index);
+		} 		
+		return null;
+	}
 }

@@ -15,4 +15,7 @@ public interface GameCreation {
 	Quest getCurrentQuest();
 	void setQuestInfo(String name, String author);
 	boolean save();
+	void addHint(Tip t);
+	void deleteHint(int index);
+	Tip getHint(int index);
 }

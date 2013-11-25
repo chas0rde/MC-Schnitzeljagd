@@ -17,6 +17,12 @@ public class PlayerRiddleActivity extends SchnitzelActivity {
 		setContentView(R.layout.activity_player_riddle);
 	}
 	
+	@Override
+	protected void initUi()
+	{
+		super.initUi();		
+	}
+	
 	public void goToCreateRiddle(View view){
 		Intent intent = new Intent(this, OrganizerCreatePoiActivity.class);
 		startActivity(intent);

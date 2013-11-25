@@ -70,5 +70,4 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		getMenuInflater().inflate(R.menu.player_home, menu);
 		return true;
 	}
-
 }
