@@ -24,22 +24,28 @@ class GameLogicImpl implements GameLogic, GameCreation {
 
     @Override
     public final Quest getQuestByAccessCode(String managementCode, Player player) {
-        init();
+       // init();
+        if( !loadQuest(managementCode, false) )
+    	{
+        	quest = null;
+    	}
         return quest;
     }
 
     //TODO: @Melanie nur zum testen drin 
-    public void playNewGame(String name)
+    public boolean playNewGame(String name)
     {
-    	this.player = new Player();
-    	this.player.setName(name);    	
+    	return playNewGame(name, quest.getAccessCode());
     }     
     
-    public void playNewGame(String name, String code)
+    public boolean playNewGame(String name, String code)
     {
+    	boolean loaded = false;
+    	
         this.player = new Player();
         this.player.setName(name);
-        getQuestByAccessCode(code,this.player);
+        loaded = getQuestByAccessCode(code,this.player) == null;        
+        return loaded;
     }   
     
     public Player getPlayer()
@@ -79,15 +85,15 @@ class GameLogicImpl implements GameLogic, GameCreation {
 
 
     private void init() {
-        quest= new Quest();
+        //quest= new Quest();
         //currentPoint=quest.getPointList().get(0);
     }
     
-    private boolean loadQuest(String code)
+    private boolean loadQuest(String code, boolean creationMode)
     {    	  
     	boolean found = false;
     	
-    	if( code.isEmpty() )
+    	if( code.isEmpty() && creationMode )
     	{
     		quest = new Quest();
     		found = true;
@@ -113,12 +119,12 @@ class GameLogicImpl implements GameLogic, GameCreation {
 
 	@Override
 	public boolean loadQuestByAccessCode(String code) {
-		return loadQuest(code);		
+		return loadQuest(code, true);		
 	}
 
 	@Override
 	public void createNewQuest() {
-		loadQuest("");	
+		loadQuest("", true);	
 	}
 
 	@Override

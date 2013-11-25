@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class PlayerHomeActivity extends SchnitzelActivity {
 	
+	private Quest q = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		
 		if(code != null && desc != null && app != null)
 		{			
-			Quest q = app.getGameLogic().getQuestByAccessCode(code.getText().toString(), new Player());
+			q = app.getGameLogic().getQuestByAccessCode(code.getText().toString(), new Player());
 			desc.setText(q.toString());
 		}
 	}
@@ -41,9 +42,18 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		
 		if(groupName != null && code != null && app != null)
 		{			
-			app.getGameLogic().playNewGame(groupName.getText().toString(), code.getText().toString());
-			Intent i = new Intent(this, HintActivity.class);
-			startActivity(i);
+			if(app.getGameLogic().playNewGame(groupName.getText().toString(), code.getText().toString()))
+			{
+				Intent i = new Intent(this, HintActivity.class);
+				startActivity(i);
+			}
+			else
+			{
+				if(errorLabel != null)
+				{
+					errorLabel.setText(R.string.errorEnterCode);
+				}
+			}
 		}					
 		else
 		{

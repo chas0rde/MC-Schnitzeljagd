@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface GameLogic {
 
-	void playNewGame(String name);
-	void playNewGame(String name, String code);
+	boolean playNewGame(String name);
+	boolean playNewGame(String name, String code);
 	Player getPlayer();
     Quest getQuestByAccessCode(String accessCode,Player player);
     Point getNextPoint();
