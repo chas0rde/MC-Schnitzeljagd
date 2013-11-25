@@ -24,3 +24,6 @@ Thumbs.db
 
 bin/*
 gen/*
+/.idea/
+/bin/
+/out/
