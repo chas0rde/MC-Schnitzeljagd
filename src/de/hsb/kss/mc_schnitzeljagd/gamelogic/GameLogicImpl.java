@@ -10,18 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-/**
- * @author suhaila
- *
- */
-class GameLogicImpl implements GameLogic, GameCreation {
+class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
-	private Player player;
-    private Quest quest;
-    private Point currentPoint;
-    private List<Tip> hints = new ArrayList<Tip>();
-    private Riddle mandatoryRiddle;
-    private List<Riddle> additionalRiddle=new ArrayList<Riddle>();
+
 
     @Override
     public final Quest getQuestByAccessCode(String managementCode, Player player) {
@@ -89,89 +80,5 @@ class GameLogicImpl implements GameLogic, GameCreation {
         //quest= new Quest();
         //currentPoint=quest.getPointList().get(0);
     }
-    
-    private boolean loadQuest(String code, boolean creationMode)
-    {    	  
-    	boolean found = false;
-    	
-    	if( code.isEmpty() && creationMode )
-    	{
-    		quest = new Quest();
-    		found = true;
-    	}
-    	else
-    	{
-    		//TODO: load from DataStore
-    		//TODO: Remove Dummy Code
-    		if(code.equals("3000"))
-    		{    	
-    			quest = new Quest();
-    			quest.setName("Futurama");
-    			quest.setAuthor("Nibbler");
-    			found = true;
-    		}
-    		else
-    		{
-    			found = false;
-    		}
-    	}
-    	return found; // If found else false;
-    }
 
-	@Override
-	public boolean loadQuestByAccessCode(String code) {
-		return loadQuest(code, true);		
-	}
-
-	@Override
-	public void createNewQuest() {
-		loadQuest("", true);	
-	}
-
-	@Override
-	public Quest getCurrentQuest() {
-		return quest;
-	}
-
-	@Override
-	public void setQuestInfo(String name, String author) {
-		if(quest != null)
-		{
-			quest.setName(name);
-			quest.setAuthor(author);			
-		}
-		
-	}
-
-	@Override
-	public boolean save() {
-		quest.setAccessCode("42"); //TODO: Create New Code;
-		//TODO: Save in DataStore
-		return true;
-	}
-
-	@Override
-	public void addHint(Tip t) {
-		if(hints != null)
-		{
-			hints.add(t);
-		}		
-	}
-
-	@Override
-	public void deleteHint(int index) {
-		if(hints != null)
-		{
-			hints.remove(index);
-		}
-	}
-
-	@Override
-	public Tip getHint(int index) {
-		if(hints != null)
-		{
-			return hints.get(index);
-		} 		
-		return null;
-	}
 }
