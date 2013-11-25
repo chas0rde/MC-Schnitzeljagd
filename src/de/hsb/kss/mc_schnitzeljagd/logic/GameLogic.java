@@ -9,10 +9,12 @@ public interface GameLogic {
 	boolean playNewGame(String name, String code);
 	Player getPlayer();
     Quest getQuestByAccessCode(String accessCode,Player player);
-    Point getNextPoint();
+    Point goToNextPoint();
     Riddle getMandatoryRiddleForCurrentPoint();
     Riddle getNextAdditionalRiddle();
     Hint getNextHintForCurrentMandatoryRiddle();
     Hint getNextHintForAdditionalRiddle();
     int getCurrentPointsForPlayer();
+    boolean checkSolutionForMandatoryRiddle(String answer);
+    boolean checkSolutionForAdditionalRiddle(String answer);
 }

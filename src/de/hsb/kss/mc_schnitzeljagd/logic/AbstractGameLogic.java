@@ -10,9 +10,12 @@ class AbstractGameLogic{
     protected Player player;
     protected Quest quest;
     protected Point currentPoint;
+    protected List<Point>points=new ArrayList<Point>();
+    protected int indexOfCurrentPoint=0;
     protected List<Hint> hints = new ArrayList<Hint>();
-    protected Riddle mandatoryRiddle;
-    protected List<Riddle> additionalRiddle=new ArrayList<Riddle>();
+    protected Riddle currentMandatoryRiddle;
+    protected Riddle currentAdditionalRiddle;
+    protected List<Riddle> additionalRiddleList=new ArrayList<Riddle>();
 
     protected boolean loadQuest(String code, boolean creationMode)
     {

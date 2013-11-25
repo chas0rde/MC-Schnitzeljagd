@@ -3,6 +3,7 @@ package de.hsb.kss.mc_schnitzeljagd.persistence;
 public class Hint {
     private int hintId;
     private String description;
+    private boolean isVisible=false;
 
     public int getHintId() {
         return hintId;
@@ -18,5 +19,13 @@ public class Hint {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }
