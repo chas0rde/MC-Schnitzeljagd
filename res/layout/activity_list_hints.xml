@@ -9,7 +9,7 @@
     tools:context=".ListHintsActivity" >
 
     <LinearLayout
-        android:id="@id/list_of_hints_linear_layout"
+        android:id="@+id/list_of_hints_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
