@@ -36,6 +36,8 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
         //TODO: Save in DataStore
         return true;
     }
+    
+    
 
     @Override
     public void addHint(Hint hint) {
@@ -61,4 +63,12 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
         }
         return null;
     }
+
+	@Override
+	public int getHintSize() {
+		if(hints != null) {
+			return currentMandatoryRiddle.getHintList().size(); 
+		}
+		return 0;
+	}
 }

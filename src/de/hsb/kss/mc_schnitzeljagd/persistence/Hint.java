@@ -13,6 +13,7 @@ public class Hint {
         this.hintId = hintId;
     }
 
+    
     public String getDescription() {
         return description;
     }

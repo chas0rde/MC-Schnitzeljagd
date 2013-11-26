@@ -110,6 +110,10 @@
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextHintActivity"
             android:label="@string/title_activity_player_text_hint" >
         </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.ListHintsActivity"
+            android:label="@string/title_activity_list_hints" >
+        </activity>
     </application>
 
 </manifest>

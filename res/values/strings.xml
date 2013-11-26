@@ -84,5 +84,6 @@
     <string name="setup_game_author_name_hint">Enter Author name here</string>
     <string name="requiredFiledNotSet">Required field not set!</string>
     <string name="title_activity_player_text_hint">PlayerTextHintActivity</string>
+    <string name="title_activity_list_hints">ListHintsActivity</string>
 
 </resources>

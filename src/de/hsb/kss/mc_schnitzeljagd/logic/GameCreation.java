@@ -13,4 +13,5 @@ public interface GameCreation {
 	void addHint(Hint hint);
 	void deleteHint(int index);
 	Hint getHint(int index);
+	int getHintSize();
 }
