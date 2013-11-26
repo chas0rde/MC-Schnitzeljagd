@@ -62,8 +62,8 @@ public class HintActivity extends SchnitzelActivity {
                       
                        // set the required Animation type to ViewFlipper
                        // The Next screen will come in form Left and current Screen will go OUT from Right
-                       hintFliper.setInAnimation(this, R.anim.in_from_right);
-                       hintFliper.setOutAnimation(this, R.anim.out_to_right);
+                       hintFliper.setInAnimation(this, R.anim.in_from_left);
+                       hintFliper.setOutAnimation(this, R.anim.out_to_left);
                        // Show the next Screen
                        hintFliper.showNext();
                    }
@@ -73,8 +73,8 @@ public class HintActivity extends SchnitzelActivity {
                    {                       
                        // set the required Animation type to ViewFlipper
                        // The Next screen will come in form Right and current Screen will go OUT from Left
-                       hintFliper.setInAnimation(this, R.anim.in_from_left);
-                       hintFliper.setOutAnimation(this, R.anim.out_to_left);
+                       hintFliper.setInAnimation(this, R.anim.in_from_right);
+                       hintFliper.setOutAnimation(this, R.anim.out_to_right);
                        // Show The Previous Screen
                        if (hintFliper.getDisplayedChild() == 1)
                        {
