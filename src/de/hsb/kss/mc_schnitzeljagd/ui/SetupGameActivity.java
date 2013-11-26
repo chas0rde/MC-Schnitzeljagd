@@ -15,13 +15,14 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 
 public class SetupGameActivity extends SchnitzelActivity {
 
-	private EditText authorTextField = (EditText)findViewById(R.id.setup_game_author_id);
-	private EditText gameNameTextField = (EditText)findViewById(R.id.setup_game_name_id);	
+	private EditText authorTextField = null;
+	private EditText gameNameTextField = null;	
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setup_game);		
+		initUi();
 	}
 	
 	@Override
@@ -29,8 +30,10 @@ public class SetupGameActivity extends SchnitzelActivity {
 	{
 		super.initUi();
 		TextView gameDescriptionTextField = (TextView)findViewById(R.id.setup_game_description_text_id);
+		authorTextField = (EditText)findViewById(R.id.setup_game_author_id);
+		gameNameTextField = (EditText)findViewById(R.id.setup_game_name_id);
 		
-		if(app != null)
+		if(app != null && app.getGameCreation() != null && app.getGameCreation().getCurrentQuest() != null)
 		{
 			if(authorTextField != null)
 			{				
@@ -44,13 +47,14 @@ public class SetupGameActivity extends SchnitzelActivity {
 			{
 				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuest().toString());
 			}
-			if(!app.getGameCreation().getCurrentQuest().getAccessCode().isEmpty())
+			//TODO: Replace by check new game
+			if(app.getGameCreation().getCurrentQuest().getAccessCode() != null)
 			{
 				LinearLayout createLiveGameLayout = (LinearLayout)findViewById(R.id.setup_game_live_game_layout);
 				
 				if(createLiveGameLayout != null)
 				{
-					createLiveGameLayout.setVisibility(0);
+					createLiveGameLayout.setVisibility(View.INVISIBLE);
 				}
 			}
 		}
@@ -58,7 +62,7 @@ public class SetupGameActivity extends SchnitzelActivity {
 		{
 			if(errorLabel != null)
 			{
-				errorLabel.setText(R.string.requiredFiledNotSet);
+				errorLabel.setText(R.string.unkownError);
 			}
 		}
 	}
