@@ -11,6 +11,8 @@ class PlayerPointsHelper {
 
     private static PlayerPointsHelper playerPointsHelper = new PlayerPointsHelper();
     private Player player;
+    private final int multiplierMandatoryRiddle = 5;
+    private final int multiplierAdditionalRiddle = 10;
 
     private PlayerPointsHelper() {
     }
@@ -37,12 +39,14 @@ class PlayerPointsHelper {
     }
 
     private int getPoints(int maxPointsOfRiddle, int nrOfUsedHints, boolean isRiddleMandatory) {
+        int multiplier = 0;
         if (isRiddleMandatory) {
-             return 0;
+            multiplier = multiplierMandatoryRiddle;
         } else {
-            //TODO: used Hints in Relation to MaxNumber of Riddle
-            return 0;
+            multiplier = multiplierAdditionalRiddle;
         }
+        int percent = (maxPointsOfRiddle / 100) * multiplier;
+        return maxPointsOfRiddle - percent * nrOfUsedHints;
     }
 
     public void setPlayer(Player player) {
@@ -52,6 +56,6 @@ class PlayerPointsHelper {
     }
 
     public int getCurrentPointsOfPlayer() {
-        return player.getCurrentPoints();
+        return player != null? player.getCurrentPoints() : 0;
     }
 }
