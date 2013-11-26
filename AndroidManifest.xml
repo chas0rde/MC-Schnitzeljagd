@@ -33,7 +33,7 @@
     <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
 
     <application
-        android:name="de.hsb.kss.mc_schnitzeljagd.location.McSchnitzelJagdApplication"
+        android:name="de.hsb.kss.mc_schnitzeljagd.McSchnitzelJagdApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -115,6 +115,10 @@
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextHintActivity"
             android:label="@string/title_activity_player_text_hint" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.ListHintsActivity"
+            android:label="@string/title_activity_list_hints" >
         </activity>
     </application>
 

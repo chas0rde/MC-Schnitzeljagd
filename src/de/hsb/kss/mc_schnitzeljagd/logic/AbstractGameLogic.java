@@ -6,16 +6,16 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 class AbstractGameLogic{
     protected Player player;
     protected Quest quest;
     protected Point currentPoint;
     protected List<Point>points=new ArrayList<Point>();
-    protected int indexOfCurrentPoint=0;
     protected List<Hint> hints = new ArrayList<Hint>();
-    protected Riddle currentMandatoryRiddle;
-    protected Riddle currentAdditionalRiddle;
-    protected List<Riddle> additionalRiddleList=new ArrayList<Riddle>();
+    private Riddle currentMandatoryRiddle;
+
 
     protected boolean loadQuest(String code, boolean creationMode)
     {
@@ -36,6 +36,11 @@ class AbstractGameLogic{
                 quest.setName("Futurama");
                 quest.setAuthor("Nibbler");
                 quest.setAccessCode("3000");
+                Riddle r = new Riddle();
+                Point p = new Point();
+                p.getRiddles().add(r);
+                quest.getPointList().add(p);
+                currentMandatoryRiddle = r;
                 found = true;
             }
             else

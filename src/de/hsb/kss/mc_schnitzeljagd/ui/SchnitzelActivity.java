@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.location.McSchnitzelJagdApplication;
+import de.hsb.kss.mc_schnitzeljagd.McSchnitzelJagdApplication;
 import de.hsb.kss.mc_schnitzeljagd.logic.GameCreation;
 import de.hsb.kss.mc_schnitzeljagd.logic.GameLogic;
 
@@ -34,4 +34,12 @@ public class SchnitzelActivity  extends Activity  {
 			errorLabel.setText("");
 		}
 	}	
+	
+	protected void setErrorMsg(String msg)
+	{
+		if(errorLabel != null)
+		{
+			errorLabel.setText(msg);
+		}		
+	}
 }

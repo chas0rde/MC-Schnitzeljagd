@@ -10,6 +10,7 @@ public class Point {
     private String name;
     private String description;
     private List<Riddle> riddles=new ArrayList<Riddle>();
+    private List<Hint> hintList =new ArrayList<Hint>();
 
     public int getPointId() {
         return pointId;
@@ -57,5 +58,13 @@ public class Point {
 
     public void setRiddles(List<Riddle> riddles) {
         this.riddles = riddles;
+    }
+
+    public List<Hint> getHintList() {
+        return hintList;
+    }
+
+    public void setHintList(List<Hint> hintList) {
+        this.hintList = hintList;
     }
 }
