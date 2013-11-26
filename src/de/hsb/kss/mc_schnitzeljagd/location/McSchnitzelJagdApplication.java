@@ -1,4 +1,4 @@
-package de.hsb.kss.mc_schnitzeljagd;
+package de.hsb.kss.mc_schnitzeljagd.location;
 
 import de.hsb.kss.mc_schnitzeljagd.logic.GameCreation;
 import de.hsb.kss.mc_schnitzeljagd.logic.GameFactory;

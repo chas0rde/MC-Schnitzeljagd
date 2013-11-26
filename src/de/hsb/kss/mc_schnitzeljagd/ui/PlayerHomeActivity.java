@@ -1,9 +1,9 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
-import de.hsb.kss.mc_schnitzeljagd.McSchnitzelJagdApplication;
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
+import de.hsb.kss.mc_schnitzeljagd.location.McSchnitzelJagdApplication;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Player;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 import android.os.Bundle;

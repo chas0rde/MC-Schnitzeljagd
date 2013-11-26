@@ -1,4 +1,4 @@
-package de.hsb.kss.mc_schnitzeljagd;
+package de.hsb.kss.mc_schnitzeljagd.location;
 
 import android.location.Location;
 
