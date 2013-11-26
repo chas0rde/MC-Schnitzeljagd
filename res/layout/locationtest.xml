@@ -10,7 +10,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="321dp" />
+        android:layout_height="248dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -96,6 +95,42 @@
 
         <TextView
             android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/latGoalInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/latGoal" />
+
+        <TextView
+            android:id="@+id/goalLat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/lngGoalInfo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lngGoal" />
+
+        <TextView
+            android:id="@+id/goalLng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
@@ -140,5 +175,14 @@
             android:onClick="toggleUpdates"
             android:text="@string/toggleUpdates" />
 
+        <ToggleButton
+            android:id="@+id/toggleGeofence"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textOff="@string/locationGeofenceOff"
+			android:textOn="@string/locationGeofenceOn"
+            android:onClick="toggleGeofence"
+            android:text="@string/toggleGeofence" />
+        
     </LinearLayout>
 </LinearLayout>

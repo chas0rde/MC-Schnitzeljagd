@@ -7,12 +7,15 @@
     <string name="locationTest">Ingos Test Button</string>
     <string name="lat">Current Latitude</string>
     <string name="lng">Current Longitude</string>
+    <string name="latGoal">Goal Latitude</string>
+    <string name="lngGoal">Goal Longitude</string>
     <string name="quality">Signal</string>
     <string name="conStateInfo">Listener connected</string>
-    <string name="updates">Updates</string>
+    <string name="updates">Updates received</string>
     <string name="listener">Listener</string>
     <string name="refresh">Refresh</string>
     <string name="toggleUpdates">Toogle Updates</string>
+    <string name="toggleGeofence">Toogle Geofence</string>
     <string name="title_activity_main_game">MainGameActivity</string>
     <string name="organizer_mode_button">Organizer</string>
     <string name="player_mode_button">Player</string>
@@ -78,7 +81,9 @@
     <string name="save_hint_button">Save hint</string>
     <string name="locationUpdatesOff">Updates Off</string>
     <string name="locationUpdatesOn">Updates On</string>
-    <string name="distanceInfo">Distance to Weserstadion</string>
+    <string name="locationGeofenceOff">Geofence Off</string>
+    <string name="locationGeofenceOn">Geofence On</string>
+    <string name="distanceInfo">Distance to goal</string>
     <string name="questNotFound">Quest not found!</string>
     <string name="unkownError">Unknown error. Game not initialized!</string>
     <string name="setup_game_author_name_hint">Enter Author name here</string>

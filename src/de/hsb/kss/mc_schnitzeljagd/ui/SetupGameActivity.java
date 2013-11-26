@@ -1,6 +1,5 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +8,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.R.layout;
-import de.hsb.kss.mc_schnitzeljagd.R.menu;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 
 public class SetupGameActivity extends SchnitzelActivity {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -25,8 +26,10 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationClient.OnAddGeofencesResultListener;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationStatusCodes;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,6 +49,7 @@ import de.hsb.kss.mc_schnitzeljagd.R;
  */
 public class LocationFragment extends SupportMapFragment implements GooglePlayServicesClient.ConnectionCallbacks, 
 											GooglePlayServicesClient.OnConnectionFailedListener,
+											OnAddGeofencesResultListener,
 									        LocationListener {
     /**
      * Tag for logging purposes
@@ -128,7 +132,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
     private SimpleGeofenceStore geofenceStorage;
     /**
-     * The internal represenation of the geofence
+     * The internal representation of the geofence
      */
     private SimpleGeofence goalGeofence;
     /**
@@ -140,71 +144,181 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	 * The ID of the goal.
 	 */
 	private String goalID;
-
-	
-	
 	/**
-	 * Called upon creation of the fragment
+	 * Stores the PendingIntent used to request geofence monitoring.
 	 */
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-		view = inflater.inflate(R.layout.map_fragment, container, false);
-		
-		initilizeMap();
-		configureLocationClient();
-		
-		// Initialize the location manager
-	    locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-	    // Initialize the location client
-	    locationClient = new LocationClient(activity.getBaseContext(), this, this);
-	    
-		return view;
-	}
+    private PendingIntent geofenceRequestIntent;
+    /**
+     * The request-type for the geofence.
+     */
+    private LocationUtils.REQUEST_TYPE requestType;
+    /**
+     * Flag that indicates if a request is underway.
+     */
+    private boolean inProgress;
+	private PendingIntent transitionPendingIntent;
+
+
 	/**
 	 * Listener interface for the Activity to implement in order to be informed once location changes occur
 	 */
 	public interface OnLocationChangedListener {
 		public void onLocationChanged();
 	}
+	
 	/**
-	 * Called upon attaching the fragment to the activity
+	 * Called upon attaching the fragment to the activity.
+	 * First step of the Fragment-lifecycle.
 	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		
 		if (activity instanceof OnLocationChangedListener) {
 			listener = (OnLocationChangedListener) activity;
 		} else {
-			throw new ClassCastException(activity.toString() + " must implement LocationFragment.OnLocationChangedListener");
+			throw new ClassCastException(activity.toString() + " must implement " +
+					"LocationFragment.OnLocationChangedListener");
 		}
+		
+		// Log method call
+		Log.d(TAG + ".onAttach()", "LocationFragment was successful attached.");
 	}
 	/**
-	 * Called upon detaching the fragment from the activity
+     * Called upon creation of the fragment.
+     * Second step of the Fragment-lifecycle.
+     */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Map the FragmentActivity
+		activity = getActivity();
+		
+		// Check if Google Services are available
+		servicesConnected();
+		// Start with the request flag set to false
+        inProgress = false;
+		// Instantiate a new geofence storage area
+        geofenceStorage = new SimpleGeofenceStore(activity);
+        // Instantiate the current List of geofences
+        currentGeofences = new ArrayList<Geofence>();
+        
+        // Configure the location client
+		configureLocationClient();
+		// Initialize the location manager
+	    locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+	    // Initialize the location client
+	    locationClient = new LocationClient(activity.getBaseContext(), this, this);
+	    
+		Log.d(TAG + ".onCreate()", "LocationFragment was successful created.");
+	}
+	/**
+	 * Called upon creation of the fragment.
+	 * Third step of the Fragment-lifecycle.
+	 */
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+		view = inflater.inflate(R.layout.map_fragment, container, false);
+		// Initialize the map
+        initilizeMap();
+		Log.d(TAG + ".onCreateView()", "LocationFragment View was successful inflated.");
+		return view;
+	}
+	/**
+	 * Called upon creation of the fragment.
+	 * Fourth step of the Fragment-lifecycle.
+	 */
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+	}
+	/**
+	 * Must be called if the parent Activity is started.
+	 * Fifth step of the Fragment-lifecycle.
+	 */
+	@Override
+	public void onStart() {
+		super.onStart();
+		// Connect the location client
+		if (locationClient != null) {
+			locationClient.connect();
+		} else {
+			Log.e(TAG + ".onStart()", "Could not connect location client - Nullpointer");
+		}
+		Log.d(TAG + ".onStart()", "LocationFragment was started.");
+	}
+	/**
+	 * Must be called if the parent Activity is resumed.
+	 * Sixth step of the Fragment-lifecycle.
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		/*
+         * Get any previous setting for location updates
+         * Gets "false" if an error occurs
+         */
+        if (prefs.contains("KEY_UPDATES_ON")) {
+            updatesRequested = prefs.getBoolean("KEY_UPDATES_ON", false);
+        // Otherwise, turn off location updates
+        } else {
+            editor.putBoolean("KEY_UPDATES_ON", false);
+            editor.commit();
+        }
+		Log.d(TAG + ".onResume()", "LocationFragment was resumed.");
+	}
+	/**
+	 * Must be called if the parent Activity is paused.
+	 * Seventh step of the Fragment-lifecycle.
+	 */
+	@Override
+	public void onPause() {
+		// Save the current setting for updates
+        editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
+        editor.commit();
+        // Disconnect the location client
+		locationClient.disconnect();
+		Log.d(TAG + ".onPause()", "LocationFragment was paused.");
+		super.onPause();
+	}
+	/**
+	 * Must be called if the parent Activity is stopped.
+	 * Eighth step of the Fragment-lifecycle.
+	 */
+	@Override
+	public void onStop() {
+		// If the client is connected
+        if (locationClient.isConnected()) {
+            /*
+             * Remove location updates for a listener.
+             * The current Activity is the listener, so
+             * the argument is "this".
+             */
+            locationClient.removeLocationUpdates(this);
+        }
+        /*
+         * After disconnect() is called, the client is
+         * considered "dead".
+         */
+        locationClient.disconnect();
+		Log.d(TAG + ".onStop()", "LocationFragment was stopped.");
+        super.onStop();
+	}
+	/**
+	 * Called upon detaching the fragment from the activity.
+	 * Eleventh step of the Fragment-lifecycle.
 	 */
 	@Override
 	public void onDetach() {
 		super.onDetach();
 	    listener = null;
+		Log.d(TAG + ".onDetach()", "LocationFragment was detached.");
 	}
-    /**
-     * Called upon creation of the fragment
-     */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		activity = getActivity();
-
-		checkGooglePlayServices();
-		// Instantiate a new geofence storage area
-        geofenceStorage = new SimpleGeofenceStore(activity);
-
-        // Instantiate the current List of geofences
-        currentGeofences = new ArrayList<Geofence>();
-
-	}
+    
 	/**
-	 * Define a DialogFragment that displays the error dialog
+	 * Define a DialogFragment that displays the error dialog.
 	 */
     public static class ErrorDialogFragment extends DialogFragment {
         // Global field to contain the error dialog
@@ -225,8 +339,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         }
     }
     /**
-     * Handle results returned to the FragmentActivity
-     * by Google Play services
+     * Handle results returned to the FragmentActivity by Google Play services.
      * @param requestCode the request code
      * @param resultCode the result code
      * @param data an Intent with data
@@ -250,10 +363,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	        }
      }
     /**
-     * check availability of Google Play Services.
+     * Check availability of Google Play Services.
      * @return state of the Google Play Services
      */
-    private boolean checkGooglePlayServices() {
+    private boolean servicesConnected() {
         // Check that Google Play services is available
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity.getBaseContext());
         // If Google Play services is available
@@ -272,8 +385,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             } catch (Exception e) {
                 Log.e("Error: GooglePlayServiceUtil: ", "" + e);
             }
-            /**
-            Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+           
+            Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
+            		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST);
 
             // If Google Play services can provide an error dialog
             if (errorDialog != null) {
@@ -282,8 +396,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
                 // Set the dialog in the DialogFragment
                 errorFragment.setDialog(errorDialog);
                 // Show the error dialog in the DialogFragment
-                errorFragment.show(activity.getSupportFragmentManager(),"Location Updates");
-            }*/
+                errorFragment.show(activity.getSupportFragmentManager(), "Location Updates");
+            }
             
             return false;
         }
@@ -305,6 +419,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         prefs = activity.getSharedPreferences("SharedPreferences",Context.MODE_PRIVATE);
         // Get a SharedPreferences editor
         editor = prefs.edit();
+
+		Log.d(TAG + ".configureLocationClient()", "LocationClient was configured.");
 	}
 	/**
      * Function to load map. If map is not created it will create it for you.
@@ -332,8 +448,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * Forces a manual update of the location data.
      * @param v the current view
      */
-    public void toogleManualLocationRefresh(View v) {
+    public void toggleManualLocationRefresh(View v) {
     	updateLocationInfos();
+
+		Log.d(TAG + ".toggleManualLocationRefresh()", "Manual location refresh was triggered.");
     }
     /**
      * Updates the location info after the location has changed.
@@ -355,7 +473,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
  	 	    map.animateCamera(zoom);
  		} 
  	    
-        Log.d(TAG, "Current location: " + currentLatitude + "/" + currentLongitude);  
+        Log.d(TAG + ".updateLocationInfos()", "Location was updated. Current location: " 
+        		+ currentLatitude + "/" + currentLongitude);  
     }
 	/**
 	 * Alters the current map type of the map.
@@ -390,6 +509,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
+		Log.d(TAG + ".onConnectionFailed()", "LocationClient could not be connected.");
 		/*
          * Google Play services can resolve some errors it detects.
          * If the error has a resolution, try sending an Intent to
@@ -425,11 +545,21 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Log.d(TAG, "LocationClient connected");
+		Log.d(TAG + "onConnected()", "LocationClient connected");
 		// If already requested, start periodic updates
 		if (updatesRequested) {
             locationClient.requestLocationUpdates(locationRequest, this);
+    		Log.d(TAG + "onConnected()", "Location updates enabled.");
         }
+		
+		// send request to set a geofence
+//		switch (requestType) {
+//	        case ADD :
+//	            // Get the PendingIntent for the request
+//	            transitionPendingIntent = getTransitionPendingIntent();
+//	            // Send a request to add the current geofences
+//	            locationClient.addGeofences(currentGeofences, transitionPendingIntent, this);
+//		}
 
 		// Set the location fields
 		updateLocationInfos();
@@ -443,71 +573,13 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
 	@Override
 	public void onDisconnected() {
-		Log.d(TAG, "LocationClient disconnected");
-	}
-	/**
-	 * Must be called if the parent Activity is started
-	 */
-	@Override
-	public void onStart() {
-		super.onStart();
-		// Connect the location client
-		if (locationClient != null) {
-			locationClient.connect();
-		} else {
-			Log.e(TAG + ".onStart()", "Could not connect location client - Nullpointer");
-		}
-	}
-	/**
-	 * Must be called if the parent Activity is paused
-	 */
-	@Override
-	public void onPause() {
-		// Save the current setting for updates
-        editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
-        editor.commit();
-        // Disconnect the location client
-		locationClient.disconnect();
-		super.onPause();
-	}
-	/**
-	 * Must be called if the parent Activity is stopped
-	 */
-	@Override
-	public void onStop() {
-		// If the client is connected
-        if (locationClient.isConnected()) {
-            /*
-             * Remove location updates for a listener.
-             * The current Activity is the listener, so
-             * the argument is "this".
-             */
-            locationClient.removeLocationUpdates(this);
-        }
-        /*
-         * After disconnect() is called, the client is
-         * considered "dead".
-         */
-        locationClient.disconnect();
-        super.onStop();
-	}
-	/**
-	 * Must be called if the parent Activity is resumed
-	 */
-	@Override
-	public void onResume() {
-		super.onResume();
-		/*
-         * Get any previous setting for location updates
-         * Gets "false" if an error occurs
-         */
-        if (prefs.contains("KEY_UPDATES_ON")) {
-            updatesRequested = prefs.getBoolean("KEY_UPDATES_ON", false);
-        // Otherwise, turn off location updates
-        } else {
-            editor.putBoolean("KEY_UPDATES_ON", false);
-            editor.commit();
-        }
+		// Turn off the request flag
+        inProgress = false;
+        
+     // Destroy the current location client
+        locationClient = null;
+
+		Log.d(TAG + "onDisconnected()", "LocationClient disconnected");
 	}
 	/**
 	 * Called by location service upon changes in the current location
@@ -572,6 +644,19 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	public float getDistance() {
 		return distance;
 	}
+
+	/**
+	 * @return the longitude of the current goal.
+	 */
+	public double getGoalLongitude() {
+		return goal.getLongitude();
+	}
+	/**
+	 * @return the latitude of the current goal.
+	 */
+	public double getGoalLatitude() {
+		return goal.getLatitude();
+	}
 	/**
 	 * Sets the hidden goal for the player to run to. The default radius is used for the geofence.
 	 * @param goalID the ID of the goal
@@ -583,6 +668,11 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		loc.setLatitude(latitude);
 		loc.setLongitude(longitude);
 		goal = loc;
+		Log.d(TAG + "setGoal()", "Goal " + goalID + " was set to " + longitude + "/" + latitude + 
+				"with default radius of " + goalRadius);
+		
+		// Create geofence for goal
+		//createGeofence();
 	}
 	/**
 	 * Sets the hidden goal for the player to run to.
@@ -597,12 +687,19 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		loc.setLongitude(longitude);
 		goal = loc;
 		goalRadius = radius;
+		
+		Log.d(TAG + "setGoal()", "Goal " + goalID + " was set to " + longitude + "/" + latitude + 
+				"with radius of " + radius);
+		
+		// Create geofence for goal
+		//createGeofence();
 	}
 	/**
      * Get the geofence parameters for each geofence from the UI
      * and add them to a List.
      */
     public void createGeofence() {
+    	//TODO: check for previously existing fences
         /*
          * Create an internal object to store the data. Set its
          * ID to goalID. This is a "flattened" object that contains
@@ -619,5 +716,64 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         // Store this flat version
         geofenceStorage.setGeofence(goalID, goalGeofence);
         currentGeofences.add(goalGeofence.toGeofence());
+        
+		Log.d(TAG + "createGeofence()", "Geofence was created");
     }
+    /**
+     * Provide the implementation of OnAddGeofencesResultListener.onAddGeofencesResult.
+     * Handle the result of adding the geofences
+     */
+    @Override
+    public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
+        // If adding the geofences was successful
+        if (LocationStatusCodes.SUCCESS == statusCode) {
+            //TODO: Handle successful addition of geofences here.You can send out a broadcast intent or update the UI. geofences into the Intent's extended data.
+
+        } else {
+        // If adding the geofences failed
+            //TODO:  Report errors here.log the error using Log.e() or update the UI.
+        }
+        // Turn off the in progress flag
+        inProgress = false;
+    }
+
+	/**
+     * Start a request for geofence monitoring by calling LocationClient.connect().
+     */
+    public void addGeofences() {
+        // Start a request to add geofences
+        requestType = LocationUtils.REQUEST_TYPE.ADD;
+        
+        //TODO: bullshit demo code
+        // If a request is not already underway
+        if (!inProgress) {
+            // Indicate that a request is underway
+            inProgress = true;
+            // Request a connection from the client to Location Services
+            locationClient.connect();
+        } else {
+            /*
+             * A request is already underway. You can handle
+             * this situation by disconnecting the client,
+             * re-setting the flag, and then re-trying the
+             * request.
+             */
+        }
+    }
+    
+    /*
+     * Create a PendingIntent that triggers an IntentService in your
+     * app when a geofence transition occurs.
+     */
+	private PendingIntent getTransitionPendingIntent() {
+    	// Create an explicit Intent
+        Intent intent = new Intent(activity, ReceiveTransitionsIntentService.class);
+        /*
+         * Return the PendingIntent
+         */
+        return PendingIntent.getService(activity.getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+	public void toggleGeofence(View v) {
+		// TODO Auto-generated method stub
+	}
 }
