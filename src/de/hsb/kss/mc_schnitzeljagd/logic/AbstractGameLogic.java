@@ -14,6 +14,7 @@ class AbstractGameLogic{
     protected Point currentPoint;
     protected List<Point>points=new ArrayList<Point>();
     protected List<Hint> hints = new ArrayList<Hint>();
+    private Riddle currentMandatoryRiddle;
 
 
     protected boolean loadQuest(String code, boolean creationMode)
@@ -36,11 +37,6 @@ class AbstractGameLogic{
                 quest.setAuthor("Nibbler");
                 quest.setAccessCode("3000");
                 Riddle r = new Riddle();
-                r.getHintList().add(new Hint());
-                r.getHintList().add(new Hint());                
-                r.getHintList().add(new Hint());
-                r.getHintList().add(new Hint());                
-                r.getHintList().add(new Hint());
                 Point p = new Point();
                 p.getRiddles().add(r);
                 quest.getPointList().add(p);

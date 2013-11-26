@@ -25,4 +25,5 @@ public interface GameCreation {
     void addPoint(Point point);
     void deletePoint(int index);
     Point getPoint(int index);
+    int getHintSize();
 }
