@@ -47,9 +47,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationTest" >
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.location.LocationTest" >
         </activity>
-        <activity android:name="de.hsb.kss.mc_schnitzeljagd.LocationFragmentActivity" >
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.location.LocationFragmentActivity" >
         </activity>
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerHomeActivity"
@@ -72,7 +72,7 @@
             android:label="@string/title_activity_quest" >
         </activity>
         <activity
-            android:name="de.hsb.kss.mc_schnitzeljagd.RiddleActivity"
+            android:name="de.hsb.kss.mc_schnitzeljagd.location.RiddleActivity"
             android:label="@string/title_activity_riddle" >
         </activity>
         <activity

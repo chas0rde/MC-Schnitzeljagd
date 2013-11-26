@@ -27,11 +27,12 @@
           android:layout_height="wrap_content"
           android:text="@string/play_game_description"          
           android:textAppearance="?android:attr/textAppearanceLarge" />
+
        <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_weight="0.63"
-          android:orientation="horizontal" >
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="0.09"
+           android:orientation="horizontal" >
 
       <EditText
           android:id="@+id/load_game_code"
@@ -73,17 +74,17 @@
               android:layout_height="wrap_content"
               android:onClick="startQuest"
               android:text="@string/play_game_start_game_button" />
-
-		<TextView
-                android:id="@+id/error_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#FF0000" 
-             />
           
       </LinearLayout>
-     
+
+   		<TextView
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000" 
+         />
+       
   </LinearLayout>
 
 </RelativeLayout>

@@ -1,4 +1,7 @@
-package de.hsb.kss.mc_schnitzeljagd;
+package de.hsb.kss.mc_schnitzeljagd.location;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,6 +23,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -28,6 +32,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+
+import de.hsb.kss.mc_schnitzeljagd.R;
 
 /**
  * Facade to ease the use of the location frameworks
@@ -42,61 +48,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 											GooglePlayServicesClient.OnConnectionFailedListener,
 									        LocationListener {
     /**
-     * Define a request code to send to Google Play services
-     * This code is returned in Activity.onActivityResult
-     */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    /**
      * Tag for logging purposes
      */
     private String TAG = "LocationFragmentActivity";
-	/**
-	 *  Milliseconds per second
-	 */
-    private static final int MILLISECONDS_PER_SECOND = 1000;
-    /**
-     *  Update frequency in seconds
-     */
-    public static final int UPDATE_INTERVAL_IN_SECONDS = 5;
-    /**
-     *  Update frequency in milliseconds
-     */
-    private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
-    /**
-     *  The fastest update frequency, in seconds
-     */
-    private static final int FASTEST_INTERVAL_IN_SECONDS = 1;
-    /**
-     *  A fast frequency ceiling in milliseconds
-     */
-    private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
-    /**
-	 * Possible types of maps
-	 */
-	public enum mapType {
-		/**
-		 * Normal map view
-		 */
-		NORMAL,
-		/**
-		 * Hybrid map (mixes normal and satellite view)
-		 */
-		HYBRID,
-		/**
-		 * Satellite view map
-		 */
-		SATELLITE,
-		/**
-		 * Terrain view map
-		 */
-		TERRAIN,
-		/**
-		 * No map type
-		 */
-		NONE
-	}
-	
-	
 	/**
 	 * The map object
 	 */
@@ -165,6 +119,28 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	 * Holds the reference to the parent activity as OnLocationChangedListener
 	 */
 	private OnLocationChangedListener listener;
+	/**
+	 *  Internal List of Geofence objects
+	 */
+    private List<Geofence> currentGeofences;
+    /**
+     *  Persistent storage for geofences
+     */
+    private SimpleGeofenceStore geofenceStorage;
+    /**
+     * The internal represenation of the geofence
+     */
+    private SimpleGeofence goalGeofence;
+    /**
+     * The radius around the location of the goal for the geofence in meters.
+     * Default value: 30m
+     */
+	private float goalRadius = 30;
+	/**
+	 * The ID of the goal.
+	 */
+	private String goalID;
+
 	
 	
 	/**
@@ -220,6 +196,12 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		activity = getActivity();
 
 		checkGooglePlayServices();
+		// Instantiate a new geofence storage area
+        geofenceStorage = new SimpleGeofenceStore(activity);
+
+        // Instantiate the current List of geofences
+        currentGeofences = new ArrayList<Geofence>();
+
 	}
 	/**
 	 * Define a DialogFragment that displays the error dialog
@@ -253,7 +235,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	        // Decide what to do based on the original request code
 	        switch (requestCode) {
-	            case CONNECTION_FAILURE_RESOLUTION_REQUEST :
+	            case LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST :
 	            /*
 	             * If the result code is Activity.RESULT_OK, try
 	             * to connect again
@@ -268,7 +250,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	        }
      }
     /**
-     * check availability of Google Play Services
+     * check availability of Google Play Services.
      * @return state of the Google Play Services
      */
     private boolean checkGooglePlayServices() {
@@ -285,7 +267,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             Log.d(TAG + ".servicesConnected()", "Google Play services is unavailable or outdated: " + resultCode);
             // Get the error dialog from Google Play services
             try {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, activity, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
+                GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
+                		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
             } catch (Exception e) {
                 Log.e("Error: GooglePlayServiceUtil: ", "" + e);
             }
@@ -306,7 +289,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         }
     }
     /**
-	 * configures update parameters for the location client
+	 * configures update parameters for the location client.
 	 */
 	private void configureLocationClient() {
 		// Create the LocationRequest object
@@ -314,9 +297,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         // Use high accuracy
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         // Set the update interval to 5 seconds
-        locationRequest.setInterval(UPDATE_INTERVAL);
+        locationRequest.setInterval(LocationUtils.UPDATE_INTERVAL);
         // Set the fastest update interval to 1 second
-        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setFastestInterval(LocationUtils.FASTEST_INTERVAL);
         
         // Open the shared preferences
         prefs = activity.getSharedPreferences("SharedPreferences",Context.MODE_PRIVATE);
@@ -324,8 +307,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         editor = prefs.edit();
 	}
 	/**
-     * function to load map. If map is not created it will create it for you
-     * */
+     * Function to load map. If map is not created it will create it for you.
+     **/
     private void initilizeMap() {
     	if (map == null) {
     		// Get the fragment via the Activity
@@ -346,13 +329,14 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         }
     }
     /**
+     * Forces a manual update of the location data.
      * @param v the current view
      */
     public void toogleManualLocationRefresh(View v) {
     	updateLocationInfos();
     }
     /**
-     * Updates the location infos after the location has changed
+     * Updates the location info after the location has changed.
      */
     private void updateLocationInfos() {
 	    currentLocation  = locationClient.getLastLocation();
@@ -374,10 +358,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         Log.d(TAG, "Current location: " + currentLatitude + "/" + currentLongitude);  
     }
 	/**
-	 * Alters the current map type of the map
+	 * Alters the current map type of the map.
 	 * @param type mapType The type to alter the map type to
 	 */
-	public void setMapType(mapType type) {
+	public void setMapType(MapType type) {
 		switch (type) {
 		case NORMAL:
 			map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -415,7 +399,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(activity,CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(activity, 
+                		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST);
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
@@ -588,14 +573,51 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		return distance;
 	}
 	/**
-	 * Sets the hidden goal for the player to run to
+	 * Sets the hidden goal for the player to run to. The default radius is used for the geofence.
+	 * @param goalID the ID of the goal
 	 * @param longitude the longitude of the goal
 	 * @param latitude the latitude of the goal
 	 */
-	public void setGoal(Double longitude, Double latitude) {
+	public void setGoal(String goalID, Double longitude, Double latitude) {
 		Location loc = new Location(Context.LOCATION_SERVICE);
 		loc.setLatitude(latitude);
 		loc.setLongitude(longitude);
 		goal = loc;
 	}
+	/**
+	 * Sets the hidden goal for the player to run to.
+	 * @param goalID the ID of the goal
+	 * @param longitude the longitude of the goal
+	 * @param latitude the latitude of the goal
+	 * @param radius the radius of the geofence
+	 */
+	public void setGoal(String goalID, Double longitude, Double latitude, Float radius) {
+		Location loc = new Location(Context.LOCATION_SERVICE);
+		loc.setLatitude(latitude);
+		loc.setLongitude(longitude);
+		goal = loc;
+		goalRadius = radius;
+	}
+	/**
+     * Get the geofence parameters for each geofence from the UI
+     * and add them to a List.
+     */
+    public void createGeofence() {
+        /*
+         * Create an internal object to store the data. Set its
+         * ID to goalID. This is a "flattened" object that contains
+         * a set of strings
+         */
+        goalGeofence = new SimpleGeofence(
+                goalID,
+                goal.getLatitude(),
+                goal.getLongitude(),
+                goalRadius ,
+                LocationUtils.GEOFENCE_EXPIRATION_TIME,
+                // This geofence records only entry transitions
+                Geofence.GEOFENCE_TRANSITION_ENTER);
+        // Store this flat version
+        geofenceStorage.setGeofence(goalID, goalGeofence);
+        currentGeofences.add(goalGeofence.toGeofence());
+    }
 }

@@ -29,7 +29,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     	
         this.player = new Player();
         this.player.setName(name);
-        loaded = getQuestByAccessCode(code,this.player) == null;        
+        loaded = getQuestByAccessCode(code,this.player) != null;        
         return loaded;
     }   
     
