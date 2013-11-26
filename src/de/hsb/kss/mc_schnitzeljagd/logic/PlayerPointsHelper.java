@@ -8,7 +8,7 @@ import java.util.List;
 
 //Wird noch nicht verwendet, nur als Platzhalter!
 class PlayerPointsHelper {
-
+                   //TODO: Hints removed from Riddle
     private static PlayerPointsHelper playerPointsHelper = new PlayerPointsHelper();
     private Player player;
     private final int multiplierMandatoryRiddle = 5;
@@ -24,8 +24,8 @@ class PlayerPointsHelper {
     public void addPointsForSolvedRiddle(Riddle riddle) {
         if (player != null) {
             if (riddle.isSolved()) {
-                int calculatedPoints = getPoints(riddle.getMaxPoints(), getNrOfUsedHints(riddle.getHintList()), riddle.isMandatory());
-                player.setCurrentPoints(player.getCurrentPoints() + calculatedPoints);
+//                int calculatedPoints = getPoints(riddle.getMaxPoints(), getNrOfUsedHints(riddle.getHintList()), riddle.isMandatory());
+//                player.setCurrentPoints(player.getCurrentPoints() + calculatedPoints);
             }
         }
     }

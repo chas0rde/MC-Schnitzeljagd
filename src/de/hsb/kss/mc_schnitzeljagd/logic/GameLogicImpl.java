@@ -3,8 +3,18 @@ package de.hsb.kss.mc_schnitzeljagd.logic;
 import de.hsb.kss.mc_schnitzeljagd.persistence.*;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
+    protected Player player;
+    protected Riddle currentMandatoryRiddle = new Riddle();
+    protected Riddle currentAdditionalRiddle;
+    protected int indexOfCurrentPoint = 0;
+    protected Point currentPoint;
+    private List<Hint> freeHintsForPoint = new ArrayList<Hint>();
+    private List<Hint> payHintsForPoint = new ArrayList<Hint>();
 
 
     @Override
@@ -18,44 +28,41 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     }
 
     //TODO: @Melanie nur zum testen drin 
-    public boolean playNewGame(String name)
-    {
-    	return playNewGame(name, quest.getAccessCode());
-    }     
-    
-    public boolean playNewGame(String name, String code)
-    {
-    	boolean loaded = false;
-    	
+    public boolean playNewGame(String name) {
+        return playNewGame(name, quest.getAccessCode());
+    }
+
+    public boolean playNewGame(String name, String code) {
+        boolean loaded = false;
+
         this.player = new Player();
         this.player.setName(name);
-        loaded = getQuestByAccessCode(code,this.player) != null;        
+        loaded = getQuestByAccessCode(code, this.player) == null;
         return loaded;
-    }   
-    
-    public Player getPlayer()
-    {
-    	return this.player;
     }
-    
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
     @Override
     public Point goToNextPoint() {
-        if(currentMandatoryRiddle.isSolved()){
+        if (currentMandatoryRiddle.isSolved()) {
             indexOfCurrentPoint++;
-            if(indexOfCurrentPoint<points.size()){
-                currentPoint=points.get(indexOfCurrentPoint);
+            if (indexOfCurrentPoint < points.size()) {
+                currentPoint = points.get(indexOfCurrentPoint);
             }
-            currentAdditionalRiddle=null;
-            currentMandatoryRiddle=null;
+            currentAdditionalRiddle = null;
+            currentMandatoryRiddle = null;
         }
         return null;
     }
 
     @Override
     public Riddle getMandatoryRiddleForCurrentPoint() {
-        for(Riddle riddle:currentPoint.getRiddles()){
-            if(riddle.isMandatory()){
-                currentMandatoryRiddle =riddle;
+        for (Riddle riddle : currentPoint.getRiddles()) {
+            if (riddle.isMandatory()) {
+                currentMandatoryRiddle = riddle;
                 return currentMandatoryRiddle;
             }
         }
@@ -64,9 +71,9 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public Riddle getNextAdditionalRiddle() {
-        for(Riddle riddle:currentPoint.getRiddles()){
-            if(!riddle.isMandatory()&& !riddle.isSolved()){
-                currentAdditionalRiddle=riddle;
+        for (Riddle riddle : currentPoint.getRiddles()) {
+            if (!riddle.isMandatory() && !riddle.isSolved()) {
+                currentAdditionalRiddle = riddle;
                 return currentAdditionalRiddle;
             }
         }
@@ -74,25 +81,25 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     }
 
     @Override
-    public Hint getNextHintForCurrentMandatoryRiddle() {
-        if(currentMandatoryRiddle!=null){
-           for(Hint hint:currentMandatoryRiddle.getHintList()){
-               if(!hint.isVisible()){
-                   return hint;
-               }
-           }
+    public List<Hint> getFreeHintsForCurrentPoint() {
+        if (currentPoint != null) {
+            for (Hint hint : currentPoint.getHintList()) {
+                if (hint.isFree()) {
+                    freeHintsForPoint.add(hint);
+                }
+            }
+            return freeHintsForPoint;
         }
         return null;
     }
 
     @Override
-    public Hint getNextHintForAdditionalRiddle() {
-        if(currentAdditionalRiddle!=null){
-            for(Hint hint:currentAdditionalRiddle.getHintList()){
-                if(!hint.isVisible()){
-                    return hint;
-                }
+    public List<Hint> getAvailableHintsForCurrentPoint() {
+        if(currentPoint!=null){
+            for(Hint hint: currentPoint.getHintList()){
+                payHintsForPoint.add(hint);
             }
+            return payHintsForPoint;
         }
         return null;
     }
@@ -104,7 +111,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public boolean checkSolutionForMandatoryRiddle(String possibleSolution) {
-        if(possibleSolution.equals(currentMandatoryRiddle.getSolution())){
+        if (possibleSolution.equals(currentMandatoryRiddle.getSolution())) {
             currentMandatoryRiddle.setSolved(true);
             //TODO: calculate Points for Riddle
             goToNextPoint();
@@ -115,7 +122,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public boolean checkSolutionForAdditionalRiddle(String possibleSolution) {
-        if(possibleSolution.equals(currentAdditionalRiddle.getSolution())){
+        if (possibleSolution.equals(currentAdditionalRiddle.getSolution())) {
             //TODO: calculate Points for Riddle
             currentAdditionalRiddle.setSolved(true);
             return true;

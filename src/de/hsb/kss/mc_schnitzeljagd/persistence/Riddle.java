@@ -7,7 +7,6 @@ public class Riddle {
     private int riddleId;
     private boolean mandatory;
     private int maxPoints;
-    private List<Hint> hintList =new ArrayList<Hint>();
     private String solution;
     private boolean isSolved=false;
 
@@ -33,14 +32,6 @@ public class Riddle {
 
     public void setMaxPoints(int maxPoints) {
         this.maxPoints = maxPoints;
-    }
-
-    public List<Hint> getHintList() {
-        return hintList;
-    }
-
-    public void setHintList(List<Hint> hintList) {
-        this.hintList = hintList;
     }
 
     public boolean isSolved() {

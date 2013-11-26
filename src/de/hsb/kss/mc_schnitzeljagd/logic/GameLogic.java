@@ -3,6 +3,8 @@ package de.hsb.kss.mc_schnitzeljagd.logic;
 import de.hsb.kss.mc_schnitzeljagd.persistence.*;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 
+import java.util.List;
+
 public interface GameLogic {
 
 	boolean playNewGame(String name);
@@ -12,8 +14,8 @@ public interface GameLogic {
     Point goToNextPoint();
     Riddle getMandatoryRiddleForCurrentPoint();
     Riddle getNextAdditionalRiddle();
-    Hint getNextHintForCurrentMandatoryRiddle();
-    Hint getNextHintForAdditionalRiddle();
+    List<Hint> getFreeHintsForCurrentPoint();
+    List<Hint> getAvailableHintsForCurrentPoint();
     int getCurrentPointsForPlayer();
     boolean checkSolutionForMandatoryRiddle(String answer);
     boolean checkSolutionForAdditionalRiddle(String answer);

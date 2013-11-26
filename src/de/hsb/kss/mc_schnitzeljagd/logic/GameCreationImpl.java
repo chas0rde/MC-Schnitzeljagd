@@ -3,7 +3,12 @@ package de.hsb.kss.mc_schnitzeljagd.logic;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.Quest;
 
-class GameCreationImpl extends AbstractGameLogic implements GameCreation{
+class GameCreationImpl extends AbstractGameLogic implements GameCreation {
+
+    private Point currentCreatedPoint;
+    private List<Point> pointList = new ArrayList<Point>();
+    private Riddle currentCreatedRiddle;
+    private List<Riddle> riddleList = new ArrayList<Riddle>();
 
     @Override
     public boolean loadQuestByAccessCode(String code) {
@@ -22,8 +27,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
 
     @Override
     public void setQuestInfo(String name, String author) {
-        if(quest != null)
-        {
+        if (quest != null) {
             quest.setName(name);
             quest.setAuthor(author);
         }
@@ -41,24 +45,21 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation{
 
     @Override
     public void addHint(Hint hint) {
-        if(hints != null)
-        {
+        if (hints != null) {
             hints.add(hint);
         }
     }
 
     @Override
     public void deleteHint(int index) {
-        if(hints != null)
-        {
+        if (isIndexInList(index, hints.size())) {
             hints.remove(index);
         }
     }
 
     @Override
     public Hint getHint(int index) {
-        if(hints != null)
-        {
+        if (isIndexInList(index, hints.size())) {
             return hints.get(index);
         }
         return null;
