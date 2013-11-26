@@ -55,7 +55,7 @@
     <string name="title_activity_organizer_create_poi">OrganizerCreatePoiActivity</string>
     <string name="hint_prompt">Text</string>
     <string name="load_game_button">Load Game</string>
-    <string name="errorEnterCode">Enter game code first!</string>
+    <string name="errorEnterCode">Enter game code first and group name!</string>
     <string name="text_hint_hint">Enter your hint here!</string>
 
     <string-array name="hint_arrays">

@@ -17,17 +17,25 @@ import android.widget.TextView;
 public class PlayerHomeActivity extends SchnitzelActivity {
 	
 	private Quest q = null;
+	private EditText code;
+	private TextView desc;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player_home);
+		initUi();
 	}
 
-	public void loadGame(View v){
-		EditText code = (EditText)findViewById(R.id.load_game_code);
-		TextView desc = (TextView)findViewById(R.id.game_description_text);
-		
+	protected void initUi()
+	{
+		 super.initUi();
+		 code = (EditText)findViewById(R.id.load_game_code);
+		 desc = (TextView)findViewById(R.id.game_description_text);
+	}
+	
+	public void loadGame(View v) {
+				
 		if(code != null && desc != null && app != null)
 		{			
 			q = app.getGameLogic().getQuestByAccessCode(code.getText().toString(), new Player());
