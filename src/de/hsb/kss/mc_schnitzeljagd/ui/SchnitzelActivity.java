@@ -12,23 +12,23 @@ public class SchnitzelActivity  extends Activity  {
 	protected McSchnitzelJagdApplication app = null;
 	protected GameLogic gameLogic = null;
 	protected GameCreation gameCreation = null;
-	protected TextView errorLabel ;
+	protected TextView errorLabel = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		errorLabel = (TextView)findViewById(R.id.error_text);
 		app = (McSchnitzelJagdApplication)getApplication();
 		if(app != null)
 		{
 			gameLogic = app.getGameLogic();
 			gameCreation = app.getGameCreation();
-		}
-		initUi();
+		}		
 	}
 	
 	protected void initUi()
-	{
-        errorLabel=(TextView)findViewById(R.id.error_text);
+	{   
+		errorLabel=(TextView)findViewById(R.id.error_text);
 		if(errorLabel != null)
 		{
 			errorLabel.setText("");

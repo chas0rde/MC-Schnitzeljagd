@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Quest {
     private int questId;
-    private String author;
-    private String name;
+    private String author = "";
+    private String name = "";
 	private String accessCode;
     private List<Point> pointList= new ArrayList<Point>();
 

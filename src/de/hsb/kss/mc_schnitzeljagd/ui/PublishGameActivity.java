@@ -14,12 +14,13 @@ public class PublishGameActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_publish_game);	
 		if(app != null)
 		{
 			app.getGameCreation().save();
 		}
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_publish_game);		
+		initUi();
 	}
 	
 	protected void initUi()

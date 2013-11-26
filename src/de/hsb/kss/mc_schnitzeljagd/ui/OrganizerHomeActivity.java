@@ -14,8 +14,9 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_organizer_home);
+		super.onCreate(savedInstanceState);		
+		setContentView(R.layout.activity_organizer_home);		
+		initUi();
 	}
 
 	public void  startStartQuestActivity(View v)
@@ -39,9 +40,9 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 	
 	public void startLoadQuestActivity(View v)
 	{
-		EditText code = (EditText)findViewById(R.id.load_game_code);
+		EditText code = (EditText)findViewById(R.id.load_game_id);
 		
-		if(code != null && errorLabel != null && app != null)
+		if(code != null && app != null)
 		{			
 			if(app.getGameCreation().loadQuestByAccessCode(code.getText().toString()))
 			{
@@ -50,12 +51,18 @@ public class OrganizerHomeActivity extends SchnitzelActivity {
 			}
 			else
 			{
-				errorLabel.setText(R.string.questNotFound);
+				if(errorLabel != null)
+				{
+					errorLabel.setText(R.string.questNotFound);
+				}
 			}
 		}	
 		else
 		{
-			errorLabel.setText(R.string.unkownError);
+			if(errorLabel != null)
+			{
+				errorLabel.setText(R.string.unkownError);
+			}
 		}
 	}
 	

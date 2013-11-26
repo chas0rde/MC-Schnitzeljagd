@@ -35,6 +35,7 @@ class AbstractGameLogic{
                 quest = new Quest();
                 quest.setName("Futurama");
                 quest.setAuthor("Nibbler");
+                quest.setAccessCode("3000");
                 found = true;
             }
             else
