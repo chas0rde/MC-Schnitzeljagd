@@ -1,4 +1,4 @@
-package de.hsb.kss.mc_schnitzeljagd;
+package de.hsb.kss.mc_schnitzeljagd.location;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import de.hsb.kss.mc_schnitzeljagd.LocationFragment.OnLocationChangedListener;
+import de.hsb.kss.mc_schnitzeljagd.R;
+import de.hsb.kss.mc_schnitzeljagd.location.LocationFragment.OnLocationChangedListener;
 
 public class LocationTest extends FragmentActivity implements OnLocationChangedListener {
 	private static final String TAG = LocationTest.class.getSimpleName();
@@ -34,7 +35,7 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
         ft.addToBackStack(null);
         ft.commit();
         
-        locFrag.setGoal(Double.valueOf(8.83749747285), Double.valueOf(53.0663656578));
+        locFrag.setGoal("Test", Double.valueOf(8.83749747285), Double.valueOf(53.0663656578));
 		
 		lat = (TextView) findViewById(R.id.curLat);
 		lng = (TextView) findViewById(R.id.curLng);
