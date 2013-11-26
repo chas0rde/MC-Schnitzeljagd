@@ -1,7 +1,7 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
 import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Tip;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
@@ -21,7 +21,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
 		
 		if(gameCreation != null && hintText != null)
 		{
-			Hint t = new Hint();
+			Tip t = new Tip();
 			
 			t.setDescription(hintText.getText().toString());
 			gameCreation.addHint(t);
