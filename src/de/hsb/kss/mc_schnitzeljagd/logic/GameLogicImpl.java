@@ -6,7 +6,7 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
 import java.util.ArrayList;
 import java.util.List;
 
-class GameLogicImpl extends AbstractGameLogic implements GameLogic{
+class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
     protected Player player;
     protected Riddle currentMandatoryRiddle = new Riddle();
@@ -19,11 +19,10 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public final Quest getQuestByAccessCode(String managementCode, Player player) {
-       // init();
-        if( !loadQuest(managementCode, false) )
-    	{
-        	quest = null;
-    	}
+        // init();
+        if (!loadQuest(managementCode, false)) {
+            quest = null;
+        }
         return quest;
     }
 
@@ -95,8 +94,8 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public List<Hint> getAvailableHintsForCurrentPoint() {
-        if(currentPoint!=null){
-            for(Hint hint: currentPoint.getHintList()){
+        if (currentPoint != null) {
+            for (Hint hint : currentPoint.getHintList()) {
                 payHintsForPoint.add(hint);
             }
             return payHintsForPoint;
@@ -136,23 +135,16 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         //currentPoint=quest.getPointList().get(0);
     }
 
-    //TODO Melanie Review
-	@Override
-	public boolean freeNextHint() {
-		boolean found = false;
-		if(currentPoint != null)
-		{
-			for(Hint h : currentPoint.getHintList())
-			{
-				if(!h.isFree())
-				{
-					h.setFree(true);
-					found = true;
-					break;
-				}
-			}
-		}
-		return freeNextHint();
-	}
+    @Override
+    public boolean freeNextHintForCurrentPoint() {
+        if(freeHintsForPoint==null){
+            getFreeHintsForCurrentPoint();
+        }
+       if(freeHintsForPoint.size()>0){
+           freeHintsForPoint.get(0).setFree(true);
+           return true;
+       }
+        return false;
+    }
 
 }

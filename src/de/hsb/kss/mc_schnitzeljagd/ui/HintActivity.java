@@ -1,27 +1,20 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
-import java.util.List;
-
-import com.google.android.gms.common.data.Freezable;
-
-import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.R.layout;
-import de.hsb.kss.mc_schnitzeljagd.R.menu;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Hint.HintType;
-import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+import de.hsb.kss.mc_schnitzeljagd.R;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint.HintType;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
+
+import java.util.List;
 
 public class HintActivity extends SchnitzelActivity {
 
@@ -73,15 +66,15 @@ public class HintActivity extends SchnitzelActivity {
 				}
 				else if(h.getHintType() == HintType.IMAGE)
 				{
-					// TODO: Später
+					// TODO: Spï¿½ter
 				}
 				else if(h.getHintType() == HintType.SOUND)
 				{
-					// TODO: Später
+					// TODO: Spï¿½ter
 				}
 				else if(h.getHintType() == HintType.VIDEO)
 				{
-					// TODO: Später
+					// TODO: Spï¿½ter
 				}
 			}
 		}
@@ -137,7 +130,7 @@ public class HintActivity extends SchnitzelActivity {
    }
 	
 	public void clickBuyHint(View view) {
-		if( app.getGameLogic().freeNextHint() )
+		if( app.getGameLogic().freeNextHintForCurrentPoint() )
 		{
 			renderHintFlipper();
 		}		
