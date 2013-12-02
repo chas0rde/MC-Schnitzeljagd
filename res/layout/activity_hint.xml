@@ -80,7 +80,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
-          
+                    
           <ImageView
               android:id="@+id/share_pinterest_id"
               android:layout_width="match_parent"
@@ -91,10 +91,15 @@
               android:id="@+id/buy_hint"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:onClick="goToQuestActivity"
+              android:onClick="clickBuyHint"
               android:text="@string/hint_buy_hint_button" />
 
-          
+          <Button
+              android:id="@+id/foundPoint"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:onClick="clickStartRiddle"
+              android:text="@string/hint_gotoRiddle" />          
 
     </LinearLayout>
     

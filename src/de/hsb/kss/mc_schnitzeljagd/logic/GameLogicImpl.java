@@ -136,4 +136,23 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         //currentPoint=quest.getPointList().get(0);
     }
 
+    //TODO Melanie Review
+	@Override
+	public boolean freeNextHint() {
+		boolean found = false;
+		if(currentPoint != null)
+		{
+			for(Hint h : currentPoint.getHintList())
+			{
+				if(!h.isFree())
+				{
+					h.setFree(true);
+					found = true;
+					break;
+				}
+			}
+		}
+		return freeNextHint();
+	}
+
 }

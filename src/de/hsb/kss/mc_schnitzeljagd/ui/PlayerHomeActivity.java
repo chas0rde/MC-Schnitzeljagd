@@ -49,7 +49,8 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		
 		if(groupName != null && code != null && app != null)
 		{			
-			if(app.getGameLogic().playNewGame(groupName.getText().toString(), code.getText().toString()))
+			if(app.getGameLogic().playNewGame(groupName.getText().toString(), code.getText().toString())
+					&& (groupName.getText().toString().isEmpty()))
 			{
 				Intent i = new Intent(this, HintActivity.class);
 				startActivity(i);

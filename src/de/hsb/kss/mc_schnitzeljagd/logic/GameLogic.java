@@ -16,6 +16,7 @@ public interface GameLogic {
     Riddle getNextAdditionalRiddle();
     List<Hint> getFreeHintsForCurrentPoint();
     List<Hint> getAvailableHintsForCurrentPoint();
+    boolean freeNextHint();
     int getCurrentPointsForPlayer();
     boolean checkSolutionForMandatoryRiddle(String answer);
     boolean checkSolutionForAdditionalRiddle(String answer);

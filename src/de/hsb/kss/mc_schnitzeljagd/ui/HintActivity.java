@@ -1,21 +1,34 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
+import java.util.List;
+
+import com.google.android.gms.common.data.Freezable;
+
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Hint.HintType;
+import de.hsb.kss.mc_schnitzeljagd.persistence.Point;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class HintActivity extends SchnitzelActivity {
 
-	ViewFlipper hintFliper = null;
+	ViewFlipper hintFlipper = null;
+	Point currentPoint = null;
+	List<Hint> listOfHints = null;
+	List<Hint> listOfFreeHints = null;
 	private float lastX;
 	
 	@Override
@@ -28,17 +41,52 @@ public class HintActivity extends SchnitzelActivity {
 		
 	protected void initUi() {
 		super.initUi();
-		hintFliper = (ViewFlipper) findViewById(R.id.hint_view_flipper_id);
+		hintFlipper = (ViewFlipper) findViewById(R.id.hint_view_flipper_id);
 		if(app != null)
 		{
 			TextView gameInfo = (TextView)findViewById(R.id.current_game_info);
 			if(gameInfo != null)
 			{
-				gameInfo.setText(app.getGameLogic().getPlayer().getName());
+				gameInfo.setText(app.getGameLogic().getPlayer().getName());				
 			}
+			currentPoint = app.getGameLogic().goToNextPoint();
+			listOfHints = app.getGameLogic().getFreeHintsForCurrentPoint();
+			listOfFreeHints = app.getGameLogic().getFreeHintsForCurrentPoint();
+			
+			renderHintFlipper();
 		}			
 	}
 
+	private void renderHintFlipper()
+	{
+		if(hintFlipper != null)
+		{
+			hintFlipper.removeAllViews();
+			for(Hint h : listOfFreeHints)
+			{
+				if(h.getHintType() == HintType.TEXT)
+				{
+					TextView tv = new TextView(hintFlipper.getContext());
+					tv.setText(h.getDescription());
+					tv.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+					hintFlipper.addView(tv);
+				}
+				else if(h.getHintType() == HintType.IMAGE)
+				{
+					// TODO: Später
+				}
+				else if(h.getHintType() == HintType.SOUND)
+				{
+					// TODO: Später
+				}
+				else if(h.getHintType() == HintType.VIDEO)
+				{
+					// TODO: Später
+				}
+			}
+		}
+	}
+	
    public boolean onTouchEvent(MotionEvent touchevent)
    {
 	   switch (touchevent.getAction())
@@ -62,10 +110,10 @@ public class HintActivity extends SchnitzelActivity {
                       
                        // set the required Animation type to ViewFlipper
                        // The Next screen will come in form Left and current Screen will go OUT from Right
-                       hintFliper.setInAnimation(this, R.anim.in_from_left);
-                       hintFliper.setOutAnimation(this, R.anim.out_to_left);
+                       hintFlipper.setInAnimation(this, R.anim.in_from_left);
+                       hintFlipper.setOutAnimation(this, R.anim.out_to_left);
                        // Show the next Screen
-                       hintFliper.showNext();
+                       hintFlipper.showNext();
                    }
                   
                    // if right to left swipe on screen
@@ -73,14 +121,14 @@ public class HintActivity extends SchnitzelActivity {
                    {                       
                        // set the required Animation type to ViewFlipper
                        // The Next screen will come in form Right and current Screen will go OUT from Left
-                       hintFliper.setInAnimation(this, R.anim.in_from_right);
-                       hintFliper.setOutAnimation(this, R.anim.out_to_right);
+                       hintFlipper.setInAnimation(this, R.anim.in_from_right);
+                       hintFlipper.setOutAnimation(this, R.anim.out_to_right);
                        // Show The Previous Screen
-                       if (hintFliper.getDisplayedChild() == 1)
+                       if (hintFlipper.getDisplayedChild() == 1)
                        {
                     	   
                        }                       
-                       hintFliper.showPrevious();
+                       hintFlipper.showPrevious();
                    }
                    break;
                }
@@ -88,9 +136,15 @@ public class HintActivity extends SchnitzelActivity {
        return false;
    }
 	
-	public void goToQuestActivity(View view) {
-		Intent goToQuest = new Intent(this, QuestActivity.class);
-		startActivity(goToQuest);
+	public void clickBuyHint(View view) {
+		if( app.getGameLogic().freeNextHint() )
+		{
+			renderHintFlipper();
+		}		
+		else
+		{
+			Toast.makeText(this.getBaseContext(), R.string.no_more_hints, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override
