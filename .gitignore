@@ -29,3 +29,7 @@ gen/*
 /out/
 *.iml
 project.properties
+MC-Schnitzeljagd-Android/.classpath
+MC-Schnitzeljagd-Android/.project
+google-play-services_lib/.classpath
+google-play-services_lib/.project
