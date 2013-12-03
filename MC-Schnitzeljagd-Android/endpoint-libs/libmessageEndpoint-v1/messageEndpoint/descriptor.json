@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/messageEndpoint/v1/20131202222842/java/1.16.0-rc/hsb.de-messageEndpoint-v1-20131202222842-java-1.16.0-rc-sources.jar", 
-      "path": "hsb.de-messageEndpoint-v1-20131202222842-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/messageEndpoint/v1/20131203175258/java/1.16.0-rc/hsb.de-messageEndpoint-v1-20131203175258-java-1.16.0-rc-sources.jar", 
+      "path": "hsb.de-messageEndpoint-v1-20131203175258-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-12-02 22:28"
+      "timestamp": "2013-12-03 17:52"
     }, 
     {
-      "path": "hsb.de-messageEndpoint-v1-20131202222842-java-1.16.0-rc.jar.properties", 
+      "path": "hsb.de-messageEndpoint-v1-20131203175258-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "kss.mc_schnitzeljagd", 
   "language_version": "1.16.0-rc", 
   "id": "messageEndpoint:v1", 
-  "revision": 20131202222842
+  "revision": 20131203175258
 }

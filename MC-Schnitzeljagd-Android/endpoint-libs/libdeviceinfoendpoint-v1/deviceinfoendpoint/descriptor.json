@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20131202222851/java/1.16.0-rc/hsb.de-deviceinfoendpoint-v1-20131202222851-java-1.16.0-rc-sources.jar", 
-      "path": "hsb.de-deviceinfoendpoint-v1-20131202222851-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20131203175250/java/1.16.0-rc/hsb.de-deviceinfoendpoint-v1-20131203175250-java-1.16.0-rc-sources.jar", 
+      "path": "hsb.de-deviceinfoendpoint-v1-20131203175250-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-12-02 22:28"
+      "timestamp": "2013-12-03 17:52"
     }, 
     {
-      "path": "hsb.de-deviceinfoendpoint-v1-20131202222851-java-1.16.0-rc.jar.properties", 
+      "path": "hsb.de-deviceinfoendpoint-v1-20131203175250-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "kss.mc_schnitzeljagd", 
   "language_version": "1.16.0-rc", 
   "id": "deviceinfoendpoint:v1", 
-  "revision": 20131202222851
+  "revision": 20131203175250
 }

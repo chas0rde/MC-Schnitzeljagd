@@ -112,7 +112,7 @@
             android:label="@string/title_activity_publish_game" >
         </activity>
 
-        <!-- Goolge Maps API Key -->
+        <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
