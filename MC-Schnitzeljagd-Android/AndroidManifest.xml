@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.hsb.kss.mc_schnitzeljagd"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="18" />
+
+    <!-- Required to show current location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Required OpenGL ES 2.0. for Maps V2 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- Required to access the Internet and check the network state -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Required by Google Maps API v2 and Google Play Services (Location) -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
+    <permission
+        android:name="googlemapsv2.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
+
+    <permission
+        android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <application
+        android:name="de.hsb.kss.mc_schnitzeljagd.McSchnitzelJagdApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <service
+            android:name="com.example.android.location.ReceiveTransitionsIntentService"
+            android:exported="false"
+            android:label="@string/app_name" >
+        </service>
+
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.location.LocationTest" >
+        </activity>
+        <activity android:name="de.hsb.kss.mc_schnitzeljagd.location.LocationFragmentActivity" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerHomeActivity"
+            android:label="@string/title_activity_organizer_home" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.LoadGameActivity"
+            android:label="@string/title_activity_load_game" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.SetupGameActivity"
+            android:label="@string/title_activity_setup_game" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerHomeActivity"
+            android:label="@string/title_activity_player_home" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.QuestActivity"
+            android:label="@string/title_activity_quest" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.location.RiddleActivity"
+            android:label="@string/title_activity_riddle" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerRiddleActivity"
+            android:label="@string/title_activity_player_riddle" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.HintActivity"
+            android:label="@string/title_activity_hint" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.RiddleListActivity"
+            android:label="@string/title_activity_riddle_list" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.OrganizerCreatePoiActivity"
+            android:label="@string/title_activity_organizer_create_poi" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PublishGameActivity"
+            android:label="@string/title_activity_publish_game" >
+        </activity>
+
+        <!-- Goolge Maps API Key -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBvqR641SwZGSdNFgrDzSY6T8QpC4nBPVU" />
+
+        <!-- Google Play Services Version -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextHintActivity"
+            android:label="@string/title_activity_player_text_hint" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.ListHintsActivity"
+            android:label="@string/title_activity_list_hints" >
+        </activity>
+
+        <service android:name="de.hsb.kss.mc_schnitzeljagd.GCMIntentService" />
+
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="de.hsb.kss.mc_schnitzeljagd" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="de.hsb.kss.mc_schnitzeljagd" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.RegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.persistence.QuestDAOTestActivity"
+            android:label="@string/title_activity_quest_daotest" >
+        </activity>
+    </application>
+
+</manifest>

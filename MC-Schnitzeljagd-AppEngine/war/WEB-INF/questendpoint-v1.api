@@ -1,0 +1,312 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://mc-schnitzeljagd-2013.appspot.com/_ah/api",
+  "name" : "questendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://mc-schnitzeljagd-2013.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "hsb.de",
+  "ownerName" : "hsb.de",
+  "packagePath" : "kss.mc_schnitzeljagd.persistence",
+  "methods" : {
+    "questendpoint.removeQuest" : {
+      "path" : "quest/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.removeQuest",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "questendpoint.listQuest" : {
+      "path" : "quest",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.listQuest",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "questendpoint.updateQuest" : {
+      "path" : "quest",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.updateQuest",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "questendpoint.getQuest" : {
+      "path" : "quest/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.getQuest",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "questendpoint.insertQuest" : {
+      "path" : "quest",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.insertQuest",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "CollectionResponse_Quest" : {
+        "id" : "CollectionResponse_Quest",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Quest"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Quest" : {
+        "id" : "Quest",
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
+          "questId" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "accessCode" : {
+            "type" : "string"
+          },
+          "pointList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Point"
+            }
+          }
+        }
+      },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "complete" : {
+            "type" : "boolean"
+          },
+          "namespace" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Point" : {
+        "id" : "Point",
+        "type" : "object",
+        "properties" : {
+          "pointId" : {
+            "type" : "integer"
+          },
+          "longitude" : {
+            "type" : "number"
+          },
+          "latitude" : {
+            "type" : "number"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "riddles" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Riddle"
+            }
+          },
+          "hintList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Hint"
+            }
+          },
+          "key" : {
+            "$ref" : "Key"
+          }
+        }
+      },
+      "Riddle" : {
+        "id" : "Riddle",
+        "type" : "object",
+        "properties" : {
+          "riddleId" : {
+            "type" : "integer"
+          },
+          "mandatory" : {
+            "type" : "boolean"
+          },
+          "maxPoints" : {
+            "type" : "integer"
+          },
+          "solution" : {
+            "type" : "string"
+          },
+          "key" : {
+            "$ref" : "Key"
+          },
+          "solved" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Hint" : {
+        "id" : "Hint",
+        "type" : "object",
+        "properties" : {
+          "hintId" : {
+            "type" : "integer"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "key" : {
+            "$ref" : "Key"
+          },
+          "free" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.removeQuest" : {
+      },
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.listQuest" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Quest"
+        }
+      },
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.updateQuest" : {
+        "request" : {
+          "$ref" : "Quest"
+        },
+        "response" : {
+          "$ref" : "Quest"
+        }
+      },
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.getQuest" : {
+        "response" : {
+          "$ref" : "Quest"
+        }
+      },
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.insertQuest" : {
+        "request" : {
+          "$ref" : "Quest"
+        },
+        "response" : {
+          "$ref" : "Quest"
+        }
+      }
+    }
+  }
+}

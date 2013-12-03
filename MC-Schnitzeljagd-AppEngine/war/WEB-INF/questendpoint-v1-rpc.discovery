@@ -1,0 +1,322 @@
+{
+ "kind": "discovery#rpcDescription",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/aKvibaJObGG2L_dx8up0TkTkZdc\"",
+ "discoveryVersion": "v1",
+ "id": "questendpoint:v1",
+ "name": "questendpoint",
+ "version": "v1",
+ "description": "This is an API",
+ "ownerDomain": "hsb.de",
+ "ownerName": "hsb.de",
+ "packagePath": "kss.mc_schnitzeljagd.persistence",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rpc",
+ "rootUrl": "https://mc-schnitzeljagd-2013.appspot.com/_ah/api/",
+ "rpcUrl": "https://mc-schnitzeljagd-2013.appspot.com/_ah/api/rpc",
+ "rpcPath": "/_ah/api/rpc",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "CollectionResponse_Quest": {
+   "id": "CollectionResponse_Quest",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Quest"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "Hint": {
+   "id": "Hint",
+   "type": "object",
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "free": {
+     "type": "boolean"
+    },
+    "hintId": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "key": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
+    }
+   }
+  },
+  "Point": {
+   "id": "Point",
+   "type": "object",
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "hintList": {
+     "type": "array",
+     "items": {
+      "$ref": "Hint"
+     }
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "name": {
+     "type": "string"
+    },
+    "pointId": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "riddles": {
+     "type": "array",
+     "items": {
+      "$ref": "Riddle"
+     }
+    }
+   }
+  },
+  "Quest": {
+   "id": "Quest",
+   "type": "object",
+   "properties": {
+    "accessCode": {
+     "type": "string"
+    },
+    "author": {
+     "type": "string"
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "name": {
+     "type": "string"
+    },
+    "pointList": {
+     "type": "array",
+     "items": {
+      "$ref": "Point"
+     }
+    },
+    "questId": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "Riddle": {
+   "id": "Riddle",
+   "type": "object",
+   "properties": {
+    "key": {
+     "$ref": "Key"
+    },
+    "mandatory": {
+     "type": "boolean"
+    },
+    "maxPoints": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "riddleId": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "solution": {
+     "type": "string"
+    },
+    "solved": {
+     "type": "boolean"
+    }
+   }
+  }
+ },
+ "methods": {
+  "questendpoint.getQuest": {
+   "id": "questendpoint.getQuest",
+   "allowGet": true,
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "returns": {
+    "$ref": "Quest"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "questendpoint.insertQuest": {
+   "id": "questendpoint.insertQuest",
+   "parameters": {
+    "resource": {
+     "$ref": "Quest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Quest"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "questendpoint.listQuest": {
+   "id": "questendpoint.listQuest",
+   "allowGet": true,
+   "parameters": {
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32"
+    }
+   },
+   "returns": {
+    "$ref": "CollectionResponse_Quest"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "questendpoint.removeQuest": {
+   "id": "questendpoint.removeQuest",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "questendpoint.updateQuest": {
+   "id": "questendpoint.updateQuest",
+   "parameters": {
+    "resource": {
+     "$ref": "Quest"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Quest"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}
