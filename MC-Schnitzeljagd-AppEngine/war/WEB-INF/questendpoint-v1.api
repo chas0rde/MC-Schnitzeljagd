@@ -48,6 +48,22 @@
         "body" : "empty"
       }
     },
+    "questendpoint.updateQuest" : {
+      "path" : "quest",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.updateQuest",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "questendpoint.listQuest" : {
       "path" : "quest",
       "httpMethod" : "GET",
@@ -68,22 +84,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "questendpoint.updateQuest" : {
-      "path" : "quest",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.updateQuest",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -129,21 +129,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Quest" : {
-        "id" : "CollectionResponse_Quest",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Quest"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Quest" : {
         "id" : "Quest",
         "type" : "object",
@@ -276,15 +261,25 @@
             "type" : "boolean"
           }
         }
+      },
+      "CollectionResponse_Quest" : {
+        "id" : "CollectionResponse_Quest",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Quest"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
       "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.removeQuest" : {
-      },
-      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.listQuest" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Quest"
-        }
       },
       "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.updateQuest" : {
         "request" : {
@@ -292,6 +287,11 @@
         },
         "response" : {
           "$ref" : "Quest"
+        }
+      },
+      "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.listQuest" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Quest"
         }
       },
       "de.hsb.kss.mc_schnitzeljagd.persistence.QuestEndpoint.getQuest" : {
