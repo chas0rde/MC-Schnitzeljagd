@@ -76,6 +76,9 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
     @Override
     public List<Hint> getCurrentHintList() {
+        if (hints == null && currentCreatedPoint != null) {
+            hints = currentCreatedPoint.getHintList();
+        }
         return hints;
     }
 
@@ -83,6 +86,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
     public void addRiddle(Riddle riddle) {
         if (riddle != null) {
             riddleList.add(riddle);
+            currentCreatedRiddle=riddle;
         }
     }
 
@@ -108,23 +112,24 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
     @Override
     public void addPoint(Point point) {
-        if(point!=null){
+        if (point != null) {
             pointList.add(point);
+            currentCreatedPoint=point;
         }
     }
 
     @Override
     public void deletePoint(int index) {
-        if(isIndexInList(index,pointList.size())){
+        if (isIndexInList(index, pointList.size())) {
             pointList.remove(index);
         }
     }
 
     @Override
     public Point getPoint(int index) {
-       if(isIndexInList(index,pointList.size())){
-           return pointList.get(index);
-       }
+        if (isIndexInList(index, pointList.size())) {
+            return pointList.get(index);
+        }
         return null;
     }
 
