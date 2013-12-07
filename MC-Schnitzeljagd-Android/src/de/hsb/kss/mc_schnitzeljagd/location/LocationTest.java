@@ -100,6 +100,30 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
 		locFrag.toggleGeofence(v);	
 	}
 	/**
+	 * Example on how to change the map type.
+	 * @param v the current view
+	 */
+	public void changeMapType(View v) {
+		MapType type = locFrag.getMapType();
+		switch (type) {
+		case NORMAL:
+			locFrag.setMapType(MapType.HYBRID);
+			break;		
+		case HYBRID:
+			locFrag.setMapType(MapType.SATELLITE);
+			break;		
+		case SATELLITE:
+			locFrag.setMapType(MapType.TERRAIN);
+			break;
+		case TERRAIN:
+			locFrag.setMapType(MapType.NONE);
+			break;
+		case NONE:
+			locFrag.setMapType(MapType.NORMAL);
+			break;
+		}
+	}
+	/**
 	 * Example on how to update location information once the user's location has altered.
 	 */
 	public void onLocationChanged()  {
@@ -112,8 +136,8 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
  	    conState.setText(Boolean.toString(locFrag.isConnected()));		// Status of the location client
  	    refreshCount.setText(Integer.toString(count));					// The number of refreshs
  	    distance.setText(Float.toString(locFrag.getDistance()));		// Approx. distance to goal
- 	    lat.setText(Double.toString(locFrag.getGoalLatitude()));		// Goal latitude
- 	    lng.setText(Double.toString(locFrag.getGoalLongitude())); 	// Goal longitude
+ 	    latGoal.setText(Double.toString(locFrag.getGoalLatitude()));	// Goal latitude
+ 	    lngGoal.setText(Double.toString(locFrag.getGoalLongitude())); 	// Goal longitude
 	}
 	
 	@Override

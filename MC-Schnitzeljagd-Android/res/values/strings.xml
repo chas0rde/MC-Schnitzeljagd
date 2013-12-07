@@ -106,5 +106,6 @@
     <string name="connection_error_unknown">An unknown error occurred</string>
     <string name="daotest">DAO Test</string>
     <string name="title_activity_quest_daotest">QuestDAOTestActivity</string>
+    <string name="changeMapType">Next Maptype</string>
 
 </resources>

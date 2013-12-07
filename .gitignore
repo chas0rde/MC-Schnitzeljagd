@@ -33,3 +33,5 @@ MC-Schnitzeljagd-Android/.classpath
 MC-Schnitzeljagd-Android/.project
 google-play-services_lib/.classpath
 google-play-services_lib/.project
+LocationProvider/bin/
+LocationProvider/gen/

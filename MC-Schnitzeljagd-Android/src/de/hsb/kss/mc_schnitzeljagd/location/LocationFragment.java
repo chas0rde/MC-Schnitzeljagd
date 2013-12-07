@@ -658,12 +658,33 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		return goal.getLatitude();
 	}
 	/**
+	 * @return the current MapType of the map.
+	 */
+	public MapType getMapType() {
+		int type = map.getMapType();
+		switch (type) {
+		case GoogleMap.MAP_TYPE_HYBRID:
+			return MapType.HYBRID;
+		case GoogleMap.MAP_TYPE_NONE:
+			return MapType.NONE;
+		case GoogleMap.MAP_TYPE_NORMAL:
+			return MapType.NORMAL;
+		case GoogleMap.MAP_TYPE_SATELLITE:
+			return MapType.SATELLITE;
+		case GoogleMap.MAP_TYPE_TERRAIN:
+			return MapType.TERRAIN;
+		default:
+			return MapType.NORMAL;
+		}
+	}
+	/**
 	 * Sets the hidden goal for the player to run to. The default radius is used for the geofence.
-	 * @param goalID the ID of the goal
+	 * @param id the ID of the goal
 	 * @param longitude the longitude of the goal
 	 * @param latitude the latitude of the goal
 	 */
-	public void setGoal(String goalID, Double longitude, Double latitude) {
+	public void setGoal(String id, Double longitude, Double latitude) {
+		goalID = id;
 		Location loc = new Location(Context.LOCATION_SERVICE);
 		loc.setLatitude(latitude);
 		loc.setLongitude(longitude);
@@ -681,7 +702,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	 * @param latitude the latitude of the goal
 	 * @param radius the radius of the geofence
 	 */
-	public void setGoal(String goalID, Double longitude, Double latitude, Float radius) {
+	public void setGoal(String id, Double longitude, Double latitude, Float radius) {
+		goalID = id;
 		Location loc = new Location(Context.LOCATION_SERVICE);
 		loc.setLatitude(latitude);
 		loc.setLongitude(longitude);
@@ -774,6 +796,6 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         return PendingIntent.getService(activity.getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 	public void toggleGeofence(View v) {
-		// TODO Auto-generated method stub
+		createGeofence();
 	}
 }

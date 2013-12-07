@@ -157,7 +157,7 @@
     
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/refresh"
@@ -183,6 +183,19 @@
 			android:textOn="@string/locationGeofenceOn"
             android:onClick="toggleGeofence"
             android:text="@string/toggleGeofence" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/nextMapType"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:onClick="changeMapType"
+            android:text="@string/changeMapType" />
         
     </LinearLayout>
 </LinearLayout>
