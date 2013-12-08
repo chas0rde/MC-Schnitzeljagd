@@ -1,13 +1,6 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-import javax.inject.Named;
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.Query;
+import de.hsb.kss.mc_schnitzeljagd.EMF;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -16,7 +9,14 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
-import de.hsb.kss.mc_schnitzeljagd.EMF;
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.inject.Named;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 @Api(name = "questendpoint", namespace = @ApiNamespace(ownerDomain = "hsb.de", ownerName = "hsb.de", packagePath = "kss.mc_schnitzeljagd.persistence"))
 public class QuestEndpoint {
@@ -58,13 +58,8 @@ public class QuestEndpoint {
 
 			// Tight loop for fetching all entities from datastore and accomodate
 			// for lazy fetch.
-			for (Quest obj : execute){
-				List<Point> points = obj.getPointList();
-				for (Point point : points){
-					point.getHintList();
-					point.getRiddles();
-				}
-			}
+			for (Quest obj : execute)
+				;
 		} finally {
 			mgr.close();
 		}
@@ -153,7 +148,7 @@ public class QuestEndpoint {
 	}
 
 	private boolean containsQuest(Quest quest) {
-		if(quest.getKey() == null) return false;
+		if(quest.getKey() == null) return false; // [added] important!! - otherwise new quests can not be saved.
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
