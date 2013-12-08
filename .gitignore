@@ -31,7 +31,10 @@ gen/*
 project.properties
 MC-Schnitzeljagd-Android/.classpath
 MC-Schnitzeljagd-Android/.project
+MC-Schnitzeljagd-Android/endpoint-libs/
+
 google-play-services_lib/.classpath
 google-play-services_lib/.project
+
 LocationProvider/bin/
 LocationProvider/gen/
