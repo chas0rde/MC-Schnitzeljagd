@@ -1,5 +1,12 @@
 package de.hsb.kss.mc_schnitzeljagd.location;
 
+import android.support.v4.app.FragmentActivity;
+import android.app.Dialog;
+import android.util.Log;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 /**
  * This class defines constants used by location sample apps.
  */
@@ -146,4 +153,44 @@ public final class LocationUtils {
      */
     public static final CharSequence GEOFENCE_ID_DELIMITER = ",";
 
+    /**
+     * Check availability of Google Play Services.
+     * @return state of the Google Play Services
+     */
+    public static boolean servicesConnected(FragmentActivity activity) {
+        // Check that Google Play services is available
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity.getBaseContext());
+        // If Google Play services is available
+        if (ConnectionResult.SUCCESS == resultCode) {
+            // In debug mode, log the status
+            Log.d(TAG + ".servicesConnected()", "Google Play services is available.");
+            // Continue
+            return true;
+        // Google Play services was not available for some reason
+        } else {
+            Log.d(TAG + ".servicesConnected()", "Google Play services is unavailable or outdated: " + resultCode);
+            // Get the error dialog from Google Play services
+            try {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
+                		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
+            } catch (Exception e) {
+                Log.e("Error: GooglePlayServiceUtil: ", "" + e);
+            }
+           
+            Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
+            		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+            // If Google Play services can provide an error dialog
+            if (errorDialog != null) {
+                // Create a new DialogFragment for the error dialog
+                ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+                // Set the dialog in the DialogFragment
+                errorFragment.setDialog(errorDialog);
+                // Show the error dialog in the DialogFragment
+                errorFragment.show(activity.getSupportFragmentManager(), "Location Updates");
+            }
+            
+            return false;
+        }
+    }
 }

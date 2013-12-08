@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.location.LocationFragment.OnLocationChangedListener;
 
 /**
  * This class is a test-bed and guide on how to use the LocationFragment.
@@ -91,13 +90,6 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
 	 */
 	public void toggleUpdates(View v) {
 		locFrag.toggleUpdates(v);	
-	}
-	/**
-	 * Example on how to toggle geofence.
-	 * @param v the current view
-	 */
-	public void toggleGeofence(View v) {
-		locFrag.toggleGeofence(v);	
 	}
 	/**
 	 * Example on how to change the map type.

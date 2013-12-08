@@ -34,34 +34,28 @@ public final class LocationUtils {
     public static final long MILLISECONDS_PER_SECOND = 1000;
 
     // Conversion factor for time values
-    public static final long NANOSECONDS_PER_SECOND =
-                    NANOSECONDS_PER_MILLISECOND * MILLISECONDS_PER_SECOND;
+    public static final long NANOSECONDS_PER_SECOND = NANOSECONDS_PER_MILLISECOND * MILLISECONDS_PER_SECOND;
 
     /*
      * Action values sent by Intent from the main activity to the service
      */
     // Request a one-time test
-    public static final String ACTION_START_ONCE =
-            "com.example.android.mocklocation.ACTION_START_ONCE";
+    public static final String ACTION_START_ONCE = "com.example.android.mocklocation.ACTION_START_ONCE";
 
     // Request continuous testing
-    public static final String ACTION_START_CONTINUOUS =
-                    "com.example.android.mocklocation.ACTION_START_CONTINUOUS";
+    public static final String ACTION_START_CONTINUOUS = "com.example.android.mocklocation.ACTION_START_CONTINUOUS";
 
     // Stop a continuous test
-    public static final String ACTION_STOP_TEST =
-                    "com.example.android.mocklocation.ACTION_STOP_TEST";
+    public static final String ACTION_STOP_TEST = "com.example.android.mocklocation.ACTION_STOP_TEST";
 
     /*
      * Extended data keys for the broadcast Intent sent from the service to the main activity.
      * Key1 is the base connection message.
      * Key2 is extra data or error codes.
      */
-    public static final String KEY_EXTRA_CODE1 =
-            "com.example.android.mocklocation.KEY_EXTRA_CODE1";
+    public static final String KEY_EXTRA_CODE1 = "com.example.android.mocklocation.KEY_EXTRA_CODE1";
 
-    public static final String KEY_EXTRA_CODE2 =
-            "com.example.android.mocklocation.KEY_EXTRA_CODE2";
+    public static final String KEY_EXTRA_CODE2 = "com.example.android.mocklocation.KEY_EXTRA_CODE2";
 
     /*
      * Codes for communicating status back to the main activity
@@ -147,27 +141,23 @@ public final class LocationUtils {
     };
 
     // Mark the broadcast Intent with an action
-    public static final String ACTION_SERVICE_MESSAGE =
-            "com.example.android.mocklocation.ACTION_SERVICE_MESSAGE";
+    public static final String ACTION_SERVICE_MESSAGE = "com.example.android.mocklocation.ACTION_SERVICE_MESSAGE";
 
     /*
      * Key for extended data in the Activity's outgoing Intent that records the type of test
      * requested.
      */
-    public static final String EXTRA_TEST_ACTION =
-            "com.example.android.mocklocation.EXTRA_TEST_ACTION";
+    public static final String EXTRA_TEST_ACTION = "com.example.android.mocklocation.EXTRA_TEST_ACTION";
 
     /*
      * Key for extended data in the Activity's outgoing Intent that records the requested pause
      * value.
      */
-    public static final String EXTRA_PAUSE_VALUE =
-            "com.example.android.mocklocation.EXTRA_PAUSE_VALUE";
+    public static final String EXTRA_PAUSE_VALUE = "com.example.android.mocklocation.EXTRA_PAUSE_VALUE";
 
     /*
      * Key for extended data in the Activity's outgoing Intent that records the requested interval
      * for mock locations sent to Location Services.
      */
-    public static final String EXTRA_SEND_INTERVAL =
-            "com.example.android.mocklocation.EXTRA_SEND_INTERVAL";
+    public static final String EXTRA_SEND_INTERVAL = "com.example.android.mocklocation.EXTRA_SEND_INTERVAL";
 }

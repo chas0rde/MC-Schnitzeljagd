@@ -175,21 +175,6 @@
             android:onClick="toggleUpdates"
             android:text="@string/toggleUpdates" />
 
-        <ToggleButton
-            android:id="@+id/toggleGeofence"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:textOff="@string/locationGeofenceOff"
-			android:textOn="@string/locationGeofenceOn"
-            android:onClick="toggleGeofence"
-            android:text="@string/toggleGeofence" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
         <Button
             android:id="@+id/nextMapType"
             android:layout_width="wrap_content"
@@ -198,4 +183,5 @@
             android:text="@string/changeMapType" />
         
     </LinearLayout>
+    
 </LinearLayout>
