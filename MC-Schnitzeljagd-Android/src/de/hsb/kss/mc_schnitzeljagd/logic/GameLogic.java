@@ -22,4 +22,5 @@ public interface GameLogic {
     int getCurrentPointsForPlayer();
     boolean checkSolutionForMandatoryRiddle(String answer);
     boolean checkSolutionForAdditionalRiddle(String answer);
+	boolean freeNextHint();
 }

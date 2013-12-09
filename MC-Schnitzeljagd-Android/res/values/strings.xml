@@ -60,7 +60,7 @@
     <string name="load_game_button">Load Game</string>
     <string name="errorEnterCode">Enter game code first and group name!</string>
     <string name="text_hint_hint">Enter your hint here!</string>
-
+	<string name="no_more_hints">No more hints for this point!</string>
     <string-array name="hint_arrays">
         <item>Text</item>
         <item>Image</item>

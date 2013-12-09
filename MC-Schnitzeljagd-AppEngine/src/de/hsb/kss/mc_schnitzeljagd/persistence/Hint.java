@@ -10,6 +10,14 @@ public class Hint {
     private int hintId;
     private String description;
     private boolean isFree =false;
+    private HintType hintType = HintType.TEXT;
+    
+    public enum HintType{
+    	TEXT,
+    	IMAGE,
+    	SOUND,
+    	VIDEO
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +55,12 @@ public class Hint {
     public void setFree(boolean free) {
         isFree = free;
     }
+    
+    public HintType getHintType() {
+ 		return hintType;
+ 	}
+
+ 	public void setHintType(HintType hintType) {
+ 		this.hintType = hintType;
+ 	}
 }

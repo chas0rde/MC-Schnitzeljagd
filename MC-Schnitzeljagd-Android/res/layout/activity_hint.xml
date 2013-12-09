@@ -81,8 +81,8 @@
               android:layout_height="wrap_content"
               android:text="@string/hint_info" />
           
-          <ImageView
-              android:id="@+id/share_pinterest_id"
+          <de.hsb.kss.mc_schnitzeljagd.ui.controls.NavigatorControl
+              android:id="@+id/navigator"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:src="@drawable/ic_launcher" />
