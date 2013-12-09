@@ -38,3 +38,8 @@ google-play-services_lib/.project
 
 LocationProvider/bin/
 LocationProvider/gen/
+MC-Schnitzeljagd-AppEngine/.classpath
+google-play-services_lib/bin/
+google-play-services_lib/gen/
+MC-Schnitzeljagd-AppEngine/war/WEB-INF/*.discovery
+MC-Schnitzeljagd-AppEngine/war/WEB-INF/*.api
