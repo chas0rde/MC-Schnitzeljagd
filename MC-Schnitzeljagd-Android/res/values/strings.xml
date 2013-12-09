@@ -90,7 +90,7 @@
     <string name="requiredFiledNotSet">Required field not set!</string>
     <string name="title_activity_player_text_hint">PlayerTextHintActivity</string>
     <string name="title_activity_list_hints">ListHintsActivity</string>
-    <string name="connection_error_code">Connection failure error code: %1$d</string>
+    <!-- <string name="connection_error_code">Connection failure error code: %1$d</string>
     <string name="connection_error_disabled">Google Play services is disabled</string>
     <string name="connection_error_internal">An internal error occurred</string>
     <string name="connection_error_invalid">The version of Google Play services on this device is not authentic</string>
@@ -103,7 +103,7 @@
     <string name="connection_error_network">A network error occurred</string>
     <string name="connection_error_outdated">Google Play services is out of date</string>
     <string name="connection_error_sign_in_required">The user is not signed in</string>
-    <string name="connection_error_unknown">An unknown error occurred</string>
+    <string name="connection_error_unknown">An unknown error occurred</string>  -->
     <string name="daotest">DAO Test</string>
     <string name="title_activity_quest_daotest">QuestDAOTestActivity</string>
     <string name="changeMapType">Next Maptype</string>
