@@ -17,8 +17,15 @@ class AbstractGameLogic{
     protected List<Point>points=new ArrayList<Point>();
     protected List<Hint> hints = new ArrayList<Hint>();
     private Riddle currentMandatoryRiddle;
+    
 
 
+    /**
+     * Creates or loads an existing quest. For new Quest creates a point.
+     * @param code
+     * @param creationMode
+     * @return success
+     */
     protected boolean loadQuest(String code, boolean creationMode)
     {
         boolean found = false;
@@ -26,6 +33,13 @@ class AbstractGameLogic{
         if( code.isEmpty() && creationMode )
         {
             quest = new Quest();
+            
+            currentPoint = new Point();
+            quest.setPointList(new ArrayList<Point>());
+    		quest.getPointList().add(currentPoint);
+    		
+            currentPoint.setRiddles(new ArrayList<Riddle>());            
+            currentPoint.setHintList(new ArrayList<Hint>());
             found = true;
         }
         else
@@ -38,10 +52,24 @@ class AbstractGameLogic{
                 quest.setName("Futurama");
                 quest.setAuthor("Nibbler");
                 quest.setAccessCode("3000");
-                Riddle r = new Riddle();
-                Point p = new Point();
-                p.getRiddles().add(r);
-                quest.getPointList().add(p);
+                Riddle r = new Riddle();                
+                currentPoint = new Point();
+                quest.setPointList(new ArrayList<Point>());
+        		quest.getPointList().add(currentPoint);
+                
+                currentPoint.setRiddles(new ArrayList<Riddle>());
+                currentPoint.getRiddles().add(r);    
+                
+                currentPoint.setHintList(new ArrayList<Hint>());
+
+                
+                for(int i=1; i<=35; i++){
+                	Hint h = new Hint();
+                	currentPoint.getHintList().add(h);
+                	h.setDescription("Description for hint: " + i);
+                	h.setHintType("TEXT");
+                }
+                
                 currentMandatoryRiddle = r;
                 found = true;
             }
@@ -52,4 +80,6 @@ class AbstractGameLogic{
         }
         return found; // If found else false;
     }
+
+
 }

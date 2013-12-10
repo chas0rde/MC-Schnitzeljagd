@@ -42,7 +42,7 @@ public class SetupGameActivity extends SchnitzelActivity {
 			}
 			if(gameDescriptionTextField != null)
 			{
-				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuest().toString());
+				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuestDescription());
 			}
 			//TODO: Replace by check new game
 			if(app.getGameCreation().getCurrentQuest().getAccessCode() != null)
@@ -71,17 +71,19 @@ public class SetupGameActivity extends SchnitzelActivity {
 				!gameNameTextField.getText().toString().isEmpty() )
 			{
 				Quest q = app.getGameCreation().getCurrentQuest();
-				q.setAuthor(authorTextField.getText().toString());
-				q.setName(gameNameTextField.getText().toString());
-				Intent startQuest = new Intent(this, OrganizerCreatePoiActivity.class);
-				startActivity(startQuest);
+				
+				if(q != null ){
+					q.setAuthor(authorTextField.getText().toString());
+					q.setName(gameNameTextField.getText().toString());
+					Intent startQuest = new Intent(this, OrganizerCreatePoiActivity.class);
+					startActivity(startQuest);
+				} else {
+					setErrorMsg("No Quest available!");
+				}
 			}	
 			else
 			{
-				if(errorLabel != null)
-				{
-					errorLabel.setText(R.string.requiredFiledNotSet);
-				}
+				setErrorMsg(R.string.requiredFiledNotSet);	
 			}
 		}
 	}

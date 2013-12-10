@@ -107,5 +107,6 @@
     <string name="daotest">DAO Test</string>
     <string name="title_activity_quest_daotest">QuestDAOTestActivity</string>
     <string name="changeMapType">Next Maptype</string>
+    <string name="organizer_record_hint">Add Hint</string>
 
 </resources>

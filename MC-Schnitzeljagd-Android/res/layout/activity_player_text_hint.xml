@@ -16,14 +16,12 @@
          android:layout_centerHorizontal="true"
          android:orientation="vertical" >
          
-             <EditText
+         <EditText
              android:id="@+id/hint_text_hint_id"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:ems="10"
-             android:hint="@string/text_hint_hint"  >
-
-             <requestFocus />
+             android:hint="@string/text_hint_hint"><requestFocus />
          </EditText>         
  
 		<Button
@@ -33,7 +31,13 @@
            android:layout_marginBottom="18dp"
            android:onClick="startSaveTextHint"
            android:text="@string/save_hint_button" />
+
+		<TextView
+		    android:id="@+id/error_text"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textColor="#FF0000" />
                
      </LinearLayout>
-    
+       
 </RelativeLayout>
