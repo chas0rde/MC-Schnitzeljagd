@@ -31,8 +31,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/setup_game_author_name_hint" >
-
-            <requestFocus />
         </EditText>
 
         <LinearLayout

@@ -10,11 +10,6 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
 
 class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
-    private Point currentCreatedPoint;
-    private List<Point> pointList = new ArrayList<Point>();
-    private Riddle currentCreatedRiddle;
-    private List<Riddle> riddleList = new ArrayList<Riddle>();
-
     @Override
     public boolean loadQuestByAccessCode(String code) {
         return loadQuest(code, true);
@@ -49,8 +44,11 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
     @Override
     public void addHint(Hint hint) {
-        if (hints != null) {
-            hints.add(hint);
+        if (currentPoint != null) {
+        	if(currentPoint.getHintList() == null){
+        		currentPoint.setHintList(new ArrayList<Hint>());
+        	} 
+            currentPoint.getHintList().add(hint);
         }
     }
 
@@ -68,76 +66,96 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
     @Override
     public Hint getHint(int index) {
-        if (isIndexInList(index, hints.size())) {
-            return hints.get(index);
-        }
+    	
+    	if(currentPoint != null && currentPoint.getHintList() != null){
+            if (isIndexInList(index, currentPoint.getHintList().size())) {
+                return currentPoint.getHintList().get(index);
+            }
+    	}
         return null;
     }
 
     @Override
     public List<Hint> getCurrentHintList() {
-        if (hints == null && currentCreatedPoint != null) {
-            hints = currentCreatedPoint.getHintList();
+        if (hints == null && currentPoint != null) {
+            hints = currentPoint.getHintList();
         }
         return hints;
     }
 
     @Override
     public void addRiddle(Riddle riddle) {
-        if (riddle != null) {
-            riddleList.add(riddle);
-            currentCreatedRiddle=riddle;
+        if (riddle != null ) { 
+        	if(currentPoint.getRiddles() == null){
+        		currentPoint.setRiddles(new ArrayList<Riddle>());
+        	}
+            currentPoint.getRiddles().add(riddle);
         }
     }
 
     @Override
     public void deleteRiddle(int index) {
-        if (isIndexInList(index, riddleList.size())) {
-            riddleList.remove(index);
+        if (isIndexInList(index, currentPoint.getRiddles().size())) {
+            currentPoint.getRiddles().remove(index);
         }
     }
 
     @Override
     public Riddle getRiddle(int index) {
-        if (isIndexInList(index, riddleList.size())) {
-            riddleList.get(index);
+        if (isIndexInList(index, currentPoint.getRiddles().size())) {
+        	currentPoint.getRiddles().get(index);
         }
         return null;
     }
 
     @Override
     public List<Riddle> getCurrentRiddleList() {
-        return riddleList;
+        return currentPoint.getRiddles();
     }
 
     @Override
     public void addPoint(Point point) {
-        if (point != null) {
-            pointList.add(point);
-            currentCreatedPoint=point;
+        if (point != null ) {
+        	
+            quest.getPointList().add(point);
+            
+            currentPoint=point;
+    		currentPoint.setHintList(new ArrayList<Hint>());    		
+    		currentPoint.setRiddles(new ArrayList<Riddle>());
         }
     }
 
     @Override
     public void deletePoint(int index) {
-        if (isIndexInList(index, pointList.size())) {
-            pointList.remove(index);
+        if (isIndexInList(index, quest.getPointList().size())) {
+        	quest.getPointList().remove(index);
         }
     }
 
     @Override
     public Point getPoint(int index) {
-        if (isIndexInList(index, pointList.size())) {
-            return pointList.get(index);
+        if (isIndexInList(index, quest.getPointList().size())) {
+            return quest.getPointList().get(index);
         }
         return null;
     }
 
     @Override
     public int getHintSize() {
-        if (hints != null) {
+        if ((currentPoint != null ) && (currentPoint.getHintList() != null)) {
             return currentPoint.getHintList().size();
         }
         return 0;
+    }
+
+	@Override
+	public Point getCurrentPoint() {
+		// TODO Auto-generated method stub
+		return currentPoint;
+	}
+
+	@Override
+	public String getCurrentQuestDescription() {
+    	return "Author= " + quest.getAuthor() + "\n No. waypoints=" + quest.getPointList().size() + " Gamename: " + quest.getName();    
     }
 }

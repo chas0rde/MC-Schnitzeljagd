@@ -21,7 +21,7 @@
     <string name="player_mode_button">Player</string>
     <string name="welcome_message">Welcome to MC Schnitzeljagd</string>
     <string name="title_activity_organizer_home">OrganizerHomeActivity</string>
-    <string name="organizer_start_game_button">Start Quest</string>
+    <string name="organizer_start_game_button">Start New Quest</string>
     <string name="organizer_load_game_button">Load Quest</string>
     <string name="title_activity_load_game">LoadGameActivity</string>
     <string name="load_game">Load Quest</string>
@@ -107,5 +107,6 @@
     <string name="daotest">DAO Test</string>
     <string name="title_activity_quest_daotest">QuestDAOTestActivity</string>
     <string name="changeMapType">Next Maptype</string>
+    <string name="organizer_record_hint">Add Hint</string>
 
 </resources>

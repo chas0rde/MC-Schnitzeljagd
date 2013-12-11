@@ -42,4 +42,13 @@ public class SchnitzelActivity  extends Activity  {
 			errorLabel.setText(msg);
 		}		
 	}
+	
+	
+	protected void setErrorMsg(int msg)
+	{
+		if(errorLabel != null)
+		{
+			errorLabel.setText(msg);
+		}		
+	}
 }

@@ -14,6 +14,8 @@ public interface GameCreation {
 	Quest getCurrentQuest();
 	void setQuestInfo(String name, String author);
 	boolean save();
+	
+	String getCurrentQuestDescription();
 	void addHint(Hint hint);
 	void deleteHint(int index);
 	Hint getHint(int index);
@@ -26,4 +28,5 @@ public interface GameCreation {
     void deletePoint(int index);
     Point getPoint(int index);
     int getHintSize();
+    Point getCurrentPoint();
 }

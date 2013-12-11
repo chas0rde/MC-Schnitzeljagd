@@ -88,9 +88,5 @@ public class Quest implements Serializable{
 		this.name = name;
 	}
 
-	//TODO: Meleanie sch�n machen mit Strings xml und so
-    public String toString()
-    {
-    	return "Author= " + getAuthor() + "\n No. waypoints= 2";    
-    }
+
 }

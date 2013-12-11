@@ -43,4 +43,5 @@ public class MainActivity extends SchnitzelActivity {
 		Intent i = new Intent(this, de.hsb.kss.mc_schnitzeljagd.persistence.QuestDAOTestActivity.class);
 		startActivity(i);
 	}
+
 }
