@@ -85,6 +85,18 @@ public class QuestEndpoint {
 		}
 		return quest;
 	}
+	
+	@ApiMethod(name = "findQuestByPlayerID")
+	public Quest findQuestByPlayerID(@Named("playerID") String id) {
+		EntityManager mgr = getEntityManager();
+		Quest quest = null;
+		try {
+			quest = mgr.find(Quest.class, id);
+		} finally {
+			mgr.close();
+		}
+		return quest;
+	}
 
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already

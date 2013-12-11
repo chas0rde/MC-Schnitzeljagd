@@ -157,7 +157,7 @@ public class QuestDAOTestActivity extends Activity {
 		      for (Quest quest : quests) {
 		        Map<String, Object> map = new HashMap<String, Object>();
 
-		        map.put("questID", quest.getQuestId());
+		        map.put("questID", quest.getPlayerID());
 		        map.put("questName", quest.getName());
 		        data.add(map);
 		      }

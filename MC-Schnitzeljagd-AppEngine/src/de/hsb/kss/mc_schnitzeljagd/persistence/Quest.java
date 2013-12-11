@@ -23,7 +23,8 @@ public class Quest implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
-    private int questId;
+    private String creatorID;
+    private String playerID;
 	private String name;
     private String author;
     private String accessCode;
@@ -54,16 +55,23 @@ public class Quest implements Serializable{
         this.author = author;
     }
 
+    public String getCreatorID() {
+		return creatorID;
+	}
 
-    public int getQuestId() {
-        return questId;
-    }
+	public void setCreatorID(String creatorID) {
+		this.creatorID = creatorID;
+	}
 
-    public void setQuestId(int questId) {
-        this.questId = questId;
-    }
+	public String getPlayerID() {
+		return playerID;
+	}
 
-    public List<Point> getPointList() {
+	public void setPlayerID(String playerID) {
+		this.playerID = playerID;
+	}
+
+	public List<Point> getPointList() {
         return pointList;
     }
 
