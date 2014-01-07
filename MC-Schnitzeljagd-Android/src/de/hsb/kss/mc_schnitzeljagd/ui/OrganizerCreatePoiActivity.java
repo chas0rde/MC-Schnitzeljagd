@@ -53,8 +53,8 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 	
 	
     
-	public void publishQuest(View view)
-	{
+	public void publishQuest(View view) {
+		
 		Intent publishQuest = new Intent(this, PublishGameActivity.class);
 		startActivity(publishQuest);
 	}

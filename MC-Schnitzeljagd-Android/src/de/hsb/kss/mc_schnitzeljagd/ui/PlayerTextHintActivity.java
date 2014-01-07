@@ -54,6 +54,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
 				// if save new values for hint 
 				currentHint.setDescription(hintText.getText().toString());
 				currentHint.setHintType("TEXT");
+				currentHint.setFree(true);
 
 				Intent intent = new Intent(this, OrganizerCreatePoiActivity.class);
 				startActivity(intent);

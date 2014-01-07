@@ -23,4 +23,7 @@ public interface GameLogic {
     boolean checkSolutionForMandatoryRiddle(String answer);
     boolean checkSolutionForAdditionalRiddle(String answer);
 	boolean freeNextHint();
+	String getCurrentQuestDescription();
+	String getCurrentGameInfo();
+
 }

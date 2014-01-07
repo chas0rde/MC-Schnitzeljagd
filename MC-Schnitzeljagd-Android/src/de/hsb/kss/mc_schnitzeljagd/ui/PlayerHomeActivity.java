@@ -35,7 +35,11 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 		if(code != null && desc != null && app != null)
 		{			
 			q = app.getGameLogic().getQuestByAccessCode(code.getText().toString(), new Player());
-			desc.setText(q.toString());
+			if(q != null){
+				desc.setText(app.getGameLogic().getCurrentQuestDescription());
+			} else {
+				setErrorMsg("Quest not found!");
+			}
 		}
 	}
 	
@@ -53,18 +57,12 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 			}
 			else
 			{
-				if(errorLabel != null)
-				{
-					errorLabel.setText(R.string.errorEnterCode);
-				}
+				setErrorMsg(R.string.errorEnterCode);				
 			}
 		}					
 		else
 		{
-			if(errorLabel != null)
-			{
-				errorLabel.setText(R.string.unkownError);	
-			}
+			setErrorMsg(R.string.unkownError);	
 		}
 	}
 	

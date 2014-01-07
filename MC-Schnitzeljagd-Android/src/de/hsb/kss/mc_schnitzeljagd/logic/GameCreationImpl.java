@@ -162,8 +162,9 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 		return currentPoint;
 	}
 
-	@Override
 	public String getCurrentQuestDescription() {
-    	return "Author= " + quest.getAuthor() + "\n No. waypoints=" + quest.getPointList().size() + " Gamename: " + quest.getName();    
-    }
+		// TODO Auto-generated method stub
+		return buildCurrentQuestDescription();
+	}
+
 }
