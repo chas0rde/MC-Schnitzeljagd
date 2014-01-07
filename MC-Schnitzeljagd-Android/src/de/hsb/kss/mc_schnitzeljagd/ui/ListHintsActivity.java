@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListHintsActivity extends SchnitzelActivity {
-	
+	private HintMode hintmode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class ListHintsActivity extends SchnitzelActivity {
 	@Override
 	protected void initUi()
 	{
-		HintMode hintmode = HintMode.HINT;
+		hintmode = HintMode.HINT;
 		super.initUi();
 		if(this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("hintmode")) {
 			 hintmode = HintMode.valueOf(this.getIntent().getExtras().getString("hintmode"));
@@ -50,8 +50,9 @@ public class ListHintsActivity extends SchnitzelActivity {
 				pointHints.add(hint.getHintType() + ": " +hint.getDescription());
 			}
 		} else if(hintmode == HintMode.RIDDLE){
-			for (Riddle riddle : gameCreation.getCurrentPoint().getRiddles()){
-				pointHints.add(riddle.getSolution() + (riddle.getMandatory()? " is man" : "is opt"));
+			for (Riddle riddle : gameCreation.getCurrentPoint().getRiddles()){	
+				// Todo set Riddle type
+				pointHints.add(riddle.getRiddleText() + (riddle.getMandatory()? "(mandatory)" : "(optional)"));
 			}
 		}
 		
@@ -66,9 +67,15 @@ public class ListHintsActivity extends SchnitzelActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
 					// TODO Auto-generated method stub
-					Intent goToHintActivity = new Intent (parentView.getContext(), PlayerTextHintActivity.class);
-					goToHintActivity.putExtra("hintId", position);
-					startActivity(goToHintActivity);
+					if(hintmode == HintMode.HINT){
+						Intent goToHintActivity = new Intent (parentView.getContext(), PlayerTextHintActivity.class);
+						goToHintActivity.putExtra("hintId", position);
+						startActivity(goToHintActivity);
+					} else if(hintmode == HintMode.RIDDLE){
+						Intent goToHintActivity = new Intent (parentView.getContext(), PlayerTextRiddleActivity.class);
+						goToHintActivity.putExtra("hintId", position);
+						startActivity(goToHintActivity);
+					}
 				}
 			});
 		}

@@ -25,19 +25,14 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
 	protected void initUi()
 	{
 		super.initUi();
-		// If Activity was started by ListHintsActivity 
-		
+		// If Activity was started by ListHintsActivity 		
 		if(this.getIntent() != null && this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("hintId") ){
-
 			EditText editText = (EditText)findViewById(R.id.hint_text_hint_id);
-			
-			
+					
 			int hintId = this.getIntent().getExtras().getInt("hintId");	
 			currentHint = gameCreation.getHint(hintId);
 			editText.setText(currentHint.getDescription());
-		}
-
-		
+		}		
 	}
 	
 	// adds hint to current Point

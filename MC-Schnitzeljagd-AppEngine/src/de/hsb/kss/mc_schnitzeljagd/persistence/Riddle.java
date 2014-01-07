@@ -10,8 +10,16 @@ public class Riddle {
     private int riddleId;
     private boolean mandatory;
     private int maxPoints;
-    private String solution;
+    private int solution;
     private boolean isSolved=false;
+    private String riddleText;
+   
+
+	private java.lang.String answer1; 
+	private java.lang.String answer2;
+    private java.lang.String answer3;
+    private java.lang.String answer4;
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +48,14 @@ public class Riddle {
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
     }
+    
+    public String getRiddleText() {
+		return riddleText;
+	}
+
+	public void setRiddleText(String riddleText) {
+		this.riddleText = riddleText;
+	}
 
     public int getMaxPoints() {
         return maxPoints;
@@ -57,11 +73,45 @@ public class Riddle {
         isSolved = solved;
     }
 
-    public String getSolution() {
+    public int getSolution() {
         return solution;
     }
 
-    public void setSolution(String solution) {
+    public void setSolution(int solution) {
         this.solution = solution;
     }
+    
+    
+    public java.lang.String getAnswer1() {
+		return answer1;
+	}
+
+	public void setAnswer1(java.lang.String answer1) {
+		this.answer1 = answer1;
+	}
+
+	public java.lang.String getAnswer2() {
+		return answer2;
+	}
+
+	public void setAnswer2(java.lang.String answer2) {
+		this.answer2 = answer2;
+	}
+
+	public java.lang.String getAnswer3() {
+		return answer3;
+	}
+
+	public void setAnswer3(java.lang.String answer3) {
+		this.answer3 = answer3;
+	}
+
+	public java.lang.String getAnswer4() {
+		return answer4;
+	}
+
+	public void setAnswer4(java.lang.String answer4) {
+		this.answer4 = answer4;
+	}
+
 }

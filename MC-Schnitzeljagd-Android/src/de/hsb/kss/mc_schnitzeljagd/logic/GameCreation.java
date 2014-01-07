@@ -28,5 +28,6 @@ public interface GameCreation {
     void deletePoint(int index);
     Point getPoint(int index);
     int getHintSize();
+    int getRiddleSize();
     Point getCurrentPoint();
 }

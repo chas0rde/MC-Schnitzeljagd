@@ -4,7 +4,7 @@ import java.util.Enumeration;
 
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.ui.ListHintsActivity;
-import de.hsb.kss.mc_schnitzeljagd.ui.PlayerRiddleActivity;
+import de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextRiddleActivity;
 import de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextHintActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -67,7 +67,7 @@ public class HintsControl extends LinearLayout implements Button.OnClickListener
 							intent = new Intent(view.getContext(), PlayerTextHintActivity.class);
 							view.getContext().startActivity(intent);	
 						} else if(hintmode == HintMode.RIDDLE) {
-							intent = new Intent(view.getContext(), PlayerRiddleActivity.class);	
+							intent = new Intent(view.getContext(), PlayerTextRiddleActivity.class);	
 							view.getContext().startActivity(intent);
 						}
 					}					
