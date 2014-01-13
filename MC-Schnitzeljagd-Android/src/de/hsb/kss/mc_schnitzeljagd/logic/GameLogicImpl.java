@@ -40,25 +40,33 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
         this.player = new Player();
         this.player.setName(name);
-        loaded = getQuestByAccessCode(code, this.player) == null;
+        loaded = getQuestByAccessCode(code, this.player) != null;
+        if(loaded)
+    	{
+        	if(quest.getPointList() != null)
+           	{
+               	currentPoint = quest.getPointList().get(0);
+           	}
+    	}
         return loaded;
     }
 
     public Player getPlayer() {
         return this.player;
     }
-
+    
     @Override
-    public Point goToNextPoint() {
-        if (currentMandatoryRiddle.getSolved()) {
+    public Point goToNextPoint() {   	
+    	
+        if (currentMandatoryRiddle.getSolved() != null && currentMandatoryRiddle.getSolved()) {
             indexOfCurrentPoint++;
-            if (indexOfCurrentPoint < points.size()) {
-                currentPoint = points.get(indexOfCurrentPoint);
+            if (indexOfCurrentPoint < quest.getPointList().size()) {
+                currentPoint = quest.getPointList().get(indexOfCurrentPoint);
             }
             currentAdditionalRiddle = null;
             currentMandatoryRiddle = null;
         }
-        return null;
+        return currentPoint;
     }
 
     @Override
@@ -85,9 +93,11 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public List<Hint> getFreeHintsForCurrentPoint() {
+   
         if (currentPoint != null) {
+        	freeHintsForPoint.clear();
             for (Hint hint : currentPoint.getHintList()) {
-                if (hint.getFree()) {
+                if (hint.getFree() != null && hint.getFree()) {
                     freeHintsForPoint.add(hint);
                 }
             }
@@ -100,6 +110,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     public List<Hint> getAvailableHintsForCurrentPoint() {
         if(currentPoint!=null){
             for(Hint hint: currentPoint.getHintList()){
+            	// Todo only provide payed hints inside list
                 payHintsForPoint.add(hint);
             }
             return payHintsForPoint;
@@ -107,6 +118,9 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         return null;
     }
 
+    /**
+     * currently owned user points(scores)
+     */
     @Override
     public int getCurrentPointsForPlayer() {
         return player.getCurrentPoints();
@@ -156,5 +170,31 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         //quest= new Quest();
         //currentPoint=quest.getPointList().get(0);
     }
+
+	@Override
+	public String getCurrentQuestDescription() {
+		// TODO Auto-generated method stub
+		return buildCurrentQuestDescription();
+	}
+
+	@Override
+	public String getCurrentGameInfo() {
+		
+		String infoMessage="";
+		if(getPlayer() != null){
+			infoMessage += "\nUsername: " + getPlayer().getName();
+			//infoMessage += "Points: " + getPlayer().getCurrentPoints();
+		}
+		
+		if(currentPoint.getHintList() != null) {
+			infoMessage += "\nTotal Number of Hints: " + currentPoint.getHintList().size();
+		}
+		
+		if(getFreeHintsForCurrentPoint() != null){
+			infoMessage += "\nNumber of free Hints: " + getFreeHintsForCurrentPoint().size();
+		}
+				
+		return infoMessage;
+	}
 
 }

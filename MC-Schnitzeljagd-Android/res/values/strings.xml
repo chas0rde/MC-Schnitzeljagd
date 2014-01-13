@@ -67,7 +67,12 @@
         <item>Sound</item>
         <item>Video</item>
     </string-array>
-
+    
+    <string name="riddle_text_hint">Please type in your ridde text here... </string>
+    <string name="riddle_answer_hint">Please type in your ridde answer here... </string>
+    <string name ="riddle_is_mandatory_checkbox">Mandatory Riddle</string>
+    <string name ="hint_information_text">Flip through Hints</string>
+    
     <string name="organizer_create_hint">Create Hint</string>
     <string name="organizer_create_man_riddle">Create riddle</string>
     <string name="organizer_finish_game">Finish game</string>

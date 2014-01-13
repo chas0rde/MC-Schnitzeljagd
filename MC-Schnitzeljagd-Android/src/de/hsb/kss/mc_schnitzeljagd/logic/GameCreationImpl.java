@@ -65,8 +65,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
     }
 
     @Override
-    public Hint getHint(int index) {
-    	
+    public Hint getHint(int index) {    	
     	if(currentPoint != null && currentPoint.getHintList() != null){
             if (isIndexInList(index, currentPoint.getHintList().size())) {
                 return currentPoint.getHintList().get(index);
@@ -102,9 +101,11 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
     @Override
     public Riddle getRiddle(int index) {
-        if (isIndexInList(index, currentPoint.getRiddles().size())) {
-        	currentPoint.getRiddles().get(index);
-        }
+    	if(currentPoint != null && currentPoint.getRiddles() != null){
+	        if (isIndexInList(index, currentPoint.getRiddles().size())) {
+	        	return currentPoint.getRiddles().get(index);
+	        }
+    	}
         return null;
     }
 
@@ -147,6 +148,13 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
         }
         return 0;
     }
+    
+    public int getRiddleSize() {
+        if ((currentPoint != null ) && (currentPoint.getRiddles() != null)) {
+            return currentPoint.getRiddles().size();
+        }
+        return 0;
+    }
 
 	@Override
 	public Point getCurrentPoint() {
@@ -154,8 +162,9 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 		return currentPoint;
 	}
 
-	@Override
 	public String getCurrentQuestDescription() {
-    	return "Author= " + quest.getAuthor() + "\n No. waypoints=" + quest.getPointList().size() + " Gamename: " + quest.getName();    
-    }
+		// TODO Auto-generated method stub
+		return buildCurrentQuestDescription();
+	}
+
 }

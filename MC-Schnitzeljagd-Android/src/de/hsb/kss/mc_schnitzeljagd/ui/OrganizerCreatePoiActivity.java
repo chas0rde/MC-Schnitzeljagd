@@ -37,7 +37,7 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 		poiInfoText.setText("Current Point: "+ (gameCreation.getCurrentQuest().getPointList().indexOf(gameCreation.getCurrentPoint()) + 1) );
 		
 		sizeOfHints = gameCreation.getHintSize();
-		sizeOfRiddle = 0;//gameCreation.getRiddleSize();
+		sizeOfRiddle = gameCreation.getRiddleSize();
 		
 		HintsControl hintsControl = (HintsControl)findViewById(R.id.control_panel_hints);
 		HintsControl riddleControl = (HintsControl)findViewById(R.id.control_panel_riddles);
@@ -53,8 +53,8 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity {
 	
 	
     
-	public void publishQuest(View view)
-	{
+	public void publishQuest(View view) {
+		
 		Intent publishQuest = new Intent(this, PublishGameActivity.class);
 		startActivity(publishQuest);
 	}

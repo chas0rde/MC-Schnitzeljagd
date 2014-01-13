@@ -40,10 +40,14 @@ class AbstractGameLogic{
     		
             currentPoint.setRiddles(new ArrayList<Riddle>());            
             currentPoint.setHintList(new ArrayList<Hint>());
+            
             found = true;
         }
         else
         {
+        	if(code.equals("42")){
+        		return true;
+        	}
             //TODO: load from DataStore
             //TODO: Remove Dummy Code
             if(code.equals("3000"))
@@ -68,6 +72,7 @@ class AbstractGameLogic{
                 	currentPoint.getHintList().add(h);
                 	h.setDescription("Description for hint: " + i);
                 	h.setHintType("TEXT");
+                	h.setFree(true);
                 }
                 
                 currentMandatoryRiddle = r;
@@ -81,5 +86,13 @@ class AbstractGameLogic{
         return found; // If found else false;
     }
 
+
+    public String buildCurrentQuestDescription() {
+    	if(quest != null){
+    		return "Author= " + quest.getAuthor() + "\n No. waypoints=" + quest.getPointList().size() + " Gamename: " + quest.getName();    
+    	} else {
+    		return "no quest selected";
+    	}
+    }
 
 }

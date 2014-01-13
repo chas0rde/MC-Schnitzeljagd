@@ -42,7 +42,7 @@ public class SetupGameActivity extends SchnitzelActivity {
 			}
 			if(gameDescriptionTextField != null)
 			{
-				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuestDescription());
+				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuestDescription().toString());
 			}
 			//TODO: Replace by check new game
 			if(app.getGameCreation().getCurrentQuest().getAccessCode() != null)

@@ -23,7 +23,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class HintActivity extends SchnitzelActivity {
-
 	ViewFlipper hintFlipper = null;
 	Point currentPoint = null;
 	List<Hint> listOfHints = null;
@@ -37,16 +36,25 @@ public class HintActivity extends SchnitzelActivity {
 		
 		initUi();
 	}
+	
+
+    public void changeColor(View view) {
+    	
+    	view.invalidate();
+    	
+    }
 		
 	protected void initUi() {
 		super.initUi();
-		hintFlipper = (ViewFlipper) findViewById(R.id.hint_view_flipper_id);
+		hintFlipper = (ViewFlipper) findViewById(R.id.hint_view_flipper_id);			
+		
 		if(app != null)
 		{
 			TextView gameInfo = (TextView)findViewById(R.id.current_game_info);
 			if(gameInfo != null)
 			{
-				gameInfo.setText(app.getGameLogic().getPlayer().getName());				
+				gameInfo.setText(app.getGameLogic().getCurrentGameInfo());				
+				
 			}
 			currentPoint = app.getGameLogic().goToNextPoint();
 			listOfHints = app.getGameLogic().getFreeHintsForCurrentPoint();
@@ -72,15 +80,15 @@ public class HintActivity extends SchnitzelActivity {
 				}
 				else if(h.getHintType().equals("IMAGE"))
 				{
-					// TODO: Später
+					// TODO: Spaeter
 				}
 				else if(h.getHintType().equals("SOUND"))
 				{
-					// TODO: Später
+					// TODO: Spaeter
 				}
 				else if(h.getHintType().equals("VIDEO"))
 				{
-					// TODO: Später
+					// TODO: Spaeter
 				}
 			}
 		}
