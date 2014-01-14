@@ -79,7 +79,7 @@ public class RiddleListActivity extends SchnitzelActivity {
 		myClicked.setChecked(true);		
 	}
 	
-	
+	// Todo if all pois were reached.. go to finish activity with a overview of the quest. 
 	public void goToNextRiddle(View view) {
 		boolean solved = false; //currentRiddle.getSolved();
 		
@@ -88,13 +88,13 @@ public class RiddleListActivity extends SchnitzelActivity {
 		solved = solved?true:((RadioButton)findViewById(R.id.riddle_radio_button_3)).isChecked() && (currentRiddle.getSolution() == 3);			   
 		solved = solved?true:((RadioButton)findViewById(R.id.riddle_radio_button_4)).isChecked() && (currentRiddle.getSolution() == 4);			   
 
+		
 		if(solved) {
 			currentRiddle.setSolved(true);
 			startActivity(new Intent(getApplicationContext(), RiddleListActivity.class));	
 		} else {
 			setErrorMsg("Wrong Answer!");
 		}
-		
 	}
 	
 	public void skipRiddle(View view) {
