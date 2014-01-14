@@ -4,6 +4,7 @@ package de.hsb.kss.mc_schnitzeljagd.logic;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -16,6 +17,7 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Quest;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
+import de.hsb.kss.mc_schnitzeljagd.task.LoadQuest;
 
 class AbstractGameLogic{
     protected Player player;
@@ -52,11 +54,25 @@ class AbstractGameLogic{
         }
         else
         {
+        	//TODO: load from DataStore
+            //TODO: Remove Dummy Code
+        	try {
+				Quest loadedQuest=new LoadQuest().execute(Long.valueOf(code)).get();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
         	if(code.equals("42")){
         		return true;
         	}
-            //TODO: load from DataStore
-            //TODO: Remove Dummy Code
+         
             if(code.equals("3000"))
             {
                 quest = new Quest();

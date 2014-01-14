@@ -16,20 +16,21 @@ public class PublishGameActivity extends SchnitzelActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_game);	
+		boolean gameSaved=false;
 		if(app != null)
 		{
-			app.getGameCreation().save();
+			gameSaved=app.getGameCreation().save();
 		}
-		initUi();
+		initUi(gameSaved);
 	}
 	
-	protected void initUi()
+	protected void initUi(boolean gameSaved)
 	{
 		super.initUi();
 		TextView code = (TextView)findViewById(R.id.share_access_code_id); 
 		if(code != null && app != null)
 		{
-			code.setText(app.getGameCreation().getCurrentQuest().getAccessCode());
+			code.setText(gameSaved+" "+app.getGameCreation().getCurrentQuest().getAccessCode());
 		}
 	}
 
