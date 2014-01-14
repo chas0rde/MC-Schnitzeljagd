@@ -54,11 +54,11 @@ public class PublishGameActivity extends SchnitzelActivity {
 	}
 
 	public void shareCodeFacebook(View view) {
-		String facebookurl="https://www.facebook.com/sharer/sharer.php?u=https://github.com/chas0rde/MC-Schnitzeljagd";
+		String facebookurl="https://www.facebook.com/sharer.php?s=100&p[url]=https://github.com/chas0rde/MC-Schnitzeljagd&p[title]=MC Schnitzeljagd&p[summary]=";
 		String message= "Spiele eine Schnitzeljagd mit mir ! Zugangscode:";
 		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
-//		Uri uri = Uri.parse(tweetUrl+message+code);
-//		startActivity(new Intent(Intent.ACTION_VIEW, uri));
+		Uri uri = Uri.parse(facebookurl+message+code);
+		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 
 	public void shareCodePinterest(View view) {
