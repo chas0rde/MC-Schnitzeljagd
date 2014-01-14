@@ -44,25 +44,25 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     private PendingIntent geofenceRequestIntent;
 
     // Stores the current list of geofences
-    private ArrayList<Geofence> mCurrentGeofences;
+    private ArrayList<Geofence> currentGeofences;
 
     // Stores the current instantiation of the location client
-    private LocationClient mLocationClient;
+    private LocationClient locationClient;
 
     /*
      * Flag that indicates whether an add or remove request is underway. Check this
      * flag before attempting to start a new request.
      */
-    private boolean mInProgress;
+    private boolean inProgress;
 
-    public GeofenceRequester(Activity activityContext) {
+    public GeofenceRequester(Activity activityContext, LocationClient locationClient) {
         // Save the context
         activity = activityContext;
 
         // Initialize the globals to null
         geofenceRequestIntent = null;
-        mLocationClient = null;
-        mInProgress = false;
+        this.locationClient = locationClient;
+        inProgress = false;
     }
 
     /**
@@ -73,7 +73,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
      */
     public void setInProgressFlag(boolean flag) {
         // Set the "In Progress" flag.
-        mInProgress = flag;
+        inProgress = flag;
     }
 
     /**
@@ -82,7 +82,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
      * @return The current value of the in progress flag.
      */
     public boolean getInProgressFlag() {
-        return mInProgress;
+        return inProgress;
     }
 
     /**
@@ -106,13 +106,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
          * Save the geofences so that they can be sent to Location Services once the
          * connection is available.
          */
-        mCurrentGeofences = (ArrayList<Geofence>) geofences;
+        currentGeofences = (ArrayList<Geofence>) geofences;
 
         // If a request is not already in progress
-        if (!mInProgress) {
+        if (!inProgress) {
 
             // Toggle the flag and continue
-            mInProgress = true;
+            inProgress = true;
 
             // Request a connection to Location Services
             requestConnection();
@@ -130,7 +130,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
      * but the request is not complete until onConnected() or onConnectionFailure() is called.
      */
     private void requestConnection() {
-        getLocationClient().connect();
+        	locationClient.connect();
     }
 
     /**
@@ -139,10 +139,10 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
      * @return A LocationClient object
      */
     private GooglePlayServicesClient getLocationClient() {
-        if (mLocationClient == null) {
-            mLocationClient = new LocationClient(activity, this, this);
+        if (locationClient == null) {
+            locationClient = new LocationClient(activity, this, this);
         }
-        return mLocationClient;
+        return locationClient;
 
     }
     /**
@@ -154,7 +154,9 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
         geofenceRequestIntent = createRequestPendingIntent();
 
         // Send a request to add the current geofences
-        mLocationClient.addGeofences(mCurrentGeofences, geofenceRequestIntent, this);
+        locationClient.addGeofences(currentGeofences, geofenceRequestIntent, this);
+        
+        Log.d(LocationUtils.TAG, "geofence was added");
     }
 
     /*
@@ -216,7 +218,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     private void requestDisconnection() {
 
         // A request is no longer in progress
-        mInProgress = false;
+        inProgress = false;
 
         getLocationClient().disconnect();
     }
@@ -229,7 +231,6 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     @Override
     public void onConnected(Bundle arg0) {
         // If debugging, log the connection
-
         Log.d(LocationUtils.TAG, activity.getString(R.string.connected));
 
         // Continue adding the geofences
@@ -244,13 +245,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
 
 
         // Turn off the request flag
-        mInProgress = false;
+        inProgress = false;
 
         // In debug mode, log the disconnection
         Log.d(LocationUtils.TAG, activity.getString(R.string.disconnected));
 
         // Destroy the current location client
-        mLocationClient = null;
+        locationClient = null;
     }
 
     /**
@@ -298,7 +299,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
         // Turn off the request flag
-        mInProgress = false;
+        inProgress = false;
 
         /*
          * Google Play services can resolve some errors it detects.

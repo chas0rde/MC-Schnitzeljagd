@@ -62,19 +62,6 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
         ft.replace(R.id.map, locFrag);
         ft.addToBackStack(null);
         ft.commit();
-        
-        // Set a goal using the (overloaded!) method setGoal
-        locFrag.setGoal("Test", Double.valueOf(8.83749747285), Double.valueOf(53.0663656578));
-		
-        // Some GUI references
-		lat = (TextView) findViewById(R.id.curLat);
-		lng = (TextView) findViewById(R.id.curLng);
-		quality = (TextView) findViewById(R.id.curQuality);
-		conState = (TextView) findViewById(R.id.conState);
-		refreshCount = (TextView) findViewById(R.id.count);
-		distance = (TextView) findViewById(R.id.distance);
-		latGoal = (TextView) findViewById(R.id.goalLat);
-		lngGoal = (TextView) findViewById(R.id.goalLng);
 	}
 	
 	/** 
@@ -135,6 +122,18 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
 	@Override
 	protected void onStart() {
 		super.onStart();
+		// Set a goal using the (overloaded!) method setGoal
+        locFrag.setGoal("Test", Double.valueOf(8.83749747285), Double.valueOf(53.0663656578));
+		
+        // Some GUI references
+		lat = (TextView) findViewById(R.id.curLat);
+		lng = (TextView) findViewById(R.id.curLng);
+		quality = (TextView) findViewById(R.id.curQuality);
+		conState = (TextView) findViewById(R.id.conState);
+		refreshCount = (TextView) findViewById(R.id.count);
+		distance = (TextView) findViewById(R.id.distance);
+		latGoal = (TextView) findViewById(R.id.goalLat);
+		lngGoal = (TextView) findViewById(R.id.goalLng);
 		Log.d(TAG, "onStart()");
 	}
 	

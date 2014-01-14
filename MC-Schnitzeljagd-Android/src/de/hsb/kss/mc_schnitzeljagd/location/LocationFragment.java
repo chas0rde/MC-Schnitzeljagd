@@ -48,7 +48,6 @@ import de.hsb.kss.mc_schnitzeljagd.R;
  */
 public class LocationFragment extends SupportMapFragment implements GooglePlayServicesClient.ConnectionCallbacks, 
 											GooglePlayServicesClient.OnConnectionFailedListener,
-											OnAddGeofencesResultListener,
 									        LocationListener {
 	/*
 	 * ############## START FIELD DEFINITIONS #########################################################################
@@ -147,6 +146,14 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * The request-type for the geofence.
      */
     private LocationUtils.REQUEST_TYPE requestType;
+    /**
+     * The GeofenceRequester used to request geofences from the LocationClient.
+     */
+    private GeofenceRequester geofenceRequester;
+    /**
+     * The GeofenceRemover used to remove geofences from the LocationClient.
+     */
+    private GeofenceRemover geofenceRemover;
 
 	/*
 	 * ############## END FIELD DEFINITIONS ###########################################################################
@@ -188,16 +195,17 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		// Check if Google Services are available
 		LocationUtils.servicesConnected(activity);
 		
-		// configure use of geofences
-		configureGeofences();
-        
         // Configure the location client
 		configureLocationClient();
+		
 		// Initialize the location manager
 	    locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 	    // Initialize the location client
 	    locationClient = new LocationClient(activity.getBaseContext(), this, this);
 	    
+		// configure use of geofences
+		configureGeofences();
+		
 		Log.d(TAG + ".onCreate()", "LocationFragment was successful created.");
 	}
 	/**
@@ -228,12 +236,6 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	@Override
 	public void onStart() {
 		super.onStart();
-		// Connect the location client
-		if (locationClient != null) {
-			locationClient.connect();
-		} else {
-			Log.e(TAG + ".onStart()", "Could not connect location client - Nullpointer");
-		}
 		Log.d(TAG + ".onStart()", "LocationFragment was started.");
 	}
 	/**
@@ -243,6 +245,12 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	@Override
 	public void onResume() {
 		super.onResume();
+		// Connect the location client
+		if (locationClient != null) {
+			locationClient.connect();
+		} else {
+			Log.e(TAG + ".onResume()", "Could not connect location client - Nullpointer");
+		}
 		/*
          * Get any previous setting for location updates
          * Gets "false" if an error occurs
@@ -284,6 +292,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
              * the argument is "this".
              */
             locationClient.removeLocationUpdates(this);
+            /*
+             * Remove geofences if they exist
+             */
+            clearGeofences();
         }
         /*
          * After disconnect() is called, the client is
@@ -435,8 +447,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		}		
 	}
 	/**
-     * Called by Location Services if the attempt to
-     * Location Services fails.
+     * Called by Location Services if the attempt to Location Services fails.
      * @param connectionResult the result of the connection attempt to the Location Service
      */
 	@Override
@@ -470,9 +481,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         }
     }
 	/**
-     * Called by Location Services when the request to connect the
-     * client finishes successfully. At this point, you can
-     * request the current location or start periodic updates
+     * Called by Location Services when the request to connect the client finishes successfully. 
+     * At this point, you can request the current location or start periodic updates
      * @param bundle with the connection hint
      */
 	@Override
@@ -483,20 +493,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             locationClient.requestLocationUpdates(locationRequest, this);
     		Log.d(TAG + "onConnected()", "Location updates enabled.");
         }
-		
-		// send request to set a geofence
-		if (!currentGeofences.isEmpty()) {
-//			
-	        // Continue adding the geofences
-	        //todo continueAddGeofences();switch (requestType) {
-//	        case ADD :
-//	            // Get the PendingIntent for the request
-//	            transitionPendingIntent = getTransitionPendingIntent();
-//	            // Send a request to add the current geofences
-//	            locationClient.addGeofences(currentGeofences, transitionPendingIntent, this);
-//			}			
-		}
 
+		// TODO set geofence if already a goal there
+		
 		// Set the location fields
 		updateLocationInfos();
 		
@@ -538,103 +537,28 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
     	// Initialize the globals to null
     	geofenceRequestIntent = null;
 		// Instantiate a new geofence storage area
-        geofenceStorage = new SimpleGeofenceStore(activity);
+        geofenceStorage = new SimpleGeofenceStore(activity.getBaseContext());
         // Instantiate the current List of geofences
         currentGeofences = new ArrayList<Geofence>();
+        // Get a GeofenceRequester
+        geofenceRequester = new GeofenceRequester(activity, locationClient);
+        // Get a GeofenceRemover
+        geofenceRemover = new GeofenceRemover(activity.getBaseContext(), locationClient);
     }
     /**
-     * Start a request for geofence monitoring by calling LocationClient.connect().
+     * Clears all existing geofences.
      */
-    public void addGeofences() {
-        // Start a request to add geofences
-        requestType = LocationUtils.REQUEST_TYPE.ADD;
-        
-        // If a request is not already underway
-        if (locationClient.isConnected()) {
-        	// Get a PendingIntent that Location Services issues when a geofence transition occurs
-            geofenceRequestIntent = createRequestPendingIntent();
-
-            // Send a request to add the current geofences
-            locationClient.addGeofences(currentGeofences, geofenceRequestIntent, this);
-        } else {
-            /*
-             * A request is already underway. You can handle
-             * this situation by disconnecting the client,
-             * re-setting the flag, and then re-trying the
-             * request.
-             */
-        	//TODO handle this
-        }
+    private void clearGeofences() {
+    	List<String> ids = new ArrayList<String>();
+    	for(Geofence g : currentGeofences) {
+    		ids.add(g.getRequestId());
+    	}
+    	geofenceRemover.removeGeofencesById(ids);
     }
     /**
-     * Create a PendingIntent that triggers an IntentService in your
-     * app when a geofence transition occurs.
+     * Get the geofence parameters for each geofence from the UI and add them to a List.
      */
-	private PendingIntent getTransitionPendingIntent() {
-    	// Create an explicit Intent
-        Intent intent = new Intent(activity, ReceiveTransitionsIntentService.class);
-        /*
-         * Return the PendingIntent
-         */
-        return PendingIntent.getService(activity.getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-	/**
-     * Handle the result of adding the geofences
-     */
-    @Override
-    public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
-
-        // Create a broadcast Intent that notifies other components of success or failure
-        Intent broadcastIntent = new Intent();
-
-        // Temp storage for messages
-        String msg;
-
-        // If adding the geocodes was successful
-        if (LocationStatusCodes.SUCCESS == statusCode) {
-            // Create a message containing all the geofence IDs added.
-            msg = activity.getString(
-            		R.string.add_geofences_result_success, 
-            		Arrays.toString(geofenceRequestIds)
-            );
-
-            // In debug mode, log the result
-            Log.d(LocationUtils.TAG, msg);
-
-            // Create an Intent to broadcast to the app
-            broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCES_ADDED)
-                           .addCategory(LocationUtils.CATEGORY_LOCATION_SERVICES)
-                           .putExtra(LocationUtils.EXTRA_GEOFENCE_STATUS, msg);
-        // If adding the geofences failed
-        } else {
-            /*
-             * Create a message containing the error code and the list
-             * of geofence IDs you tried to add
-             */
-            msg = activity.getString(
-            		R.string.add_geofences_result_failure, 
-            		statusCode,
-            		Arrays.toString(geofenceRequestIds)
-            );
-
-            // Log an error
-            Log.e(LocationUtils.TAG, msg);
-
-            // Create an Intent to broadcast to the app
-            broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCE_ERROR)
-                           .addCategory(LocationUtils.CATEGORY_LOCATION_SERVICES)
-                           .putExtra(LocationUtils.EXTRA_GEOFENCE_STATUS, msg);
-        }
-
-        // Broadcast whichever result occurred
-        LocalBroadcastManager.getInstance(activity).sendBroadcast(broadcastIntent);
-    }
-    /**
-     * Get the geofence parameters for each geofence from the UI
-     * and add them to a List.
-     */
-    public void createGeofence() {
-    	//TODO: check for previously existing fences
+    private void createGeofence() {
         /*
          * Create an internal object to store the data. Set its
          * ID to goalID. This is a "flattened" object that contains
@@ -654,37 +578,6 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         currentGeofences.add(goalGeofence.toGeofence());
         
 		Log.d(TAG + "createGeofence()", "Geofence was created");
-    }
-    /**
-     * Get a PendingIntent to send with the request to add Geofences. Location Services issues
-     * the Intent inside this PendingIntent whenever a geofence transition occurs for the current
-     * list of geofences.
-     *
-     * @return A PendingIntent for the IntentService that handles geofence transitions.
-     */
-    private PendingIntent createRequestPendingIntent() {
-
-        // If the PendingIntent already exists
-        if (null != geofenceRequestIntent) {
-
-            // Return the existing intent
-            return geofenceRequestIntent;
-
-        // If no PendingIntent exists
-        } else {
-
-            // Create an Intent pointing to the IntentService
-                // TODO correct service?
-            Intent intent = new Intent(activity, ReceiveTransitionsIntentService.class);
-            /*
-             * Return a PendingIntent to start the IntentService.
-             * Always create a PendingIntent sent to Location Services
-             * with FLAG_UPDATE_CURRENT, so that sending the PendingIntent
-             * again updates the original. Otherwise, Location Services
-             * can't match the PendingIntent to requests made with it.
-             */
-            return PendingIntent.getService(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
     }
     
     /*
@@ -771,16 +664,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	 * @param latitude the latitude of the goal
 	 */
 	public void setGoal(String id, Double longitude, Double latitude) {
-		goalID = id;
-		Location loc = new Location(Context.LOCATION_SERVICE);
-		loc.setLatitude(latitude);
-		loc.setLongitude(longitude);
-		goal = loc;
-		Log.d(TAG + "setGoal()", "Goal " + goalID + " was set to " + longitude + "/" + latitude + 
-				"with default radius of " + goalRadius);
-		
-		// Create geofence for goal
-		//createGeofence();
+		// Call overloaded method with the default geofence-radius
+		setGoal(id, longitude, latitude, goalRadius);
 	}
 	/**
 	 * Sets the hidden goal for the player to run to.
@@ -801,7 +686,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 				"with radius of " + radius);
 		
 		// Create geofence for goal
-		//createGeofence();
+		createGeofence();
+		geofenceRequester.addGeofences(currentGeofences);
 	}
 	/**
 	 * Enables the periodic updates of the user's location according to the settings
@@ -817,6 +703,8 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             Log.d(TAG, "Location updates disabled");
 		}
 	}
+	
+	/*
 	/*
 	 * ############## END GETTER AND SETTER ###########################################################################
 	 */
