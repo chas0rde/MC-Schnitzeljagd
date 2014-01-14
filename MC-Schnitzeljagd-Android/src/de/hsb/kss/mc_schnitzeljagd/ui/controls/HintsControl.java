@@ -61,16 +61,17 @@ public class HintsControl extends LinearLayout implements Button.OnClickListener
 				{	
 					Intent intent = null;
 					
-					if(hintType.getSelectedItemPosition() == 0)
-					{		
-						if(hintmode == HintMode.HINT){
-							intent = new Intent(view.getContext(), PlayerTextHintActivity.class);
-							view.getContext().startActivity(intent);	
-						} else if(hintmode == HintMode.RIDDLE) {
-							intent = new Intent(view.getContext(), PlayerTextRiddleActivity.class);	
-							view.getContext().startActivity(intent);
-						}
-					}					
+					if(hintmode == HintMode.HINT){
+						intent = new Intent(view.getContext(), PlayerTextHintActivity.class);
+						
+						intent.putExtra("HintType", (int)hintType.getSelectedItemId());
+						view.getContext().startActivity(intent);
+					} else if(hintmode == HintMode.RIDDLE) {
+						intent = new Intent(view.getContext(), PlayerTextRiddleActivity.class);	
+						intent.putExtra("HintType", hintType.getSelectedItemId());
+						view.getContext().startActivity(intent);
+					}
+					
 				}
 			}
     		 

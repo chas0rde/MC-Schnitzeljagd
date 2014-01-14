@@ -57,7 +57,11 @@ public class PlayerHomeActivity extends SchnitzelActivity {
 			}
 			else
 			{
-				setErrorMsg(R.string.errorEnterCode);				
+				if(code.getEditableText().toString().isEmpty()) {
+					setErrorMsg(R.string.errorEnterCode);				
+				} else {
+					setErrorMsg(R.string.errorCodeNotFound);				
+				}
 			}
 		}					
 		else
