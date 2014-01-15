@@ -124,14 +124,14 @@
           "name" : {
             "type" : "string"
           },
-          "namespace" : {
-            "type" : "string"
+          "parent" : {
+            "$ref" : "Key"
           },
           "complete" : {
             "type" : "boolean"
           },
-          "parent" : {
-            "$ref" : "Key"
+          "namespace" : {
+            "type" : "string"
           }
         }
       }
