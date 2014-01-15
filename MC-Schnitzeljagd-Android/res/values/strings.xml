@@ -59,20 +59,21 @@
     <string name="hint_prompt">Text</string>
     <string name="load_game_button">Load Game</string>
     <string name="errorEnterCode">Enter game code first and group name!</string>
+    <string name="errorCodeNotFound">Game not found!</string>
     <string name="text_hint_hint">Enter your hint here!</string>
-	<string name="no_more_hints">No more hints for this point!</string>
+    <string name="no_more_hints">No more hints for this point!</string>
+
     <string-array name="hint_arrays">
         <item>Text</item>
         <item>Image</item>
         <item>Sound</item>
         <item>Video</item>
     </string-array>
-    
+
     <string name="riddle_text_hint">Please type in your ridde text here... </string>
     <string name="riddle_answer_hint">Please type in your ridde answer here... </string>
-    <string name ="riddle_is_mandatory_checkbox">Mandatory Riddle</string>
-    <string name ="hint_information_text">Flip through Hints</string>
-    
+    <string name="riddle_is_mandatory_checkbox">Mandatory Riddle</string>
+    <string name="hint_information_text">Flip through Hints</string>
     <string name="organizer_create_hint">Create Hint</string>
     <string name="organizer_create_man_riddle">Create riddle</string>
     <string name="organizer_finish_game">Finish game</string>
@@ -95,7 +96,8 @@
     <string name="requiredFiledNotSet">Required field not set!</string>
     <string name="title_activity_player_text_hint">PlayerTextHintActivity</string>
     <string name="title_activity_list_hints">ListHintsActivity</string>
-    <!-- <string name="connection_error_code">Connection failure error code: %1$d</string>
+    <!--
+    <string name="connection_error_code">Connection failure error code: %1$d</string>
     <string name="connection_error_disabled">Google Play services is disabled</string>
     <string name="connection_error_internal">An internal error occurred</string>
     <string name="connection_error_invalid">The version of Google Play services on this device is not authentic</string>
@@ -108,10 +110,15 @@
     <string name="connection_error_network">A network error occurred</string>
     <string name="connection_error_outdated">Google Play services is out of date</string>
     <string name="connection_error_sign_in_required">The user is not signed in</string>
-    <string name="connection_error_unknown">An unknown error occurred</string>  -->
+    <string name="connection_error_unknown">An unknown error occurred</string>
+    -->
     <string name="daotest">DAO Test</string>
     <string name="title_activity_quest_daotest">QuestDAOTestActivity</string>
     <string name="changeMapType">Next Maptype</string>
     <string name="organizer_record_hint">Add Hint</string>
+    <string name="title_activity_player_multimedia_hint">PlayerMultimediaHintActivity</string>
+    <string name="startCamera">Take Picture</string>
+    <string name="go_to_next_riddle">Go to next Riddle</string>
+    <string name="skip_riddle">Skip this Riddle</string>
 
 </resources>

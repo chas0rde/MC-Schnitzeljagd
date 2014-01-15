@@ -19,7 +19,6 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     private List<Hint> freeHintsForPoint = new ArrayList<Hint>();
     private List<Hint> payHintsForPoint = new ArrayList<Hint>();
 
-
     @Override
     public final Quest getQuestByAccessCode(String managementCode, Player player) {
        // init();
@@ -81,9 +80,10 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     }
 
     @Override
-    public Riddle getNextAdditionalRiddle() {
+    public Riddle getNextRiddle() {
         for (Riddle riddle : currentPoint.getRiddles()) {
-            if (!riddle.getMandatory() && !riddle.getSolved()) {
+           
+        	if (riddle.getSolved() == null || !riddle.getSolved()) {
                 currentAdditionalRiddle = riddle;
                 return currentAdditionalRiddle;
             }
@@ -192,6 +192,10 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 		
 		if(getFreeHintsForCurrentPoint() != null){
 			infoMessage += "\nNumber of free Hints: " + getFreeHintsForCurrentPoint().size();
+		}
+		
+		if(currentPoint.getRiddles() != null) {
+			infoMessage += "\nNumber of Riddles: " + currentPoint.getRiddles().size();
 		}
 				
 		return infoMessage;

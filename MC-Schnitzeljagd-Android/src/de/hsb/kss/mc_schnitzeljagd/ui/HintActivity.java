@@ -9,14 +9,19 @@ import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
+import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +31,7 @@ public class HintActivity extends SchnitzelActivity {
 	ViewFlipper hintFlipper = null;
 	Point currentPoint = null;
 	List<Hint> listOfHints = null;
+	List<Riddle> listOfRiddles = null;
 	List<Hint> listOfFreeHints = null;
 	private float lastX;
 	
@@ -59,7 +65,8 @@ public class HintActivity extends SchnitzelActivity {
 			currentPoint = app.getGameLogic().goToNextPoint();
 			listOfHints = app.getGameLogic().getFreeHintsForCurrentPoint();
 			listOfFreeHints = app.getGameLogic().getFreeHintsForCurrentPoint();
-			
+			listOfRiddles = currentPoint.getRiddles();
+
 			renderHintFlipper();
 		}			
 	}
@@ -80,7 +87,11 @@ public class HintActivity extends SchnitzelActivity {
 				}
 				else if(h.getHintType().equals("IMAGE"))
 				{
-					// TODO: Spaeter
+					ImageView preview = new ImageView(hintFlipper.getContext());					
+			        byte[] imageAsBytes = Base64.decode(h.getDescription().getBytes(), 0);
+			        preview.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+					preview.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+					hintFlipper.addView(preview);
 				}
 				else if(h.getHintType().equals("SOUND"))
 				{
@@ -143,6 +154,11 @@ public class HintActivity extends SchnitzelActivity {
        return false;
    }
 	
+   // Todo exchange with geoFence ... or setButton visibile as soon as goal reached
+   public void startRiddlesActivity(View view) {
+	  startActivity(new Intent(getApplicationContext(), RiddleListActivity.class)); 
+   }
+   
 	public void clickBuyHint(View view) {
 		if( app.getGameLogic().freeNextHint() )
 		{

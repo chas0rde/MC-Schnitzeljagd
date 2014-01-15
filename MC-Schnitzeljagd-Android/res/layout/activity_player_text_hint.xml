@@ -17,15 +17,39 @@
          android:orientation="vertical" >
 
          <EditText
+             android:visibility="gone"
              android:id="@+id/hint_text_hint_id"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_weight="0.78"
              android:ems="10"
              android:hint="@string/text_hint_hint" >
-
              <requestFocus />
          </EditText>
+         <LinearLayout 
+             android:id="@+id/image_layout"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="0.78"
+             android:background="@color/common_action_bar_splitter"
+             android:visibility="gone">
+
+             <ImageView
+                 android:id="@+id/image_view_preview"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="0.78"                 
+                 android:src="@drawable/common_signin_btn_icon_light" />
+             
+             <Button
+                 android:id="@+id/image_button_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:onClick="startCamera"
+                 android:text="@string/startCamera" />
+
+         </LinearLayout>
 
          <Button
              android:id="@+id/save_hint_button"

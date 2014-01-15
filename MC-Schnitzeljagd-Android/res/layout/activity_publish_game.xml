@@ -21,25 +21,34 @@
             android:id="@+id/share_pinterest_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/pinterest" />
+            android:src="@drawable/pinterest"
+            android:clickable="true"
+            android:onClick="shareCodePinterest" />
 
         <ImageView
             android:id="@+id/share_fb_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share_fb" />
+            android:src="@drawable/share_fb" 
+            android:clickable="true"
+            android:onClick="shareCodeFacebook"/>
 
         <ImageView
             android:id="@+id/share_twitter_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share_twitter" />
+            android:src="@drawable/share_twitter"
+            android:clickable="true"
+            android:onClick="shareCodeTwitter"
+            />
 
         <ImageView
             android:id="@+id/share_mail_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share_mail" />
+            android:src="@drawable/share_mail" 
+            android:clickable="true"
+            android:onClick="shareCodeEmail"/>
     </LinearLayout>
 
 

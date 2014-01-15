@@ -137,7 +137,8 @@ public class SendMockLocationService extends Service implements
          * handleMessage() assumes that the location client already has a connection to Location
          * Services.
          */
-        @Override
+        @SuppressLint("NewApi")
+		@Override
         public void handleMessage(Message msg) {
 
             boolean testOnce = false;
@@ -174,7 +175,7 @@ public class SendMockLocationService extends Service implements
                 removeNotification();
 
                 // Add a notification that testing is in progress
-                postNotification(getString(R.string.notification_content_test_running));
+                //postNotification(getString(R.string.notification_content_test_running));
 
                 /*
                  * Wait to allow the test to switch to the app under test, by putting the thread
@@ -187,7 +188,8 @@ public class SendMockLocationService extends Service implements
                 }
 
                 // Get the device uptime and the current clock time
-                elapsedTimeNanos = SystemClock.elapsedRealtimeNanos();
+                //  TODO 4.3 version elapsedTimeNanos = SystemClock.elapsedRealtimeNanos();
+                elapsedTimeNanos = SystemClock.elapsedRealtime();
                 currentTime = System.currentTimeMillis();
 
                 /*
@@ -203,7 +205,8 @@ public class SendMockLocationService extends Service implements
                          * Set the time values for the test location. Both an elapsed system uptime
                          * and the current clock time in UTC timezone must be specified.
                          */
-                        mockLocation.setElapsedRealtimeNanos(elapsedTimeNanos);
+                        //TODO 4.3 version: mockLocation.setElapsedRealtimeNanos(elapsedTimeNanos);
+                    	
                         mockLocation.setTime(currentTime);
 
                         // Set the location accuracy, latitude, and longitude
@@ -400,7 +403,7 @@ public class SendMockLocationService extends Service implements
             mInjectionInterval = startIntent.getIntExtra(LocationUtils.EXTRA_SEND_INTERVAL, 1);
 
             // Post a notification in the notification bar that a test is starting
-            postNotification(getString(R.string.notification_content_test_start));
+            //postNotification(getString(R.string.notification_content_test_start));
 
             // Create a location client
             mLocationClient = new LocationClient(this, this, this);

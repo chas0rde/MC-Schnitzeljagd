@@ -19,7 +19,6 @@
           android:id="@+id/share_pinterest_id"
           android:layout_width="match_parent"
           android:layout_height="100dp"
-          android:layout_weight="1"
           android:src="@drawable/ic_launcher" />
 
       <ScrollView 
@@ -46,10 +45,7 @@
           android:layout_height="wrap_content"          
           android:ems="10"
           android:hint="@string/play_game_home_load_hint" >
-
-          <requestFocus android:layout_width="wrap_content" />
-
-          </EditText>
+          <requestFocus android:layout_width="wrap_content" /></EditText>
 
           <Button
               android:id="@+id/load_game_button"

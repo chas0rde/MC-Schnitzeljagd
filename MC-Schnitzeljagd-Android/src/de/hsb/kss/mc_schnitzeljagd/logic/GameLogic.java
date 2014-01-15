@@ -16,7 +16,7 @@ public interface GameLogic {
     Quest getQuestByAccessCode(String accessCode,Player player);
     Point goToNextPoint();
     Riddle getMandatoryRiddleForCurrentPoint();
-    Riddle getNextAdditionalRiddle();
+    Riddle getNextRiddle();
     List<Hint> getFreeHintsForCurrentPoint();
     List<Hint> getAvailableHintsForCurrentPoint();
     int getCurrentPointsForPlayer();
