@@ -43,15 +43,15 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 		quest.setAccessCode("42"); // TODO: Create New Code;
 		// TODO: Save in DataStore
 		boolean gotSaved = true;
-//		try {
-//			gotSaved = new SaveQuest().execute(quest).get();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			gotSaved = new SaveQuest().execute(quest).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return gotSaved;
 	}
 

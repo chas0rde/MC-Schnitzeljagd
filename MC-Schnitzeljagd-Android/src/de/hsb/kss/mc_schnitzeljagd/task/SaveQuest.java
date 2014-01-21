@@ -3,6 +3,7 @@ package de.hsb.kss.mc_schnitzeljagd.task;
 import java.io.IOException;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import de.hsb.kss.mc_schnitzeljagd.persistence.QuestDAO;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Quest;
 
@@ -17,6 +18,7 @@ public class SaveQuest extends AsyncTask<Quest, Integer, Boolean> {
 			try {
 				questDAO.insert(params[i]);
 			} catch (IOException e1) {
+				Log.w("Schnitzeljagd",e1.toString());
 				e1.printStackTrace();
 				return false;
 			}
