@@ -36,33 +36,45 @@ import java.util.List;
  */
 public class GeofenceRequester implements OnAddGeofencesResultListener, ConnectionCallbacks,
 										  OnConnectionFailedListener {
+	private String TAG = "GeofenceRequester";
 
-    // Storage for a reference to the calling client
+    /**
+     *  Storage for a reference to the calling client.
+     */
     private final Activity activity;
-
-    // Stores the PendingIntent used to send geofence transitions back to the app
+    /**
+     *  Stores the PendingIntent used to send geofence transitions back to the app.
+     */
     private PendingIntent geofenceRequestIntent;
-
-    // Stores the current list of geofences
+    /**
+     *  Stores the current list of geofences.
+     */
     private ArrayList<Geofence> currentGeofences;
-
-    // Stores the current instantiation of the location client
+    /**
+     *  Stores the current instantiation of the location client.
+     */
     private LocationClient locationClient;
-
-    /*
-     * Flag that indicates whether an add or remove request is underway. Check this
-     * flag before attempting to start a new request.
+    
+    /**
+     * Flag that indicates whether an add or remove request is underway. 
+     * Check this flag before attempting to start a new request.
      */
     private boolean inProgress;
 
+    /**
+     * The constructor.
+     * @param activityContext the Activity calling
+     * @param locationClient the location client to use
+     */
     public GeofenceRequester(Activity activityContext, LocationClient locationClient) {
         // Save the context
         activity = activityContext;
 
         // Initialize the globals to null
         geofenceRequestIntent = null;
-        this.locationClient = locationClient;
+        this.locationClient = (LocationClient) getLocationClient(); //TODO
         inProgress = false;
+        Log.d(TAG + ".GeofenceRequester()", "GeofenceRequester constructed.");
     }
 
     /**
@@ -95,13 +107,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     }
 
     /**
-     * Start adding geofences. Save the geofences, then start adding them by requesting a
-     * connection
+     * Start adding geofences. Save the geofences, then start adding them by requesting a connection.
      *
      * @param geofences A List of one or more geofences to add
      */
     public void addGeofences(List<Geofence> geofences) throws UnsupportedOperationException {
-
+    	Log.d(TAG + ".addGeofences()", "Starting to add geofence");
+    	
         /*
          * Save the geofences so that they can be sent to Location Services once the
          * connection is available.
@@ -126,11 +138,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     }
 
     /**
-     * Request a connection to Location Services. This call returns immediately,
-     * but the request is not complete until onConnected() or onConnectionFailure() is called.
+     * Request a connection to Location Services. 
+     * This call returns immediately, but the request is not complete until onConnected() or 
+     * onConnectionFailure() is called.
      */
     private void requestConnection() {
-        	locationClient.connect();
+    	Log.d(TAG + ".requestConnection()", "Requesting location to location service");
+        locationClient.connect();
     }
 
     /**
@@ -143,12 +157,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
             locationClient = new LocationClient(activity, this, this);
         }
         return locationClient;
-
     }
+    
     /**
-     * Once the connection is available, send a request to add the Geofences
+     * Once the connection is available, send a request to add the Geofences.
      */
     private void continueAddGeofences() {
+    	Log.d(TAG + ".continueAddGeofences()", "Continuing to add geofence");
 
         // Get a PendingIntent that Location Services issues when a geofence transition occurs
         geofenceRequestIntent = createRequestPendingIntent();
@@ -156,11 +171,11 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
         // Send a request to add the current geofences
         locationClient.addGeofences(currentGeofences, geofenceRequestIntent, this);
         
-        Log.d(LocationUtils.TAG, "geofence was added");
+        Log.d(TAG + ".continueAddGeofences()", "geofence was added");
     }
 
-    /*
-     * Handle the result of adding the geofences
+    /**
+     * Handle the result of adding the geofences.
      */
     @Override
     public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
@@ -177,7 +192,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
             msg = activity.getString(R.string.add_geofences_result_success, Arrays.toString(geofenceRequestIds));
 
             // In debug mode, log the result
-            Log.d(LocationUtils.TAG, msg);
+            Log.d(TAG + ".onAddGeofencesResult()", msg);
 
             // Create an Intent to broadcast to the app
             broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCES_ADDED)
@@ -197,7 +212,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
             );
 
             // Log an error
-            Log.e(LocationUtils.TAG, msg);
+            Log.e(TAG + ".onAddGeofencesResult()", msg);
 
             // Create an Intent to broadcast to the app
             broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCE_ERROR)
@@ -213,7 +228,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     }
 
     /**
-     * Get a location client and disconnect from Location Services
+     * Get a location client and disconnect from Location Services.
      */
     private void requestDisconnection() {
 
@@ -223,7 +238,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
         getLocationClient().disconnect();
     }
 
-    /*
+    /**
      * Called by Location Services once the location client is connected.
      *
      * Continue by adding the requested geofences.
@@ -231,13 +246,13 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
     @Override
     public void onConnected(Bundle arg0) {
         // If debugging, log the connection
-        Log.d(LocationUtils.TAG, activity.getString(R.string.connected));
+        Log.d(TAG + ".onConnected()", activity.getString(R.string.connected));
 
         // Continue adding the geofences
         continueAddGeofences();
     }
 
-    /*
+    /**
      * Called by Location Services once the location client is disconnected.
      */
     @Override
@@ -248,16 +263,16 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
         inProgress = false;
 
         // In debug mode, log the disconnection
-        Log.d(LocationUtils.TAG, activity.getString(R.string.disconnected));
+        Log.d(TAG + ".onDisconnected()", activity.getString(R.string.disconnected));
 
         // Destroy the current location client
         locationClient = null;
     }
 
     /**
-     * Get a PendingIntent to send with the request to add Geofences. Location Services issues
-     * the Intent inside this PendingIntent whenever a geofence transition occurs for the current
-     * list of geofences.
+     * Get a PendingIntent to send with the request to add Geofences. 
+     * Location Services issues the Intent inside this PendingIntent whenever a geofence transition occurs for 
+     * the current list of geofences.
      *
      * @return A PendingIntent for the IntentService that handles geofence transitions.
      */
@@ -290,10 +305,10 @@ public class GeofenceRequester implements OnAddGeofencesResultListener, Connecti
         }
     }
 
-    /*
-     * Implementation of OnConnectionFailedListener.onConnectionFailed
-     * If a connection or disconnection request fails, report the error
-     * connectionResult is passed in from Location Services
+    /**
+     * Implementation of OnConnectionFailedListener.onConnectionFailed.
+     * If a connection or disconnection request fails, report the error connectionResult is passed in 
+     * from Location Services
      */
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {

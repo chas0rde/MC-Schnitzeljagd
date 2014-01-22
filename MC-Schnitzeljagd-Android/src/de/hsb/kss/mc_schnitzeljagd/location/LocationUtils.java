@@ -174,7 +174,7 @@ public final class LocationUtils {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
                 		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
             } catch (Exception e) {
-                Log.e("Error: GooglePlayServiceUtil: ", "" + e);
+                Log.e(TAG + ".servicesConnected()", "Error: GooglePlayServiceUtil: " + e);
             }
            
             Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 

@@ -61,6 +61,8 @@ public class GeofenceRemover implements ConnectionCallbacks,
      * this flag before attempting to start a new request.
      */
     private boolean inProgress;
+
+	private String TAG = "GeofenceRemover";
    
 //    public static void removeFences(final Context context,
 //                    final String... ids) {
@@ -80,7 +82,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
 //            remover.removeGeofencesById(ids);
 //        }
 //        catch (Exception e) {
-//            Log.e(LocationUtils.TAG, "Exception in removeFences: " + e.getLocalizedMessage());
+//            Log.e(TAG, "Exception in removeFences: " + e.getLocalizedMessage());
 //        }
 //    }
 
@@ -244,7 +246,8 @@ public class GeofenceRemover implements ConnectionCallbacks,
         if (statusCode == LocationStatusCodes.SUCCESS) {
 
                 // In debug mode, log the result
-                Log.d(LocationUtils.TAG, context.getString(R.string.remove_geofences_intent_success));
+                Log.d(TAG  + ".onRemoveGeofencesByPendingIntentResult()", 
+                		context.getString(R.string.remove_geofences_intent_success));
 
                 // Set the action and add the result message
                 broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCES_REMOVED);
@@ -252,8 +255,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
                                                 context.getString(R.string.remove_geofences_intent_success));
 
                 // If removing the geocodes failed
-        }
-        else {
+        } else {
                 // Always log the error
                 Log.e(LocationUtils.TAG, context.getString(R.string.remove_geofences_intent_failure, statusCode));
 
@@ -296,7 +298,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
             msg = context.getString(R.string.remove_geofences_id_success, Arrays.toString(geofenceRequestIds));
 
             // In debug mode, log the result
-            Log.d(LocationUtils.TAG, msg);
+            Log.d(TAG + ".onRemoveGeofencesByRequestIdsResult()", msg);
 
             // Create an Intent to broadcast to the app
             broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCES_REMOVED)
@@ -315,7 +317,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
                             statusCode, Arrays.toString(geofenceRequestIds));
 
             // Log an error
-            Log.e(LocationUtils.TAG, msg);
+            Log.e(TAG + ".onRemoveGeofencesByRequestIdsResult()", msg);
 
             // Create an Intent to broadcast to the app
             broadcastIntent.setAction(LocationUtils.ACTION_GEOFENCE_ERROR)
@@ -360,7 +362,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
     @Override
     public void onConnected(Bundle arg0) {
         // If debugging, log the connection
-        Log.d(LocationUtils.TAG, context.getString(R.string.connected));
+        Log.d(TAG + ".onConnected()", context.getString(R.string.connected));
 
         // Continue the request to remove the geofences
         continueRemoveGeofences();
@@ -376,7 +378,7 @@ public class GeofenceRemover implements ConnectionCallbacks,
         inProgress = false;
 
         // In debug mode, log the disconnection
-        Log.d(LocationUtils.TAG, context.getString(R.string.disconnected));
+        Log.d(TAG + "onDisconnected()", context.getString(R.string.disconnected));
 
         // Destroy the current location client
         locationClient = null;
