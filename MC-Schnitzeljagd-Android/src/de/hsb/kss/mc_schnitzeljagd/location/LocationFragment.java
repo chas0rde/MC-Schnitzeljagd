@@ -98,7 +98,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	/**
 	 * Enables/Disables periodic location updates
 	 */
-	private boolean updatesRequested = false;
+	private boolean updatesRequested = true;
 	/**
 	 * Holds the preferences for the location service
 	 */
@@ -135,7 +135,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * The radius around the location of the goal for the geofence in meters.
      * Default value: 30m
      */
-	private float goalRadius = 50;
+	private float goalRadius = LocationUtils.DEFAULT_GEOFENCE_RADIUS;
 	/**
 	 * The ID of the goal.
 	 */
@@ -152,7 +152,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * The state of the visualization of the geofence.
      */
     private boolean showGeofence = true;
-	private BroadcastReceiver broadcastReceiver;
+	private BroadcastReceiver geofenceTransitionReceiver;
 	private IntentFilter intentFilter;
 
 	/*
@@ -265,7 +265,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         
 
         // Register the broadcast receiver to receive status updates
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(activity).registerReceiver(geofenceTransitionReceiver, intentFilter);
         
 		Log.d(TAG + ".onResume()", "LocationFragment was resumed.");
 	}
@@ -279,7 +279,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
         editor.commit();
         // Disconnect the location client
-		locationClient.disconnect();
+		if(locationClient.isConnected()) {
+			locationClient.disconnect();
+		}
 		Log.d(TAG + ".onPause()", "LocationFragment was paused.");
 		super.onPause();
 	}
@@ -560,10 +562,11 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         geofenceStorage = new SimpleGeofenceStore(activity.getBaseContext());
         // Instantiate the current List of geofences
         currentGeofences = new ArrayList<Geofence>();
+
+        // The filter's action is ACTION_GEOFENCE_TRANSITION
+        intentFilter = new IntentFilter(LocationUtils.ACTION_GEOFENCE_TRANSITION);        
         // Create a new broadcast receiver to receive updates from the listeners and service
-        broadcastReceiver = new GeofenceTransitionReceiver();
-        // Create an intent filter for the broadcast receiver
-        intentFilter = new IntentFilter();
+        geofenceTransitionReceiver = new GeofenceTransitionReceiver();
         // Action for broadcast Intents that report successful addition of geofences
         intentFilter.addAction(LocationUtils.ACTION_GEOFENCES_ADDED);
         // Action for broadcast Intents that report successful removal of geofences

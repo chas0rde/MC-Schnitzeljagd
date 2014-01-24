@@ -83,13 +83,15 @@ public class ReceiveTransitionsIntentService extends IntentService {
                 for (int index = 0; index < geofences.size() ; index++) {
                     geofenceIds[index] = geofences.get(index).getRequestId();
                 }
-                String ids = TextUtils.join(LocationUtils.GEOFENCE_ID_DELIMITER,geofenceIds);
+                String ids = TextUtils.join(LocationUtils.GEOFENCE_ID_DELIMITER, geofenceIds);
                 String transitionType = getTransitionString(transition);
 
                 sendNotification(transitionType, ids);
+                sendBroadcast(transitionType, ids);
 
                 // Log the transition type and a message
-                Log.d(TAG + ".onHandleIntent()", getString(R.string.geofence_transition_notification_title, transitionType, ids));
+                Log.d(TAG + ".onHandleIntent()", getString(R.string.geofence_transition_notification_title, 
+                		transitionType, ids));
                 Log.d(TAG + ".onHandleIntent()", getString(R.string.geofence_transition_notification_text));
 
             // An invalid transition was reported
@@ -100,23 +102,41 @@ public class ReceiveTransitionsIntentService extends IntentService {
         }
     }
 
+	/**
+	 * Posts a broadcast to the app when a transisition is detected.
+	 * @param transitionType The type of transition that occurred.
+	 * @param ids the geofence-IDs.
+	 */
+	private void sendBroadcast(String transitionType, String ids) {
+		/*
+	     * Creates a new Intent containing a Uri object
+	     * BROADCAST_ACTION is a custom Intent action
+	     */
+	    Intent localIntent =
+	            new Intent(LocationUtils.ACTION_GEOFENCE_TRANSITION)
+	            // Puts the status into the Intent
+	            .putExtra(LocationUtils.EXTRA_GEOFENCE_STATUS, ids);
+	    // Broadcasts the Intent to receivers in this app.
+	    LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+	}
+	
     /**
      * Posts a notification in the notification bar when a transition is detected.
      * If the user clicks the notification, control goes to the main Activity.
      * @param transitionType The type of transition that occurred.
-     *
+	 * @param ids the geofence-IDs.
      */
     private void sendNotification(String transitionType, String ids) {
 
         // Create an explicit content Intent that starts the main Activity
         Intent notificationIntent =
-                new Intent(getApplicationContext(),MainActivity.class);
+                new Intent(getApplicationContext(), LocationTest.class);
 
         // Construct a task stack
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
         // Adds the main Activity to the task stack as the parent
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(LocationTest.class);
 
         // Push the content Intent onto the stack
         stackBuilder.addNextIntent(notificationIntent);
@@ -129,15 +149,14 @@ public class ReceiveTransitionsIntentService extends IntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         // Set the notification contents
-        builder.setContentTitle(
-                       getString(R.string.geofence_transition_notification_title,
+        builder.setSmallIcon(START_REDELIVER_INTENT)
+        	   .setContentTitle(getString(R.string.geofence_transition_notification_title,
                                transitionType, ids))
                .setContentText(getString(R.string.geofence_transition_notification_text))
                .setContentIntent(notificationPendingIntent);
 
         // Get an instance of the Notification manager
-        NotificationManager mNotificationManager =
-            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Issue the notification
         mNotificationManager.notify(0, builder.build());
