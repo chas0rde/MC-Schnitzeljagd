@@ -28,14 +28,10 @@
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <permission
-        android:name="googlemapsv2.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
+    <permission android:name="googlemapsv2.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
     <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
 
-    <permission
-        android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE"
+    <permission android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE" />
@@ -51,9 +47,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <service
-            android:name="com.example.android.location.ReceiveTransitionsIntentService"
-            android:exported="false"
-            android:label="@string/app_name" >
+            android:name="de.hsb.kss.mc_schnitzeljagd.location.ReceiveTransitionsIntentService"
+            android:exported="false" android:enabled="true">
         </service>
 
         <activity

@@ -1,15 +1,16 @@
 package de.hsb.kss.mc_schnitzeljagd.location;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -19,21 +20,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationClient.OnAddGeofencesResultListener;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationStatusCodes;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import de.hsb.kss.mc_schnitzeljagd.R;
 
@@ -96,7 +98,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	/**
 	 * Enables/Disables periodic location updates
 	 */
-	private boolean updatesRequested = false;
+	private boolean updatesRequested = true;
 	/**
 	 * Holds the preferences for the location service
 	 */
@@ -133,27 +135,25 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * The radius around the location of the goal for the geofence in meters.
      * Default value: 30m
      */
-	private float goalRadius = 30;
+	private float goalRadius = LocationUtils.DEFAULT_GEOFENCE_RADIUS;
 	/**
 	 * The ID of the goal.
 	 */
 	private String goalID;
-	/**
-	 * Stores the PendingIntent used to request geofence monitoring.
-	 */
-    private PendingIntent geofenceRequestIntent;
-    /**
-     * The request-type for the geofence.
-     */
-    private LocationUtils.REQUEST_TYPE requestType;
     /**
      * The GeofenceRequester used to request geofences from the LocationClient.
      */
-    private GeofenceRequester geofenceRequester;
+    private GameGeofenceRequester geofenceRequester;
     /**
      * The GeofenceRemover used to remove geofences from the LocationClient.
      */
     private GeofenceRemover geofenceRemover;
+    /**
+     * The state of the visualization of the geofence.
+     */
+    private boolean showGeofence = true;
+	private BroadcastReceiver geofenceTransitionReceiver;
+	private IntentFilter intentFilter;
 
 	/*
 	 * ############## END FIELD DEFINITIONS ###########################################################################
@@ -262,6 +262,11 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             editor.putBoolean("KEY_UPDATES_ON", false);
             editor.commit();
         }
+        
+
+        // Register the broadcast receiver to receive status updates
+        LocalBroadcastManager.getInstance(activity).registerReceiver(geofenceTransitionReceiver, intentFilter);
+        
 		Log.d(TAG + ".onResume()", "LocationFragment was resumed.");
 	}
 	/**
@@ -274,7 +279,9 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
         editor.commit();
         // Disconnect the location client
-		locationClient.disconnect();
+		if(locationClient.isConnected()) {
+			locationClient.disconnect();
+		}
 		Log.d(TAG + ".onPause()", "LocationFragment was paused.");
 		super.onPause();
 	}
@@ -402,23 +409,28 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
     private void updateLocationInfos() {
 	    currentLocation  = locationClient.getLastLocation();
-		currentLatitude  = currentLocation.getLatitude();
-        currentLongitude = currentLocation.getLongitude();
-        currentLatLng    = new LatLng(currentLatitude, currentLongitude);
-        distance		 = currentLocation.distanceTo(goal);
-        
-        // Center map on users location
- 		CameraUpdate center = CameraUpdateFactory.newLatLng(currentLatLng);
- 	    map.moveCamera(center);
- 	    
- 	    // If zoom is less than 15 zoom in to 15
- 		if (map.getCameraPosition().zoom < 15) {
- 			CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
- 	 	    map.animateCamera(zoom);
- 		} 
- 	    
-        Log.d(TAG + ".updateLocationInfos()", "Location was updated. Current location: " 
-        		+ currentLatitude + "/" + currentLongitude);  
+	    // Check if a last location was even found
+	    if (currentLocation != null) {
+	    	currentLatitude  = currentLocation.getLatitude();
+	        currentLongitude = currentLocation.getLongitude();
+	        currentLatLng    = new LatLng(currentLatitude, currentLongitude);
+	        distance		 = currentLocation.distanceTo(goal);
+	        
+	        // Center map on users location
+	 		CameraUpdate center = CameraUpdateFactory.newLatLng(currentLatLng);
+	 	    map.moveCamera(center);
+	 	    
+	 	    // If zoom is less than 15 zoom in to 15
+	 		if (map.getCameraPosition().zoom < 15) {
+	 			CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+	 	 	    map.animateCamera(zoom);
+	 		}
+	 		
+	 		Log.d(TAG + ".updateLocationInfos()", "Location was updated. Current location: " 
+	        		+ currentLatitude + "/" + currentLongitude); 
+	    } else {
+	    	Log.d(TAG + ".updateLocationInfos()", "Location failed. No last location known");
+	    } 
     }
 	/**
 	 * Alters the current map type of the map.
@@ -493,18 +505,26 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             locationClient.requestLocationUpdates(locationRequest, this);
     		Log.d(TAG + "onConnected()", "Location updates enabled.");
         }
-
-		// TODO set geofence if already a goal there
 		
 		// Set the location fields
 		updateLocationInfos();
+
+		// TODO set geofence if already a goal there
+		if (currentGeofences != null) {
+			try {
+	            // Try to add geofences
+	 			geofenceRequester.addGeofences(currentGeofences);
+	        } catch (UnsupportedOperationException e) {
+	            // Notify user that previous request hasn't finished.
+	            Toast.makeText(activity, R.string.add_geofences_already_requested_error, Toast.LENGTH_LONG).show();
+	        }
+    	}
 		
 	    // Get a first fix to the Activity
 		listener.onLocationChanged();
 	}
 	/**
-     * Called by Location Services if the connection to the
-     * location client drops because of an error.
+     * Called by Location Services if the connection to the location client drops because of an error.
      */
 	@Override
 	public void onDisconnected() {        
@@ -514,7 +534,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		Log.d(TAG + "onDisconnected()", "LocationClient disconnected");
 	}
 	/**
-	 * Called by location service upon changes in the current location
+	 * Called by location service upon changes in the current location.
 	 * @param location the new location
 	 */
 	@Override
@@ -522,6 +542,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		// Update internal state
 		updateLocationInfos();
 		
+		// Visualize the geofence if enabled
+		if (showGeofence) {
+			addMarkerForFence();
+		}
 		// Report to the UI that the location was updated
 		listener.onLocationChanged();
 	}
@@ -534,19 +558,30 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      * configures the parameters for the use of geofences.
      */
     private void configureGeofences() {
-    	// Initialize the globals to null
-    	geofenceRequestIntent = null;
 		// Instantiate a new geofence storage area
         geofenceStorage = new SimpleGeofenceStore(activity.getBaseContext());
         // Instantiate the current List of geofences
         currentGeofences = new ArrayList<Geofence>();
+
+        // The filter's action is ACTION_GEOFENCE_TRANSITION
+        intentFilter = new IntentFilter(LocationUtils.ACTION_GEOFENCE_TRANSITION);        
+        // Create a new broadcast receiver to receive updates from the listeners and service
+        geofenceTransitionReceiver = new GeofenceTransitionReceiver();
+        // Action for broadcast Intents that report successful addition of geofences
+        intentFilter.addAction(LocationUtils.ACTION_GEOFENCES_ADDED);
+        // Action for broadcast Intents that report successful removal of geofences
+        intentFilter.addAction(LocationUtils.ACTION_GEOFENCES_REMOVED);
+        // Action for broadcast Intents containing various types of geofencing errors
+        intentFilter.addAction(LocationUtils.ACTION_GEOFENCE_ERROR);
+        // All Location Services sample apps use this category
+        intentFilter.addCategory(LocationUtils.CATEGORY_LOCATION_SERVICES);
         // Get a GeofenceRequester
-        geofenceRequester = new GeofenceRequester(activity, locationClient);
+        geofenceRequester = new GameGeofenceRequester(activity, locationClient);
         // Get a GeofenceRemover
         geofenceRemover = new GeofenceRemover(activity.getBaseContext(), locationClient);
     }
     /**
-     * Clears all existing geofences.
+     * Clears all existing geofences using {@link GeofenceRemover}.
      */
     private void clearGeofences() {
     	List<String> ids = new ArrayList<String>();
@@ -579,6 +614,32 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
         
 		Log.d(TAG + "createGeofence()", "Geofence was created");
     }
+    /**
+     * Creates a marker and a circle to visualize the geofence created with the goal.
+     */
+    private void addMarkerForFence(){
+    	SimpleGeofence geofence = goalGeofence;
+    	
+    	if(geofence == null){
+    	    // display an error message and return
+    	   return;
+    	}
+    	map.addMarker( new MarkerOptions()
+    	  .position( new LatLng(geofence.getLatitude(), geofence.getLongitude()) )
+    	  .title("Geofence " + geofence.getId())
+    	  .snippet("Radius: " + geofence.getRadius()) ).showInfoWindow();
+    	 
+    	//Instantiates a new CircleOptions object +  center/radius
+    	CircleOptions circleOptions = new CircleOptions()
+    	  .center( new LatLng(geofence.getLatitude(), geofence.getLongitude()) )
+    	  .radius( geofence.getRadius() )
+    	  .fillColor(0x40ff0000)
+    	  .strokeColor(Color.TRANSPARENT)
+    	  .strokeWidth(2);
+    	 
+    	// Get back the mutable Circle
+    	map.addCircle(circleOptions);
+    }
     
     /*
 	 * ############## END GEOFENCE METHODS ############################################################################
@@ -589,55 +650,65 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
      */
     
 	/**
+	 * Returns a LatLng object containing the current location.
 	 * @return the current location of the user as LatLng-object
 	 */
 	public LatLng getLocation() {
 	     return currentLatLng;
 	}
 	/**
+	 * Returns the current locations longitude as Double.
 	 * @return the longitude of the location of the user
 	 */
 	public double getCurrentLongitude() {
 		return currentLongitude;
 	}
 	/**
+	 * Returns the current locations latituode as Double.
 	 * @return the latitude of the location of the user
 	 */
 	public double getCurrentLatitude() {
 		return currentLatitude;
 	}
 	/**
-	 * 
+	 * Returns the accuracy of the current location data as Float.
 	 * @return the accuracy of the current location data
 	 */
 	public float getAccuracy() {
 		return currentLocation.getAccuracy();
 	}
 	/**
+	 * Returns the current status of the connection to the location service.
+	 * Is true if the LocationFragment is connected to the location service. 
 	 * @return the status of the connection to the location service
 	 */
 	public boolean isConnected() {
 		return locationClient.isConnected();
 	}
 	/**
+	 * Returns the calculated axpproximate bee-line distance between the current location and the previously set goal.
+	 * Value is a Float representing meters.
 	 * @return the approximate distance between the users current position and previously set goal in meters
 	 */
 	public float getDistance() {
 		return distance;
 	}
 	/**
+	 * Returns the longitudinal component of the goal-location as Double.
 	 * @return the longitude of the current goal.
 	 */
 	public double getGoalLongitude() {
 		return goal.getLongitude();
 	}
 	/**
+	 * Returns the latitudinal component of the goal-location as Double.
 	 * @return the latitude of the current goal.
 	 */
 	public double getGoalLatitude() {
 		return goal.getLatitude();
 	}
 	/**
+	 * Returns the currently selected {@link MapType} of the {@link GoogleMap} shown to the user.
 	 * @return the current MapType of the map.
 	 */
 	public MapType getMapType() {
@@ -687,10 +758,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		
 		// Create geofence for goal
 		createGeofence();
-		geofenceRequester.addGeofences(currentGeofences);
 	}
 	/**
-	 * Enables the periodic updates of the user's location according to the settings
+	 * Enables the periodic updates of the user's location according to the settings.
+	 * Update intervals etc. are configured in {@link LocationUtils}.
 	 * @param v the calling view
 	 */
 	public void toggleUpdates(View v) {
@@ -703,8 +774,25 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
             Log.d(TAG, "Location updates disabled");
 		}
 	}
+	/**
+	 * Returns the current state of the visualization of the geofence.
+	 * If true the geofence is visualized.
+	 * @return the state of the visualization
+	 */
+	public boolean isShowGeofence() {
+		return showGeofence;
+	}
+	/**
+	 * Enabled or disables the visualization of the geofence.
+	 * @param showGeofence true if geofence should be visualized
+	 */
+	public void setShowGeofence(boolean showGeofence) {
+		this.showGeofence = showGeofence;
+		if (!currentGeofences.isEmpty() && showGeofence == true) {
+			addMarkerForFence();
+		}
+	}
 	
-	/*
 	/*
 	 * ############## END GETTER AND SETTER ###########################################################################
 	 */

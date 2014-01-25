@@ -33,8 +33,8 @@ import de.hsb.kss.mc_schnitzeljagd.R;
  *    
  * Additionally location updates can be toggled and refreshed manually.
  */
-public class LocationTest extends FragmentActivity implements OnLocationChangedListener {
-	private static final String TAG = LocationTest.class.getSimpleName();
+public class LocationTest extends FragmentActivity implements OnLocationChangedListener, OnGeofenceHit {
+	private static final String TAG = "LocationTest";
 	
 	private int count = 0;
 	
@@ -153,5 +153,11 @@ public class LocationTest extends FragmentActivity implements OnLocationChangedL
 	protected void onResume() {
 		super.onResume();
 		Log.d(TAG, "onResume()");
+	}
+
+	@Override
+	public void onGeofenceHit() {
+		// TODO Auto-generated method stub
+		
 	}
 }

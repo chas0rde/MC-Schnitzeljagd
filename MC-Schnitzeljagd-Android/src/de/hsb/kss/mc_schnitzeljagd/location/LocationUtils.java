@@ -25,67 +25,67 @@ public final class LocationUtils {
     /**
      * A log tag for the application.
      */
-    public static final String TAG = "geofence Detection";
+    public static final String TAG = "LocationUtils";
 
     // Intent actions
     public static final String ACTION_CONNECTION_ERROR = 
-            "com.example.android.geofence.ACTION_CONNECTION_ERROR";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_CONNECTION_ERROR";
 
     public static final String ACTION_CONNECTION_SUCCESS =
-            "com.example.android.geofence.ACTION_CONNECTION_SUCCESS";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_CONNECTION_SUCCESS";
 
     public static final String ACTION_GEOFENCES_ADDED =
-            "com.example.android.geofence.ACTION_GEOFENCES_ADDED";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCES_ADDED";
 
     public static final String ACTION_GEOFENCES_REMOVED =
-            "com.example.android.geofence.ACTION_GEOFENCES_DELETED";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCES_DELETED";
 
     public static final String ACTION_GEOFENCE_ERROR =
-            "com.example.android.geofence.ACTION_GEOFENCES_ERROR";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCES_ERROR";
 
     public static final String ACTION_GEOFENCE_TRANSITION =
-            "com.example.android.geofence.ACTION_GEOFENCE_TRANSITION";
+            "de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCE_TRANSITION";
 
     public static final String ACTION_GEOFENCE_TRANSITION_ERROR =
-                    "com.example.android.geofence.ACTION_GEOFENCE_TRANSITION_ERROR";
+                    "de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCE_TRANSITION_ERROR";
 
     // The Intent category used by all Location Services sample apps
     public static final String CATEGORY_LOCATION_SERVICES =
-                    "com.example.android.geofence.CATEGORY_LOCATION_SERVICES";
+                    "de.hsb.kss.mc_schnitzeljagd.location.CATEGORY_LOCATION_SERVICES";
 
     // Keys for extended data in Intents
     public static final String EXTRA_CONNECTION_CODE =
                     "com.example.android.EXTRA_CONNECTION_CODE";
 
     public static final String EXTRA_CONNECTION_ERROR_CODE =
-            "com.example.android.geofence.EXTRA_CONNECTION_ERROR_CODE";
+            "de.hsb.kss.mc_schnitzeljagd.location.EXTRA_CONNECTION_ERROR_CODE";
 
     public static final String EXTRA_CONNECTION_ERROR_MESSAGE =
-            "com.example.android.geofence.EXTRA_CONNECTION_ERROR_MESSAGE";
+            "de.hsb.kss.mc_schnitzeljagd.location.EXTRA_CONNECTION_ERROR_MESSAGE";
 
     public static final String EXTRA_GEOFENCE_STATUS =
-            "com.example.android.geofence.EXTRA_GEOFENCE_STATUS";
+            "de.hsb.kss.mc_schnitzeljagd.location.EXTRA_GEOFENCE_STATUS";
 
     /**
      * Keys for flattened geofences stored in SharedPreferences
      */
-    public static final String KEY_LATITUDE = "com.example.android.geofence.KEY_LATITUDE";
+    public static final String KEY_LATITUDE = "de.hsb.kss.mc_schnitzeljagd.location.KEY_LATITUDE";
 
-    public static final String KEY_LONGITUDE = "com.example.android.geofence.KEY_LONGITUDE";
+    public static final String KEY_LONGITUDE = "de.hsb.kss.mc_schnitzeljagd.location.KEY_LONGITUDE";
 
-    public static final String KEY_RADIUS = "com.example.android.geofence.KEY_RADIUS";
+    public static final String KEY_RADIUS = "de.hsb.kss.mc_schnitzeljagd.location.KEY_RADIUS";
 
     public static final String KEY_EXPIRATION_DURATION =
-            "com.example.android.geofence.KEY_EXPIRATION_DURATION";
+            "de.hsb.kss.mc_schnitzeljagd.location.KEY_EXPIRATION_DURATION";
 
     public static final String KEY_TRANSITION_TYPE =
-            "com.example.android.geofence.KEY_TRANSITION_TYPE";
+            "de.hsb.kss.mc_schnitzeljagd.location.KEY_TRANSITION_TYPE";
 
     /**
      *  The prefix for flattened geofence keys.
      */
     public static final String KEY_PREFIX =
-            "com.example.android.geofence.KEY";
+            "de.hsb.kss.mc_schnitzeljagd.location.KEY";
 
     /**
      *  Invalid values, used to test geofence storage when retrieving geofences
@@ -152,6 +152,11 @@ public final class LocationUtils {
      * The delimiter for geofence IDs.
      */
     public static final CharSequence GEOFENCE_ID_DELIMITER = ",";
+    
+    /**
+     * The default radius for a geofence.
+     */
+    public static final float DEFAULT_GEOFENCE_RADIUS = 30;
 
     /**
      * Check availability of Google Play Services.
@@ -174,7 +179,7 @@ public final class LocationUtils {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
                 		LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
             } catch (Exception e) {
-                Log.e("Error: GooglePlayServiceUtil: ", "" + e);
+                Log.e(TAG + ".servicesConnected()", "Error: GooglePlayServiceUtil: " + e);
             }
            
             Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 
