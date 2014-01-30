@@ -14,7 +14,7 @@ public interface GameLogic {
 	boolean playNewGame(String name, String code);
 	Player getPlayer();
     Quest getQuestByAccessCode(String accessCode,Player player);
-    Point goToNextPoint();
+    Point goToNextPoint(boolean solved);
     Riddle getMandatoryRiddleForCurrentPoint();
     Riddle getNextRiddle();
     List<Hint> getFreeHintsForCurrentPoint();

@@ -44,6 +44,13 @@
 		    android:layout_height="wrap_content"
 		    android:textColor="#FF0000" />
         
+        
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="248dp" />
+        
     </LinearLayout>
 
     <LinearLayout

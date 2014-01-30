@@ -28,10 +28,14 @@
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <permission android:name="googlemapsv2.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+    <permission
+        android:name="googlemapsv2.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="googlemapsv2.permission.MAPS_RECEIVE" />
 
-    <permission android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE"
+    <permission
+        android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="de.hsb.kss.mc_schnitzeljagd.permission.C2D_MESSAGE" />
@@ -48,7 +52,8 @@
         android:theme="@style/AppTheme" >
         <service
             android:name="de.hsb.kss.mc_schnitzeljagd.location.ReceiveTransitionsIntentService"
-            android:exported="false" android:enabled="true">
+            android:enabled="true"
+            android:exported="false" >
         </service>
 
         <activity
@@ -123,8 +128,8 @@
 
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerTextHintActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_player_text_hint" >
+            android:label="@string/title_activity_player_text_hint"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.ListHintsActivity"
@@ -158,6 +163,10 @@
         <activity
             android:name="de.hsb.kss.mc_schnitzeljagd.ui.PlayerMultimediaHintActivity"
             android:label="@string/title_activity_player_multimedia_hint" >
+        </activity>
+        <activity
+            android:name="de.hsb.kss.mc_schnitzeljagd.ui.FinishActivity"
+            android:label="@string/title_activity_finish" >
         </activity>
     </application>
 

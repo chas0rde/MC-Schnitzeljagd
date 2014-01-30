@@ -117,7 +117,10 @@ public class ReceiveTransitionsIntentService extends IntentService {
 	            // Puts the status into the Intent
 	            .putExtra(LocationUtils.EXTRA_GEOFENCE_STATUS, ids);
 	    // Broadcasts the Intent to receivers in this app.
+	    Log.w("Tag BROADCAST", "BEFORE BROADCAST");
 	    LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+	    Log.w("Tag BROADCAST", "AFTER BROADCAST");
+
 	}
 	
     /**
@@ -127,16 +130,16 @@ public class ReceiveTransitionsIntentService extends IntentService {
 	 * @param ids the geofence-IDs.
      */
     private void sendNotification(String transitionType, String ids) {
-
+    	Log.w("TAG MS","sendNotification Start");
         // Create an explicit content Intent that starts the main Activity
         Intent notificationIntent =
-                new Intent(getApplicationContext(), LocationTest.class);
+                new Intent(getApplicationContext(), MainActivity.class);
 
         // Construct a task stack
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
         // Adds the main Activity to the task stack as the parent
-        stackBuilder.addParentStack(LocationTest.class);
+        stackBuilder.addParentStack(MainActivity.class);
 
         // Push the content Intent onto the stack
         stackBuilder.addNextIntent(notificationIntent);
@@ -149,7 +152,7 @@ public class ReceiveTransitionsIntentService extends IntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
         // Set the notification contents
-        builder.setSmallIcon(START_REDELIVER_INTENT)
+        builder.setSmallIcon(R.drawable.ic_launcher)
         	   .setContentTitle(getString(R.string.geofence_transition_notification_title,
                                transitionType, ids))
                .setContentText(getString(R.string.geofence_transition_notification_text))
