@@ -1,24 +1,18 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.appengine.api.datastore.Key;
 
+@Entity
 public class Hint {
-    private int hintId;
     private String description;
     private boolean isFree =false;
     private HintType hintType = HintType.TEXT;
-    
-    public enum HintType{
-    	TEXT,
-    	IMAGE,
-    	SOUND,
-    	VIDEO
-    }
-    
+            
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
@@ -30,16 +24,7 @@ public class Hint {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-
-    public int getHintId() {
-        return hintId;
-    }
-
-    public void setHintId(int hintId) {
-        this.hintId = hintId;
-    }
-
-    
+        
     public String getDescription() {
         return description;
     }

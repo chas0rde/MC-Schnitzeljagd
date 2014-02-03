@@ -47,7 +47,7 @@ class AbstractGameLogic{
             quest.setPointList(new ArrayList<Point>());
     		quest.getPointList().add(currentPoint);
     		
-            currentPoint.setRiddles(new ArrayList<Riddle>());            
+            currentPoint.setRiddleList(new ArrayList<Riddle>());            
             currentPoint.setHintList(new ArrayList<Hint>());
             
             found = true;
@@ -118,10 +118,10 @@ class AbstractGameLogic{
                 quest.setPointList(new ArrayList<Point>());
         		quest.getPointList().add(currentPoint);
                 
-                currentPoint.setRiddles(new ArrayList<Riddle>());
-                currentPoint.getRiddles().add(r);
-                currentPoint.getRiddles().add(r2);
-                currentPoint.getRiddles().add(r3);    
+                currentPoint.setRiddleList(new ArrayList<Riddle>());
+                currentPoint.getRiddleList().add(r);
+                currentPoint.getRiddleList().add(r2);
+                currentPoint.getRiddleList().add(r3);    
                 
                 currentPoint.setHintList(new ArrayList<Hint>());
 

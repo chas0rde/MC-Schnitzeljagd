@@ -20,17 +20,16 @@ public class Point implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8096107369809459221L;
-	private int pointId;
     private double longitude;
     private double latitude;
     private String name;
     private String description;
     
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Riddle> riddles=new ArrayList<Riddle>();
+    private List<Riddle> riddleList = new ArrayList<Riddle>();
     
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Hint> hintList =new ArrayList<Hint>();    
+    private List<Hint> hintList = new ArrayList<Hint>();    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,15 +42,7 @@ public class Point implements Serializable{
 	public void setKey(Key key) {
 		this.key = key;
 	}
-    
-    public int getPointId() {
-        return pointId;
-    }
-
-    public void setPointId(int pointId) {
-        this.pointId = pointId;
-    }
-
+      
     public double getLongitude() {
         return longitude;
     }
@@ -84,12 +75,12 @@ public class Point implements Serializable{
         this.description = description;
     }
 
-    public List<Riddle> getRiddles() {
-        return riddles;
+    public List<Riddle> getRiddleList() {
+        return this.riddleList;
     }
 
-    public void setRiddles(List<Riddle> riddles) {
-        this.riddles = riddles;
+    public void setRiddleList(List<Riddle> riddleList) {
+        this.riddleList = riddleList;
     }
 
     public List<Hint> getHintList() {

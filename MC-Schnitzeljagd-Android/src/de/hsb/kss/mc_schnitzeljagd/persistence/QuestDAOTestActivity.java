@@ -22,8 +22,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import de.hsb.kss.mc_schnitzeljagd.R;
+import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Quest;
+import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
 
 public class QuestDAOTestActivity extends Activity {
 	private QuestDAO questDAO = null;
@@ -58,6 +60,13 @@ public class QuestDAOTestActivity extends Activity {
 		    	    newQuestName.setText("");
 		    	    Point point = new Point();
 		    	    point.setName("First Point");
+		    	    Hint hint = new Hint();
+		    	    hint.setHintType(HintType.TEXT.name());
+		    	    hint.setDescription("some information");
+		    	    point.setHintList(Arrays.asList(hint));
+		    	    Riddle riddle = new Riddle();
+		    	    riddle.setRiddleText("Das ist ein Rätsel");
+		    	    point.setRiddleList(Arrays.asList(riddle));
 		    	    quest.setPointList(Arrays.asList(point));
 		    	    new QuestSaveTask().execute(quest);
 	    		}

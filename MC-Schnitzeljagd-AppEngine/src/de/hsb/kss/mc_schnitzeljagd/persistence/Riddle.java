@@ -1,13 +1,14 @@
 package de.hsb.kss.mc_schnitzeljagd.persistence;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.appengine.api.datastore.Key;
 
+@Entity
 public class Riddle {
-    private int riddleId;
     private boolean mandatory;
     private int maxPoints;
     private int solution;
@@ -32,15 +33,7 @@ public class Riddle {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-
-    public int getRiddleId() {
-        return riddleId;
-    }
-
-    public void setRiddleId(int riddleId) {
-        this.riddleId = riddleId;
-    }
-
+    
     public boolean isMandatory() {
         return mandatory;
     }

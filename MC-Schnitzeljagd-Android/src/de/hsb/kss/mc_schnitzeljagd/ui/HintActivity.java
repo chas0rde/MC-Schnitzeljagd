@@ -65,7 +65,7 @@ public class HintActivity extends SchnitzelActivity {
 			currentPoint = app.getGameLogic().goToNextPoint();
 			listOfHints = app.getGameLogic().getFreeHintsForCurrentPoint();
 			listOfFreeHints = app.getGameLogic().getFreeHintsForCurrentPoint();
-			listOfRiddles = currentPoint.getRiddles();
+			listOfRiddles = currentPoint.getRiddleList();
 
 			renderHintFlipper();
 		}			

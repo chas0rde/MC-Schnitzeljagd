@@ -61,7 +61,7 @@ public class ListHintsActivity extends SchnitzelActivity {
 		} else if (hintmode == HintMode.RIDDLE) {
 			 hintListAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_view_text_template, pointHints);
 
-			for (Riddle riddle : gameCreation.getCurrentPoint().getRiddles()){	
+			for (Riddle riddle : gameCreation.getCurrentPoint().getRiddleList()){	
 				// Todo set Riddle type
 				pointHints.add(riddle.getRiddleText() + (riddle.getMandatory()? "(mandatory)" : "(optional)"));
 			}

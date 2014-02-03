@@ -97,25 +97,25 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 	@Override
 	public void addRiddle(Riddle riddle) {
 		if (riddle != null) {
-			if (currentPoint.getRiddles() == null) {
-				currentPoint.setRiddles(new ArrayList<Riddle>());
+			if (currentPoint.getRiddleList() == null) {
+				currentPoint.setRiddleList(new ArrayList<Riddle>());
 			}
-			currentPoint.getRiddles().add(riddle);
+			currentPoint.getRiddleList().add(riddle);
 		}
 	}
 
 	@Override
 	public void deleteRiddle(int index) {
-		if (isIndexInList(index, currentPoint.getRiddles().size())) {
-			currentPoint.getRiddles().remove(index);
+		if (isIndexInList(index, currentPoint.getRiddleList().size())) {
+			currentPoint.getRiddleList().remove(index);
 		}
 	}
 
 	@Override
 	public Riddle getRiddle(int index) {
-		if (currentPoint != null && currentPoint.getRiddles() != null) {
-			if (isIndexInList(index, currentPoint.getRiddles().size())) {
-				return currentPoint.getRiddles().get(index);
+		if (currentPoint != null && currentPoint.getRiddleList() != null) {
+			if (isIndexInList(index, currentPoint.getRiddleList().size())) {
+				return currentPoint.getRiddleList().get(index);
 			}
 		}
 		return null;
@@ -123,7 +123,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
 	@Override
 	public List<Riddle> getCurrentRiddleList() {
-		return currentPoint.getRiddles();
+		return currentPoint.getRiddleList();
 	}
 
 	@Override
@@ -134,7 +134,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
 			currentPoint = point;
 			currentPoint.setHintList(new ArrayList<Hint>());
-			currentPoint.setRiddles(new ArrayList<Riddle>());
+			currentPoint.setRiddleList(new ArrayList<Riddle>());
 		}
 	}
 
@@ -162,8 +162,8 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 	}
 
 	public int getRiddleSize() {
-		if ((currentPoint != null) && (currentPoint.getRiddles() != null)) {
-			return currentPoint.getRiddles().size();
+		if ((currentPoint != null) && (currentPoint.getRiddleList() != null)) {
+			return currentPoint.getRiddleList().size();
 		}
 		return 0;
 	}

@@ -70,7 +70,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public Riddle getMandatoryRiddleForCurrentPoint() {
-        for (Riddle riddle : currentPoint.getRiddles()) {
+        for (Riddle riddle : currentPoint.getRiddleList()) {
             if (riddle.getMandatory()) {
                 currentMandatoryRiddle = riddle;
                 return currentMandatoryRiddle;
@@ -81,7 +81,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public Riddle getNextRiddle() {
-        for (Riddle riddle : currentPoint.getRiddles()) {
+        for (Riddle riddle : currentPoint.getRiddleList()) {
            
         	if (riddle.getSolved() == null || !riddle.getSolved()) {
                 currentAdditionalRiddle = riddle;
@@ -194,8 +194,8 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 			infoMessage += "\nNumber of free Hints: " + getFreeHintsForCurrentPoint().size();
 		}
 		
-		if(currentPoint.getRiddles() != null) {
-			infoMessage += "\nNumber of Riddles: " + currentPoint.getRiddles().size();
+		if(currentPoint.getRiddleList() != null) {
+			infoMessage += "\nNumber of Riddles: " + currentPoint.getRiddleList().size();
 		}
 				
 		return infoMessage;
