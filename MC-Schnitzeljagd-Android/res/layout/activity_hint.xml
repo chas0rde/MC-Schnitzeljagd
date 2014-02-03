@@ -50,6 +50,12 @@
 		              android:onClick="changeColor"
 		              android:src="@drawable/ic_launcher" /> 
 		              
+		              <fragment
+				        android:id="@+id/map"
+				        android:name="com.google.android.gms.maps.SupportMapFragment"
+				        android:layout_width="match_parent"
+				        android:layout_height="248dp" />
+		              
 		          <Button
 		              android:id="@+id/startRiddles"
 		              android:layout_width="match_parent"

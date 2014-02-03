@@ -7,14 +7,23 @@ import com.google.android.gms.common.data.Freezable;
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.R.layout;
 import de.hsb.kss.mc_schnitzeljagd.R.menu;
+import de.hsb.kss.mc_schnitzeljagd.location.LocationFragment;
+import de.hsb.kss.mc_schnitzeljagd.location.OnGeofenceHit;
+import de.hsb.kss.mc_schnitzeljagd.location.OnLocationChangedListener;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
+import de.hsb.kss.mc_schnitzeljagd.ui.controls.NavigatorControl;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -27,18 +36,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-public class HintActivity extends SchnitzelActivity {
-	ViewFlipper hintFlipper = null;
-	Point currentPoint = null;
-	List<Hint> listOfHints = null;
-	List<Riddle> listOfRiddles = null;
-	List<Hint> listOfFreeHints = null;
+public class HintActivity extends SchnitzelActivity implements OnLocationChangedListener, OnGeofenceHit {
+	private ViewFlipper hintFlipper = null;
+	private Point currentPoint = null;
+	private List<Hint> listOfHints = null;
+	private List<Riddle> listOfRiddles = null;
+	private List<Hint> listOfFreeHints = null;
 	private float lastX;
+	private LocationFragment locFrag = null;
+	private NavigatorControl navCtrl = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hint);
+		
+		// Get a fragment manager (Support for 2.3.3 compatibility)
+		FragmentManager fManager = getSupportFragmentManager();
+		// Instantiate the LocationFragment
+		locFrag = new LocationFragment();
+		// Switch the map-fragment in your layout with the actual map-Fragment
+        FragmentTransaction ft = fManager.beginTransaction();
+        ft.replace(R.id.map, locFrag);
+        ft.commit();
 		
 		initUi();
 	}
@@ -53,7 +73,7 @@ public class HintActivity extends SchnitzelActivity {
 	protected void initUi() {
 		super.initUi();
 		hintFlipper = (ViewFlipper) findViewById(R.id.hint_view_flipper_id);			
-		
+		navCtrl = (NavigatorControl) findViewById(R.id.navigator);
 		if(app != null)
 		{
 			TextView gameInfo = (TextView)findViewById(R.id.current_game_info);
@@ -62,15 +82,23 @@ public class HintActivity extends SchnitzelActivity {
 				gameInfo.setText(app.getGameLogic().getCurrentGameInfo());				
 				
 			}
-			currentPoint = app.getGameLogic().goToNextPoint();
+			currentPoint = app.getGameLogic().goToNextPoint(false);
 			listOfHints = app.getGameLogic().getFreeHintsForCurrentPoint();
 			listOfFreeHints = app.getGameLogic().getFreeHintsForCurrentPoint();
 			listOfRiddles = currentPoint.getRiddleList();
 
+
 			renderHintFlipper();
 		}			
 	}
-
+	
+	protected void onStart() {
+		super.onStart();
+		// Set a goal using the (overloaded!) method setGoal
+        locFrag.setGoal("Test", Double.valueOf(currentPoint.getLatitude()), 
+        		Double.valueOf(currentPoint.getLongitude()));
+	}
+	
 	private void renderHintFlipper()
 	{
 		if(hintFlipper != null)
@@ -175,6 +203,40 @@ public class HintActivity extends SchnitzelActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.hint, menu);
 		return true;
+	}
+
+
+	@Override
+	public void onGeofenceHit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onLocationChanged() {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, "LocChanged:" + locFrag.getDistance(), Toast.LENGTH_SHORT).show();
+		if(navCtrl != null)
+		{
+			navCtrl.setDistance(locFrag.getDistance());
+			navCtrl.invalidate();
+		}
+		
+	}
+	
+	private MyReceiver myReceiver = new MyReceiver();
+	
+	public void onResume() {
+		super.onResume();
+		LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, new IntentFilter("de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCE_TRANSITION"));
+		LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, new IntentFilter("android.intent.action.TIME_TICK"));
+	
+	}
+	
+	public void onPause() {
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
+		super.onPause();
 	}
 
 }

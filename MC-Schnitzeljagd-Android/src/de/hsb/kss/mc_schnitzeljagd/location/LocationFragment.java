@@ -202,7 +202,6 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	    locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 	    // Initialize the location client
 	    locationClient = new LocationClient(activity.getBaseContext(), this, this);
-	    
 		// configure use of geofences
 		configureGeofences();
 		
@@ -414,8 +413,10 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 	    	currentLatitude  = currentLocation.getLatitude();
 	        currentLongitude = currentLocation.getLongitude();
 	        currentLatLng    = new LatLng(currentLatitude, currentLongitude);
-	        distance		 = currentLocation.distanceTo(goal);
-	        
+	        if(goal != null)
+	        {
+	        	distance = currentLocation.distanceTo(goal);
+	        }
 	        // Center map on users location
 	 		CameraUpdate center = CameraUpdateFactory.newLatLng(currentLatLng);
 	 	    map.moveCamera(center);
@@ -510,7 +511,7 @@ public class LocationFragment extends SupportMapFragment implements GooglePlaySe
 		updateLocationInfos();
 
 		// TODO set geofence if already a goal there
-		if (currentGeofences != null) {
+		if (currentGeofences != null && currentGeofences.size() > 0) {
 			try {
 	            // Try to add geofences
 	 			geofenceRequester.addGeofences(currentGeofences);

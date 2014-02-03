@@ -122,6 +122,11 @@ class AbstractGameLogic{
                 currentPoint.getRiddleList().add(r);
                 currentPoint.getRiddleList().add(r2);
                 currentPoint.getRiddleList().add(r3);    
+
+                
+                currentPoint.setLatitude(8.83749747285);
+                currentPoint.setLongitude(53.0663656578);
+                
                 
                 currentPoint.setHintList(new ArrayList<Hint>());
 
@@ -139,6 +144,30 @@ class AbstractGameLogic{
                 	h.setFree(true);
                 }
     
+                Point currentPoint2 = new Point();
+                quest.setPointList(new ArrayList<Point>());
+        		quest.getPointList().add(currentPoint2);
+                
+        		currentPoint2.setRiddleList(new ArrayList<Riddle>());
+        		currentPoint2.getRiddleList().add(r.clone());
+        		currentPoint2.getRiddleList().add(r2.clone());
+        		currentPoint2.getRiddleList().add(r3.clone());    
+                
+        		currentPoint2.setLatitude(8.804423);
+        		currentPoint2.setLongitude(53.064184);
+                
+                
+        		currentPoint2.setHintList(new ArrayList<Hint>());
+                
+                for(int i=2; i<=5; i++){
+                	Hint h = new Hint();
+                	currentPoint2.getHintList().add(h);
+                	h.setDescription("Description for hint: " + i);
+                	h.setHintType("TEXT");
+                	h.setFree(true);
+                }
+                
+                
                 currentMandatoryRiddle = r;
                 found = true;
             }

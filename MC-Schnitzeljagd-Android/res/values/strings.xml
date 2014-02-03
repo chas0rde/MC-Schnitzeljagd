@@ -120,5 +120,6 @@
     <string name="startCamera">Take Picture</string>
     <string name="go_to_next_riddle">Go to next Riddle</string>
     <string name="skip_riddle">Skip this Riddle</string>
+    <string name="title_activity_finish">FinishActivity</string>
 
 </resources>

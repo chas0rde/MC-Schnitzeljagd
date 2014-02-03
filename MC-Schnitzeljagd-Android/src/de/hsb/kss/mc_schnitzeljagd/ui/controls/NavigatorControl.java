@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class NavigatorControl extends ImageView{
 
@@ -37,10 +38,9 @@ public class NavigatorControl extends ImageView{
         super.onDraw(canvas);
         Color positionColor = new Color();
         
-        distance = (float) (Math.random() * 1200); 
+        //distance = (float) (Math.random() * 1200); 
         
         hsv[0] = amountOfColors - (distance * distanceSteps);
-        
         
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
         //canvas.drawLine(0, 0, 20, 20, p);
@@ -63,6 +63,7 @@ public class NavigatorControl extends ImageView{
 
 	public void setDistance(float distance) {
 		this.distance = distance;
+		Toast.makeText(getContext(), "Distance:" + distance, Toast.LENGTH_SHORT).show();
 	}
     
     

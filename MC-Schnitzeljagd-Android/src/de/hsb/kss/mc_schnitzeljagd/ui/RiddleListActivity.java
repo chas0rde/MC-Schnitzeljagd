@@ -60,7 +60,11 @@ public class RiddleListActivity extends SchnitzelActivity {
 		    }
 		} else {
 			Toast.makeText(getApplicationContext(), "All Riddles solved!", Toast.LENGTH_LONG).show();
-			startActivity(new Intent(getApplicationContext(), HintActivity.class));
+			if (gameLogic.goToNextPoint(true) == null) {
+				startActivity(new Intent(getApplicationContext(), FinishActivity.class));
+			} else {
+				startActivity(new Intent(getApplicationContext(), HintActivity.class));
+			}
 		}
 	
 	}

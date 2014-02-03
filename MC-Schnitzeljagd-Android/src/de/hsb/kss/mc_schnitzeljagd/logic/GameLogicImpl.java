@@ -55,12 +55,14 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
     }
     
     @Override
-    public Point goToNextPoint() {   	
+    public Point goToNextPoint(boolean solved) {   	
     	
-        if (currentMandatoryRiddle.getSolved() != null && currentMandatoryRiddle.getSolved()) {
+        if (solved || (currentMandatoryRiddle.getSolved() != null && currentMandatoryRiddle.getSolved())) {
             indexOfCurrentPoint++;
             if (indexOfCurrentPoint < quest.getPointList().size()) {
                 currentPoint = quest.getPointList().get(indexOfCurrentPoint);
+            } else {
+            	return null;
             }
             currentAdditionalRiddle = null;
             currentMandatoryRiddle = null;
@@ -131,7 +133,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         if (possibleSolution.equals(currentMandatoryRiddle.getSolution())) {
             currentMandatoryRiddle.setSolved(true);
             //TODO: calculate Points for Riddle
-            goToNextPoint();
+            //goToNextPoint();
             return true;
         }
         return false;
