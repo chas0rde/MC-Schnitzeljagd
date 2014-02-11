@@ -69,7 +69,15 @@
         <item>Sound</item>
         <item>Video</item>
     </string-array>
+    
+    <string-array name="image_arrays">
+        <item>Normal</item>
+        <item>Gray</item>
+        <item>ColorShift</item>
+        <item>Blur</item>
+    </string-array>
 
+	<string name="image_prompt">Image Mode</string>
     <string name="riddle_text_hint">Please type in your ridde text here... </string>
     <string name="riddle_answer_hint">Please type in your ridde answer here... </string>
     <string name="riddle_is_mandatory_checkbox">Mandatory Riddle</string>

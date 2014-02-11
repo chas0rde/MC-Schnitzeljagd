@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,17 +17,20 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.logic.LogicHelper;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
 
-public class PlayerTextHintActivity extends SchnitzelActivity {
+public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemSelectedListener {
 	Hint currentHint = null;
 	private int hintType = 0;
 	private int hintId = -1;
@@ -42,6 +46,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
     private static final String IMAGE_DIRECTORY_NAME = "Schnitzeljagd";
     private Uri fileUri; // file url to store image/video
     private LinearLayout imageLayout=null;
+    private Spinner imageMode=null;
     
     
     /**
@@ -131,6 +136,8 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
 		// TODO Auto-generated method stub
 		imageLayout = (LinearLayout)findViewById(R.id.image_layout);
 		ImageView preview = (ImageView)findViewById(R.id.image_view_preview);
+		imageMode = (Spinner)findViewById(R.id.image_spinner_id);
+		imageMode.setOnItemSelectedListener(this);
 		preview.setImageDrawable(null);
 		
 		if(isDeviceSupportCamera()) {
@@ -301,6 +308,44 @@ public class PlayerTextHintActivity extends SchnitzelActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.player_text_hint, menu);
 		return true;
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent,
+	        View view, int pos, long id) {
+		
+		previewCapturedImage();
+		
+		String value = parent.getItemAtPosition(pos).toString();
+		
+		ImageView imgPreview = (ImageView)findViewById(R.id.image_view_preview);	 
+		
+		if(imgPreview != null && imgPreview.getDrawable() != null)
+        {		
+			BitmapDrawable bitmapDrawable = ((BitmapDrawable) imgPreview.getDrawable());
+        	Bitmap bitmap = bitmapDrawable.getBitmap();
+        	
+			if(value.equals("Gray"))
+			{	        
+	        	imgPreview.setImageBitmap(Imaging.convertImage(bitmap,0));
+			}	
+			else if(value.equals("ColorShift"))
+			{	        	
+	        	imgPreview.setImageBitmap(Imaging.convertImage(bitmap,1));
+			}
+			else if(value.equals("Blur"))
+			{	        	
+	        	//imgPreview.setImageBitmap(Imaging.convertImage(bitmap,2));
+				imgPreview.setImageBitmap(Imaging.overlay(bitmap,2));
+			}
+        }
+		
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+		Toast.makeText(this, "onNothingSelected", Toast.LENGTH_LONG ).show();
+		
 	}
 	
 	

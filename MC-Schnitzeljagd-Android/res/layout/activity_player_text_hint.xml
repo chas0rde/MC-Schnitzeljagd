@@ -42,6 +42,13 @@
                  android:layout_weight="0.78"                 
                  android:src="@drawable/common_signin_btn_icon_light" />
              
+              <Spinner
+                android:id="@+id/image_spinner_id"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/image_arrays"
+                android:prompt="@string/image_prompt" />
+             
              <Button
                  android:id="@+id/image_button_id"
                  android:layout_width="match_parent"
