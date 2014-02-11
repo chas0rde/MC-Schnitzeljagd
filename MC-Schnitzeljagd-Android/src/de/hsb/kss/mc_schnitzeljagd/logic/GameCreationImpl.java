@@ -40,22 +40,15 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
 	@Override
 	public boolean save() {
-		// TODO[ML]:Errorhandling
-		boolean gotSaved = true;
 		try {
 			Quest savedQuest = new SaveQuest().execute(quest).get();
 			quest.setKey(savedQuest.getKey());
 			quest.setAccessCode(String.valueOf(savedQuest.getKey().getId()));
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			gotSaved=false;
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			gotSaved=false;
-			e.printStackTrace();
+			return false;
 		}
-		return gotSaved;
+		return true;
 	}
 
 	@Override
@@ -132,9 +125,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 	@Override
 	public void addPoint(Point point) {
 		if (point != null) {
-
 			quest.getPointList().add(point);
-
 			currentPoint = point;
 			currentPoint.setHintList(new ArrayList<Hint>());
 			currentPoint.setRiddleList(new ArrayList<Riddle>());
@@ -173,12 +164,10 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
 	@Override
 	public Point getCurrentPoint() {
-		// TODO Auto-generated method stub
 		return currentPoint;
 	}
 
 	public String getCurrentQuestDescription() {
-		// TODO Auto-generated method stub
 		return buildCurrentQuestDescription();
 	}
 
