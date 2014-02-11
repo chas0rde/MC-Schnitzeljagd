@@ -29,7 +29,7 @@ public class PublishGameActivity extends SchnitzelActivity {
 		TextView code = (TextView) findViewById(R.id.share_access_code_id);
 		if (code != null && app != null) {
 			code.setText(gameSaved + " "
-					+ app.getGameCreation().getCurrentQuest().getAccessCode());
+					+ app.getGameCreation().getCurrentQuest().getKey().getId());
 		}
 	}
 

@@ -8,10 +8,8 @@ import java.util.concurrent.ExecutionException;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Base64;
-
 import de.hsb.kss.mc_schnitzeljagd.persistence.model.Player;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
@@ -39,6 +37,7 @@ class AbstractGameLogic{
     {
         boolean found = false;
 
+
         if( code.isEmpty() && creationMode )
         {
             quest = new Quest();
@@ -54,11 +53,12 @@ class AbstractGameLogic{
         }
         else
         {
-        	//TODO: load from DataStore
-            //TODO: Remove Dummy Code
+        	
         	try {
 				Quest loadedQuest=new LoadQuest().execute(Long.valueOf(code)).get();
-			} catch (NumberFormatException e) {
+				quest=loadedQuest;
+				found=true;
+        	} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InterruptedException e) {
@@ -171,10 +171,7 @@ class AbstractGameLogic{
                 currentMandatoryRiddle = r;
                 found = true;
             }
-            else
-            {
-                found = false;
-            }
+   
         }
         return found; // If found else false;
     }
