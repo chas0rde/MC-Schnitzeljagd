@@ -21,7 +21,6 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     @Override
     public final Quest getQuestByAccessCode(String managementCode, Player player) {
-       // init();
         if( !loadQuest(managementCode, false) )
     	{
         	quest = null;
@@ -36,7 +35,6 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
 
     public boolean playNewGame(String name, String code) {
         boolean loaded = false;
-
         this.player = new Player();
         this.player.setName(name);
         loaded = getQuestByAccessCode(code, this.player) != null;
@@ -149,10 +147,8 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
         return false;
     }
 
-    //TODO Melanie Review
    	@Override
    	public boolean freeNextHint() {
-   		boolean found = false;
    		if(currentPoint != null)
    		{
    			for(Hint h : currentPoint.getHintList())
@@ -160,7 +156,6 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
    				if(!h.getFree())
    				{
    					h.setFree(true);
-   					found = true;
    					break;
    				}
    			}
@@ -168,14 +163,9 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic{
    		return freeNextHint();
    	}
     
-    private void init() {
-        //quest= new Quest();
-        //currentPoint=quest.getPointList().get(0);
-    }
 
 	@Override
 	public String getCurrentQuestDescription() {
-		// TODO Auto-generated method stub
 		return buildCurrentQuestDescription();
 	}
 

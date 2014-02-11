@@ -61,10 +61,6 @@ public class PublishGameActivity extends SchnitzelActivity {
 		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 
-	public void shareCodePinterest(View view) {
-
-	}
-
 	public void shareCodeEmail(View view) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
