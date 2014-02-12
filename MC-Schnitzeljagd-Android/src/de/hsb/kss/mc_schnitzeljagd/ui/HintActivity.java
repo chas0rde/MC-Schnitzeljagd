@@ -184,7 +184,11 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 	
    // Todo exchange with geoFence ... or setButton visibile as soon as goal reached
    public void startRiddlesActivity(View view) {
-	  startActivity(new Intent(getApplicationContext(), RiddleListActivity.class)); 
+	   if(listOfRiddles == null || listOfRiddles.isEmpty()) {
+		  Toast.makeText(getApplicationContext(), "No Riddles available for this Quest", Toast.LENGTH_LONG).show(); 
+	   } else {
+		   startActivity(new Intent(getApplicationContext(), RiddleListActivity.class)); 
+	   }
    }
    
 	public void clickBuyHint(View view) {

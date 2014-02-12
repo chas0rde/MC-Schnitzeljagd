@@ -112,7 +112,7 @@ class AbstractGameLogic {
 				pic.setHintType("IMAGE");
 				pic.setFree(true);
 
-				for (int i = 2; i <= 35; i++) {
+				for (int i = 1; i <= 35; i++) {
 					Hint h = new Hint();
 					currentPoint.getHintList().add(h);
 					h.setDescription("Description for hint: " + i);
@@ -134,7 +134,7 @@ class AbstractGameLogic {
 
 				currentPoint2.setHintList(new ArrayList<Hint>());
 
-				for (int i = 2; i <= 5; i++) {
+				for (int i = 1; i <= 5; i++) {
 					Hint h = new Hint();
 					currentPoint2.getHintList().add(h);
 					h.setDescription("Description for hint: " + i);

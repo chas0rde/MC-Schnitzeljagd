@@ -86,14 +86,14 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity implements OnL
 	}
     
 	public void publishQuest(View view) {
-		
+		onLocationChanged();
 		Intent publishQuest = new Intent(this, PublishGameActivity.class);
 		startActivity(publishQuest);
 	}
 	
 	// Saves the current Poi and creates a new one
 	public void savePoint(View view){
-		
+		onLocationChanged();
 		if((gameCreation.getCurrentPoint().getHintList() != null) && (!gameCreation.getCurrentPoint().getHintList().isEmpty())){
 			gameCreation.addPoint(new Point());	
 			Toast.makeText(this, "Currend Point was saved", Toast.LENGTH_SHORT).show();

@@ -65,7 +65,7 @@ public class QuestDAOTestActivity extends Activity {
 		    	    hint.setDescription("some information");
 		    	    point.setHintList(Arrays.asList(hint));
 		    	    Riddle riddle = new Riddle();
-		    	    riddle.setRiddleText("Das ist ein Rätsel");
+		    	    riddle.setRiddleText("Das ist ein Raetsel");
 		    	    point.setRiddleList(Arrays.asList(riddle));
 		    	    quest.setPointList(Arrays.asList(point));
 		    	    new QuestSaveTask().execute(quest);
