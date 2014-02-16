@@ -10,7 +10,6 @@ import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Riddle;
 
 public interface GameLogic {
 
-	boolean playNewGame(String name);
 	boolean playNewGame(String name, String code);
 	Player getPlayer();
     Quest getQuestByAccessCode(String accessCode,Player player);
