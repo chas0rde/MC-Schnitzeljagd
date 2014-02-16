@@ -15,45 +15,28 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:orientation="vertical" >
-        
 
-        <Button
-            android:id="@+id/organizer_start_game_button"
+    <ImageView
+            android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:onClick="startStartQuestActivity"
-            android:text="@string/organizer_start_game_button" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/organizer_load_game_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="startLoadQuestActivity"
-                android:text="@string/organizer_load_game_button" />
-
-            <EditText
-                android:id="@+id/load_game_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/load_game_hint" >
-
-                <requestFocus />
-            </EditText>
-        </LinearLayout>
+            android:layout_height="150dp"
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/error_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FF0000" />
+
+        <Button
+            android:id="@+id/organizer_start_game_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:onClick="startStartQuestActivity"
+            android:text="@string/organizer_start_game_button" />
+
     </LinearLayout>
 
 
