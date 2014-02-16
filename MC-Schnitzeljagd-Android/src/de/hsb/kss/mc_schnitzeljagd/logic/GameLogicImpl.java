@@ -53,7 +53,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 	public Point goToNextPoint(boolean solved) {
 
 		if (solved
-				|| (currentMandatoryRiddle.getSolved() != null && currentMandatoryRiddle
+				|| (currentMandatoryRiddle != null && currentMandatoryRiddle.getSolved() != null && currentMandatoryRiddle
 						.getSolved())) {
 			indexOfCurrentPoint++;
 			if (indexOfCurrentPoint < quest.getPointList().size()) {
