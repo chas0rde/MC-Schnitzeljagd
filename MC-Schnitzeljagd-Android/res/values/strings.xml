@@ -66,8 +66,6 @@
     <string-array name="hint_arrays">
         <item>Text</item>
         <item>Image</item>
-        <item>Sound</item>
-        <item>Video</item>
     </string-array>
     
     <string-array name="image_arrays">
