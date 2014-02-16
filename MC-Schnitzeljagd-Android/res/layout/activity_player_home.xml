@@ -23,20 +23,17 @@
 
       <ScrollView 
            android:layout_height="wrap_content"
-           android:layout_width="match_parent"
-           android:layout_weight="2"     >
+           android:layout_width="match_parent">
 	      <TextView
 	          android:id="@+id/game_description_text"
 	          android:layout_width="match_parent"
 	          android:layout_height="wrap_content"
-	          android:text="@string/play_game_description"          
-	          android:textAppearance="?android:attr/textAppearanceLarge" />
+	          android:text="@string/play_game_description" />
       </ScrollView>
 
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_weight="0.5"
            android:orientation="horizontal" >
 
       <EditText
@@ -59,7 +56,6 @@
        <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="0.5"
           android:orientation="horizontal" >
 
           <EditText

@@ -38,21 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:orientation="horizontal"
-            android:visibility="visible">
-            
-          <ToggleButton
-            android:id="@+id/setup_game_toggle_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textOff="@string/setup_game_toggle_record"
-            android:textOn="@string/setup_game_toggle_live" />   
-            
-             <EditText
-                    android:id="@+id/setup_game_head_start_time_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/setup_game_live_head_start" />                 
+            android:visibility="visible">                 
         </LinearLayout>
                 
             <Button
@@ -67,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/setup_game_description"
+                android:layout_marginTop="30dp"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
