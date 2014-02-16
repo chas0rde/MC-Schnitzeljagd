@@ -59,7 +59,7 @@ public class LazyAdapter extends BaseAdapter {
         	title.setText(hint.getHintType() + ": " +hint.getDescription());
         	thumb_image.setVisibility(View.GONE);
         } else {
-        	byte[] imageAsBytes = Base64.decode(hint.getDescription().getBytes(), 0);
+        	byte[] imageAsBytes = Base64.decode(hint.getImage(), 0);
         	thumb_image.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
         	title.setText(hint.getHintType());
         	thumb_image.setVisibility(View.VISIBLE);

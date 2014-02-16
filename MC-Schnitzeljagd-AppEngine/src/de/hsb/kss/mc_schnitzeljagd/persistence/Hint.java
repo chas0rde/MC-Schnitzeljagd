@@ -4,15 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Hint {
-    private Blob description;
+    private String description;
     private boolean isFree =false;
-    private HintType hintType = HintType.TEXT;   
+    private HintType hintType = HintType.TEXT;    
+    private Blob image;
     
             
     @Id
@@ -27,11 +29,11 @@ public class Hint {
 		this.key = key;
 	}
         
-    public Blob getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Blob description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -50,4 +52,12 @@ public class Hint {
  	public void setHintType(HintType hintType) {
  		this.hintType = hintType;
  	}
+
+	public Blob getImage() {
+		return image;
+	}
+
+	public void setImage(Blob image) {
+		this.image = image;
+	}
 }

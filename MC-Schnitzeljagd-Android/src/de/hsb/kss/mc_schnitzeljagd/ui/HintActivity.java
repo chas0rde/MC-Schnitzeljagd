@@ -116,7 +116,7 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 				else if(h.getHintType().equals("IMAGE"))
 				{
 					ImageView preview = new ImageView(hintFlipper.getContext());					
-			        byte[] imageAsBytes = Base64.decode(h.getDescription().getBytes(), 0);
+			        byte[] imageAsBytes = Base64.decode(h.getImage(), 0);
 			        preview.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
 					preview.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
 					hintFlipper.addView(preview);

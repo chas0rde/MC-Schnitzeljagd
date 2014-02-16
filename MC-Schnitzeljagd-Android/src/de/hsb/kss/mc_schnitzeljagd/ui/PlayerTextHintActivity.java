@@ -2,7 +2,6 @@ package de.hsb.kss.mc_schnitzeljagd.ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.text.SimpleDateFormat;
 
 import android.net.Uri;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +26,6 @@ import android.widget.Toast;
 import de.hsb.kss.mc_schnitzeljagd.R;
 import de.hsb.kss.mc_schnitzeljagd.logic.LogicHelper;
 import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Hint;
-import de.hsb.kss.mc_schnitzeljagd.persistence.questendpoint.model.Point;
 
 public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemSelectedListener {
 	Hint currentHint = null;
@@ -142,7 +139,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
 		
 		if(hintId >= 0) {
 			currentHint = gameCreation.getHint(hintId);
-        	byte[] imageAsBytes = Base64.decode(currentHint.getDescription().getBytes(), 0);
+        	byte[] imageAsBytes = Base64.decode(currentHint.getImage(), 0);
         	preview.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
        } 
 				
@@ -267,7 +264,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
 		ImageView preview = (ImageView)findViewById(R.id.image_view_preview);
 		
 		if(preview.getDrawable() != null && !encodedImage.isEmpty()) {
-			currentHint.setDescription(encodedImage);			
+			currentHint.setImage(encodedImage);			
 			hasError = false;
 		} else {
 			setErrorMsg("Picture could not be taken!");
