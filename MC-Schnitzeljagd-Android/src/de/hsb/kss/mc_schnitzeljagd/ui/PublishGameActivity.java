@@ -28,8 +28,7 @@ public class PublishGameActivity extends SchnitzelActivity {
 		super.initUi();
 		TextView code = (TextView) findViewById(R.id.share_access_code_id);
 		if (code != null && app != null) {
-			code.setText(gameSaved + " "
-					+ app.getGameCreation().getCurrentQuest().getKey().getId());
+			code.setText( ""+ app.getGameCreation().getCurrentQuest().getKey().getId());
 		}
 	}
 
@@ -62,6 +61,16 @@ public class PublishGameActivity extends SchnitzelActivity {
 	}
 
 	public void shareCodeEmail(View view) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Neue Schnitzeljagd erstellt");
+		intent.putExtra(Intent.EXTRA_TEXT, "Spiele eine Schnitzeljagd mit mir ! Zugangscode:"+code);
+		startActivity(Intent.createChooser(intent, "Teile per Email"));
+	}
+	
+
+	public void shareAdminCodeEmail(View view) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		String code=app.getGameCreation().getCurrentQuest().getAccessCode();

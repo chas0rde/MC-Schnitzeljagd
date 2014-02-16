@@ -88,15 +88,15 @@
         android:layout_height="100dp"
         android:layout_alignLeft="@+id/linearLayout1"
         android:layout_centerVertical="true"
+        android:onClick="shareAdminCodeEmail"
         android:src="@drawable/share_mail" />
 
-    <TextView
+    <EditText
         android:id="@+id/share_access_code_id"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/publish_game_text_id"
-        android:layout_centerVertical="true"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignLeft="@+id/share_admincode_mail_id"
+        android:layout_below="@+id/share_admincode_mail_id"
+        android:ems="10"/>
 
 </RelativeLayout>
