@@ -10,13 +10,21 @@ import android.widget.TextView;
 
 public class PublishGameActivity extends SchnitzelActivity {
 
+	private Long questID;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_game);
 		boolean gameSaved = false;
-		if (app != null) {
-			gameSaved = app.getGameCreation().save();
+		if (savedInstanceState != null) {
+			questID = savedInstanceState.getLong("id");
+		} else {
+			if (app != null) {
+				gameSaved = app.getGameCreation().save();
+				questID = app.getGameCreation().getCurrentQuest().getKey()
+						.getId();
+			}
 		}
 		initUi(gameSaved);
 	}
@@ -25,7 +33,18 @@ public class PublishGameActivity extends SchnitzelActivity {
 		super.initUi();
 		TextView code = (TextView) findViewById(R.id.share_access_code_id);
 		if (code != null && app != null) {
-			code.setText( ""+ app.getGameCreation().getCurrentQuest().getKey().getId());
+			code.setText("" + questID);
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (app != null && app.getGameCreation() != null
+				&& app.getGameCreation().getCurrentQuest() != null
+				&& app.getGameCreation().getCurrentQuest().getKey() != null) {
+			outState.putLong("id", app.getGameCreation().getCurrentQuest()
+					.getKey().getId());
 		}
 	}
 
@@ -43,33 +62,22 @@ public class PublishGameActivity extends SchnitzelActivity {
 
 	public void shareCodeTwitter(View view) {
 		String tweetUrl = "https://twitter.com/intent/tweet?text=";
-		String message= "Spiele eine Schnitzeljagd mit mir ! Zugangscode:";
-		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
-		Uri uri = Uri.parse(tweetUrl+message+code);
+		String message = "Spiele eine Schnitzeljagd mit mir ! Zugangscode:";
+		Uri uri = Uri.parse(tweetUrl + message + questID);
 		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 
 	public void shareCodeEmail(View view) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
 		intent.putExtra(Intent.EXTRA_SUBJECT, "Neue Schnitzeljagd erstellt");
-		intent.putExtra(Intent.EXTRA_TEXT, "Spiele eine Schnitzeljagd mit mir ! Zugangscode:"+code);
-		startActivity(Intent.createChooser(intent, "Teile per Email"));
-	}
-	
-
-	public void shareAdminCodeEmail(View view) {
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
-		intent.putExtra(Intent.EXTRA_SUBJECT, "Neue Schnitzeljagd erstellt");
-		intent.putExtra(Intent.EXTRA_TEXT, "Spiele eine Schnitzeljagd mit mir ! Zugangscode:"+code);
+		intent.putExtra(Intent.EXTRA_TEXT,
+				"Spiele eine Schnitzeljagd mit mir ! Zugangscode:" + questID);
 		startActivity(Intent.createChooser(intent, "Teile per Email"));
 	}
 
-	
-    public void onBackPressed() {
-    	// to nothing
-   }
+
+	public void onBackPressed() {
+		// to nothing
+	}
 }

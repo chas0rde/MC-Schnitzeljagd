@@ -31,7 +31,7 @@
             android:id="@+id/share_mail_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share_mail" 
+            android:src="@drawable/share_mail"
             android:clickable="true"
             android:onClick="shareCodeEmail"/>
     </LinearLayout>
