@@ -49,8 +49,7 @@ class AbstractGameLogic {
 			try {
 				Quest loadedQuest = new LoadQuest().execute(Long.valueOf(code))
 						.get();
-				quest = loadedQuest;
-				currentPoint=loadedQuest.getPointList().get(0);
+				setLoadedQuest(loadedQuest);
 				found = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -149,6 +148,26 @@ class AbstractGameLogic {
 
 		}
 		return found; // If found else false;
+	}
+
+	private void setLoadedQuest(Quest loadedQuest) {
+		if (loadedQuest != null) {
+			quest = loadedQuest;
+			if (loadedQuest.getPointList() != null
+					&& !loadedQuest.getPointList().isEmpty()) {
+				currentPoint = loadedQuest.getPointList().get(0);
+				points=loadedQuest.getPointList();
+				List<Riddle> riddles= loadedQuest.getPointList().get(0).getRiddleList();
+				if(riddles!=null && !riddles.isEmpty()){
+					currentMandatoryRiddle=riddles.get(0);
+				}
+				List<Hint> hintList= loadedQuest.getPointList().get(0).getHintList();
+				if(hintList!=null && !hintList.isEmpty()){
+					hints=hintList;
+				}
+			}
+		}
+
 	}
 
 	public String ptest() {
