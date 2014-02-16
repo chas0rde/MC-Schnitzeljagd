@@ -50,6 +50,7 @@ class AbstractGameLogic {
 				Quest loadedQuest = new LoadQuest().execute(Long.valueOf(code))
 						.get();
 				quest = loadedQuest;
+				currentPoint=loadedQuest.getPointList().get(0);
 				found = true;
 			} catch (Exception e) {
 				e.printStackTrace();
