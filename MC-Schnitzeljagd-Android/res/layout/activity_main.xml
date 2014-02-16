@@ -44,6 +44,7 @@
             android:onClick="startOrganizerActivity"
             android:text="@string/organizer_mode_button" />
 
+         <!-- 
         <Button
 	        android:id="@+id/toLocationTestActivity"
 	        android:layout_width="match_parent"
@@ -51,13 +52,16 @@
 	        android:layout_marginBottom="30dp"
 	        android:onClick="startActivityLocationTest"
 	        android:text="@string/locationTest" />
-
-       <Button
+		-->
+		
+	    <!-- 
+	    <Button
            android:id="@+id/button1"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"           
 	       android:onClick="startActivityQuestDAOTest"
            android:text="@string/daotest" />
+           -->
 
     </LinearLayout>
 
