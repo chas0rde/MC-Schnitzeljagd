@@ -7,78 +7,89 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".OrganizerCreatePoiActivity" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
         
-            <TextView
-                android:id="@+id/poi_info_text_id"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/linearLayout1"
-                android:layout_alignParentTop="true"
-                android:paddingBottom="10dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            
-            <de.hsb.kss.mc_schnitzeljagd.ui.controls.HintsControl
-                android:layout_width="fill_parent"
-                android:clickable="true"
-                android:layout_height="wrap_content" 
-                android:id="@+id/control_panel_hints"/>
-            
-            <de.hsb.kss.mc_schnitzeljagd.ui.controls.HintsControl
-                android:layout_width="fill_parent"
-                                android:clickable="true"
-              
-                android:layout_height="wrap_content" 
-                android:id="@+id/control_panel_riddles"/>
-            
-        
-        <TextView
-		    android:id="@+id/error_text"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:textColor="#FF0000" />
-        
-        
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="248dp" />
-        
-    </LinearLayout>
+      <LinearLayout 
+          android:orientation="vertical"
+           android:layout_width="match_parent"
+        android:layout_height="match_parent"
+          >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/finish_game_main_button_id"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:onClick="publishQuest"
-            android:text="@string/organizer_finish_game" />
-
-        <Button
-            android:id="@+id/create_next_poi_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:onClick="savePoint"
-            android:text="@string/organizer_create_next_hint" />
-       
-    </LinearLayout>
-
-
+	    <LinearLayout
+	        android:id="@+id/linearLayout1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:orientation="vertical" >
+	        
+	            <TextView
+	                android:id="@+id/poi_info_text_id"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_alignLeft="@+id/linearLayout1"
+	                android:layout_alignParentTop="true"
+	                android:paddingBottom="10dp"
+	                android:textAppearance="?android:attr/textAppearanceLarge" />
+	            
+	            <de.hsb.kss.mc_schnitzeljagd.ui.controls.HintsControl
+	                android:layout_width="fill_parent"
+	                android:clickable="true"
+	                android:layout_height="wrap_content" 
+	                android:id="@+id/control_panel_hints"/>
+	            
+	            <de.hsb.kss.mc_schnitzeljagd.ui.controls.HintsControl
+	                android:layout_width="fill_parent"
+	                android:clickable="true"
+	              
+	                android:layout_height="wrap_content" 
+	                android:id="@+id/control_panel_riddles"/>
+	            
+	        
+	        <TextView
+			    android:id="@+id/error_text"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:textColor="#FF0000" />
+	        
+	        
+	    <fragment
+	        android:id="@+id/map"
+	        android:name="com.google.android.gms.maps.SupportMapFragment"
+	        android:layout_width="match_parent"
+	        android:layout_height="248dp" />
+	        
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/linearLayout1"
+	        android:layout_alignParentBottom="true"
+	        android:orientation="horizontal" >
+	
+	        <Button
+	            android:id="@+id/finish_game_main_button_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginBottom="10dp"
+	            android:onClick="publishQuest"
+	            android:text="@string/organizer_finish_game" />
+	
+	        <Button
+	            android:id="@+id/create_next_poi_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginBottom="10dp"
+	            android:onClick="savePoint"
+	            android:text="@string/organizer_create_next_hint" />
+	    </LinearLayout>
+    
+	    
+	    </LinearLayout>
+    </ScrollView>
+    
 
 </RelativeLayout>

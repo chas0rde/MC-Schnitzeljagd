@@ -85,7 +85,7 @@
     <string name="organizer_create_hint">Create Hint</string>
     <string name="organizer_create_man_riddle">Create riddle</string>
     <string name="organizer_finish_game">Finish game</string>
-    <string name="organizer_create_next_hint">Save go to next station</string>
+    <string name="organizer_create_next_hint">Go to next Station</string>
     <string name="title_activity_publish_game">PublishGameActivity</string>
     <string name="publish_game_text">Publish Game</string>
     <string name="save_game_admin_code">Save administration code</string>
