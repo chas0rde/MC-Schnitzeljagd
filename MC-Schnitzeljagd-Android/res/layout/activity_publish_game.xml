@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PublishGameActivity" >
-
+    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="50dp"
         android:layout_toRightOf="@+id/linearLayout2"
         android:text="@string/save_game_admin_code"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -84,19 +84,19 @@
 
     <ImageView
         android:id="@+id/share_admincode_mail_id"
-        android:layout_width="50dp"
-        android:layout_height="100dp"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_centerVertical="true"
-        android:src="@drawable/share_mail" />
-
-    <TextView
-        android:id="@+id/share_access_code_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/publish_game_text_id"
+        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_centerVertical="true"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:onClick="shareAdminCodeEmail"
+        android:src="@drawable/share_mail" />
+
+    <EditText
+        android:id="@+id/share_access_code_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/share_admincode_mail_id"
+        android:layout_below="@+id/share_admincode_mail_id"
+        android:ems="10"/>
 
 </RelativeLayout>
