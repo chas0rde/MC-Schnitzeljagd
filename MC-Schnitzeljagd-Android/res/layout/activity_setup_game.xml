@@ -19,6 +19,7 @@
             android:id="@+id/setup_game_name_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/setup_game_name" >
 
@@ -29,6 +30,7 @@
             android:id="@+id/setup_game_author_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"            
             android:ems="10"
             android:hint="@string/setup_game_author_name_hint" >
         </EditText>
@@ -47,14 +49,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="startCreateQuest"
                 android:text="@string/setup_game_create" />
-
-            <TextView
-                android:id="@+id/setup_game_description_text_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/setup_game_description"
-                android:layout_marginTop="30dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/error_text"
