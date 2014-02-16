@@ -9,8 +9,19 @@
     tools:context=".FinishActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/finished_game_text"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/finish_game_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"
+        android:onClick="backToMain"
+        android:text="Back to Home" />
 
 </RelativeLayout>

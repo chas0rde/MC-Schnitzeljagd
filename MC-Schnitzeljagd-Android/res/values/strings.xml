@@ -3,7 +3,7 @@
 
     <string name="app_name">MC-Schnitzeljagd</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="finished_game_text">Congratulations you finished the Game!</string>
     <string name="locationTest">Ingos Test Button</string>
     <string name="lat">Current Latitude</string>
     <string name="lng">Current Longitude</string>
