@@ -68,4 +68,8 @@ public class PublishGameActivity extends SchnitzelActivity {
 		startActivity(Intent.createChooser(intent, "Teile per Email"));
 	}
 
+	
+    public void onBackPressed() {
+    	// to nothing
+   }
 }

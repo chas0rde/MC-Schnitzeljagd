@@ -29,4 +29,7 @@ public class FinishActivity extends Activity {
 		startActivity(goBackToMain);
 	}
 
+    public void onBackPressed() {
+
+   }
 }
