@@ -26,7 +26,7 @@ public class SetupGameActivity extends SchnitzelActivity {
 	protected void initUi()
 	{
 		super.initUi();
-		TextView gameDescriptionTextField = (TextView)findViewById(R.id.setup_game_description_text_id);
+		//TextView gameDescriptionTextField = (TextView)findViewById(R.id.setup_game_description_text_id);
 		authorTextField = (EditText)findViewById(R.id.setup_game_author_id);
 		gameNameTextField = (EditText)findViewById(R.id.setup_game_name_id);
 		
@@ -40,10 +40,10 @@ public class SetupGameActivity extends SchnitzelActivity {
 			{
 				gameNameTextField.setText(app.getGameCreation().getCurrentQuest().getName());
 			}
-			if(gameDescriptionTextField != null)
-			{
-				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuestDescription().toString());
-			}
+//			if(gameDescriptionTextField != null)
+//			{
+//				gameDescriptionTextField.setText(app.getGameCreation().getCurrentQuestDescription().toString());
+//			}
 			//TODO: Replace by check new game
 			if(app.getGameCreation().getCurrentQuest().getAccessCode() != null)
 			{

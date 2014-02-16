@@ -14,7 +14,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:textStyle="bold"
-              android:textSize="15sp"
+              android:textSize="20sp"
               android:text="@string/hint_information_text" />
          
        	<LinearLayout 
@@ -41,6 +41,7 @@
 		              android:id="@+id/current_game_info"
 		              android:layout_width="match_parent"
 		              android:layout_height="wrap_content"
+		                android:textSize="20sp"
 		              android:text="@string/hint_info" />
 				 	          
 		          <de.hsb.kss.mc_schnitzeljagd.ui.controls.NavigatorControl
