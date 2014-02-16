@@ -123,17 +123,11 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
 
 				default:createTextHint(); break;
 				}
-			
-			
 			}
-			
-			
-
 		}		
 	}
 	
 	private void createImageHint() {
-		// TODO Auto-generated method stub
 		imageLayout = (LinearLayout)findViewById(R.id.image_layout);
 		ImageView preview = (ImageView)findViewById(R.id.image_view_preview);
 		imageMode = (Spinner)findViewById(R.id.image_spinner_id);

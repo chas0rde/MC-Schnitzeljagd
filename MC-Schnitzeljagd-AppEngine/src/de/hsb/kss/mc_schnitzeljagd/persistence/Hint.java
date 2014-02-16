@@ -5,13 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Hint {
-    private String description;
+    private Blob description;
     private boolean isFree =false;
-    private HintType hintType = HintType.TEXT;
+    private HintType hintType = HintType.TEXT;   
+    
             
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +27,11 @@ public class Hint {
 		this.key = key;
 	}
         
-    public String getDescription() {
+    public Blob getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(Blob description) {
         this.description = description;
     }
 
