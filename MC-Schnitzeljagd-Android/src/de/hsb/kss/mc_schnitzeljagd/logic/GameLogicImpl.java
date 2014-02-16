@@ -80,11 +80,13 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public Riddle getNextRiddle() {
-		for (Riddle riddle : currentPoint.getRiddleList()) {
+		if (currentPoint!=null && currentPoint.getRiddleList() != null) {
+			for (Riddle riddle : currentPoint.getRiddleList()) {
 
-			if (riddle.getSolved() == null || !riddle.getSolved()) {
-				currentAdditionalRiddle = riddle;
-				return currentAdditionalRiddle;
+				if (riddle.getSolved() == null || !riddle.getSolved()) {
+					currentAdditionalRiddle = riddle;
+					return currentAdditionalRiddle;
+				}
 			}
 		}
 		return null;
