@@ -217,9 +217,9 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 	}
 
 	private int amountOfTiles = 8;
-	private int startDistance = 8;
-	 private int distanceSteps = amountOfTiles / startDistance;  
-	 private int lastTileNo = 0;
+	private float startDistance = 800;
+	 private float distanceSteps = amountOfTiles / startDistance;  
+	 private int lastTileNo = -1;
 	
 	@Override
 	public void onLocationChanged() {
@@ -232,10 +232,11 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 		}	
 		
 		int currentTile = (int) (amountOfTiles - (locFrag.getDistance() * distanceSteps));
+		currentTile = currentTile - 1;
 		if(lastTileNo != currentTile)
 		{
-			renderHintFlipper();
 			lastTileNo = currentTile;
+			renderHintFlipper();			
 		}		
 	}	
 
