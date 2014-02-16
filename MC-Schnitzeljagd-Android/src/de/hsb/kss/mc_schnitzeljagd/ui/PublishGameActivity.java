@@ -1,11 +1,8 @@
 package de.hsb.kss.mc_schnitzeljagd.ui;
 
 import de.hsb.kss.mc_schnitzeljagd.R;
-import de.hsb.kss.mc_schnitzeljagd.R.layout;
-import de.hsb.kss.mc_schnitzeljagd.R.menu;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -49,14 +46,6 @@ public class PublishGameActivity extends SchnitzelActivity {
 		String message= "Spiele eine Schnitzeljagd mit mir ! Zugangscode:";
 		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
 		Uri uri = Uri.parse(tweetUrl+message+code);
-		startActivity(new Intent(Intent.ACTION_VIEW, uri));
-	}
-
-	public void shareCodeFacebook(View view) {
-		String code=app.getGameCreation().getCurrentQuest().getAccessCode();
-		String message= "Nachricht von MC-Schnitzeljagd: Spiele eine Schnitzeljagd mit mir ! Zugangscode:"+code;
-		String facebookurl="https://www.facebook.com/sharer.php?s=100&p[url]=https://github.com/chas0rde/MC-Schnitzeljagd&p[title]="+message+"&p[summary]=MC Schnitzeljagd";
-		Uri uri = Uri.parse(facebookurl);
 		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 

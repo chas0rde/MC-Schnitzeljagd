@@ -19,14 +19,6 @@
 
 
         <ImageView
-            android:id="@+id/share_fb_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/share_fb" 
-            android:clickable="true"
-            android:onClick="shareCodeFacebook"/>
-
-        <ImageView
             android:id="@+id/share_twitter_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

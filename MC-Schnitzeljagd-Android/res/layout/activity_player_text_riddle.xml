@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToCreateRiddle"
-        android:text="@string/save_hint_button" />
+        android:text="@string/save_riddle_button" />
       
       
       		<TextView
