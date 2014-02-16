@@ -69,20 +69,46 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
         }
     }
     
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    // Raw height and width of image
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+
+    if (height > reqHeight || width > reqWidth) {
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((halfHeight / inSampleSize) > reqHeight
+                && (halfWidth / inSampleSize) > reqWidth) {
+            inSampleSize *= 2;
+        }
+    }
+
+    return inSampleSize;
+}
+    
     /*
      * Display image from a path to ImageView
      */
     private void previewCapturedImage() {
         try { 
             // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
- 
+        	final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(fileUri.getPath(), options);
+
             // downsizing image as it throws OutOfMemory Exception for larger images
-            options.inSampleSize = 8;
+            options.inSampleSize = calculateInSampleSize(options, 150, 150);
             
+            options.inJustDecodeBounds = false;
             final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
             ImageView imgPreview = (ImageView)findViewById(R.id.image_view_preview);
- 
+            
             imgPreview.setImageBitmap(bitmap);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -254,22 +280,31 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
 		// TODO Auto-generated method stub
 		boolean hasError = true;
 		
-		Bitmap bmf = BitmapFactory.decodeFile(fileUri.getPath());
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-		Bitmap bm = Bitmap.createScaledBitmap(bmf, bmf.getWidth()/scaleFactor, bmf.getHeight()/scaleFactor, true);
-		bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object   
-		byte[] b = baos.toByteArray(); 		
-		String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+		ImageView imgPreview = (ImageView)findViewById(R.id.image_view_preview);	
 		
-		ImageView preview = (ImageView)findViewById(R.id.image_view_preview);
+		if(imgPreview == null && imgPreview.getDrawable() == null)
+        {
+			previewCapturedImage();
+        }
 		
-		if(preview.getDrawable() != null && !encodedImage.isEmpty()) {
-			currentHint.setImage(encodedImage);			
-			hasError = false;
-		} else {
-			setErrorMsg("Picture could not be taken!");
-		}
-		
+		if(imgPreview != null && imgPreview.getDrawable() != null)
+        {			       
+			BitmapDrawable bitmapDrawable = ((BitmapDrawable) imgPreview.getDrawable());
+	    	Bitmap bmf = bitmapDrawable.getBitmap();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+			Bitmap bm = Bitmap.createScaledBitmap(bmf, bmf.getWidth(), bmf.getHeight(), true);
+			bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object   
+			byte[] b = baos.toByteArray(); 		
+			String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);	
+			
+			if(imgPreview.getDrawable() != null && !encodedImage.isEmpty()) {
+				currentHint.setImage(encodedImage);			
+				hasError = false;
+			} else {
+				setErrorMsg("Picture could not be taken!");
+			}
+        }
+		        	
 		return hasError;
 	}
 
