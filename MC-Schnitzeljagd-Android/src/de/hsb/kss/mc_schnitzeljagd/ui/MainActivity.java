@@ -44,4 +44,7 @@ public class MainActivity extends SchnitzelActivity {
 		startActivity(i);
 	}
 
+    public void onBackPressed() {
+    	// to nothing
+   }
 }
