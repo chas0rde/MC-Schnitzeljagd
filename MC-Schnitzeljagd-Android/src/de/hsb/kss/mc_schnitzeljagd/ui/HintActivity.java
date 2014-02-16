@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -118,6 +119,7 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 			        byte[] imageAsBytes = Base64.decode(h.getImage(), 0);
 			        preview.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
 					preview.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+					preview.setImageBitmap(Imaging.overlay(((BitmapDrawable)preview.getDrawable()).getBitmap(), lastTileNo));
 					hintFlipper.addView(preview);
 				}
 				else if(h.getHintType().equals("SOUND"))
@@ -211,30 +213,37 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 
 	@Override
 	public void onGeofenceHit() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
-
+	private int amountOfTiles = 8;
+	private int startDistance = 8;
+	 private int distanceSteps = amountOfTiles / startDistance;  
+	 private int lastTileNo = 0;
+	
 	@Override
 	public void onLocationChanged() {
 		// TODO Auto-generated method stub
-		Toast.makeText(this, "LocChanged:" + locFrag.getDistance(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "LocChanged:" + locFrag.getDistance(), Toast.LENGTH_SHORT).show();
 		if(navCtrl != null)
 		{
 			navCtrl.setDistance(locFrag.getDistance());
 			navCtrl.invalidate();
-		}
+		}	
 		
-	}
-	
+		int currentTile = (int) (amountOfTiles - (locFrag.getDistance() * distanceSteps));
+		if(lastTileNo != currentTile)
+		{
+			renderHintFlipper();
+			lastTileNo = currentTile;
+		}		
+	}	
+
 	private MyReceiver myReceiver = new MyReceiver();
 	
 	public void onResume() {
 		super.onResume();
-		LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, new IntentFilter("de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCE_TRANSITION"));
-		LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, new IntentFilter("android.intent.action.TIME_TICK"));
-	
+		LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver, new IntentFilter("de.hsb.kss.mc_schnitzeljagd.location.ACTION_GEOFENCE_TRANSITION"));	
 	}
 	
 	public void onPause() {

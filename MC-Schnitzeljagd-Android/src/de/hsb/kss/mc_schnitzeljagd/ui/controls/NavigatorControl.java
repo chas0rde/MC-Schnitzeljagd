@@ -14,14 +14,12 @@ public class NavigatorControl extends ImageView{
 	private float distance = 100.0f;
 	private float[] hsv= {1.0f, 1.0f, 1.0f};
 	private float amountOfColors = 88f;
+	private float amountOfTiles = 10f;
 	private float startColor = 1.0f;
-	private float startDistance = 1000f;
+	private float startDistance = 500f;
 	// kann geaendert werden, 100=Abstand, 88=farbschritte
 	 private float distanceSteps = amountOfColors / startDistance;  
-	
-	
-
-	
+		
     public NavigatorControl(Context context) {
         super(context);
     }
@@ -29,9 +27,7 @@ public class NavigatorControl extends ImageView{
     public NavigatorControl(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
     }
-    
-
-
+       
     @Override
     protected void onDraw(Canvas canvas) {
     	
