@@ -63,7 +63,7 @@ class GameCreationImpl extends AbstractGameLogic implements GameCreation {
 
 	@Override
 	public void deleteHint(int index) {
-		if (isIndexInList(index, hints.size())) {
+		if (hints!=null && isIndexInList(index, hints.size())) {
 			hints.remove(index);
 		}
 	}
