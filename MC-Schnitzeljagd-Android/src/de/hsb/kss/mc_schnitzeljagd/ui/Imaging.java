@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.util.Log;
@@ -74,12 +75,75 @@ public class Imaging {
         wallpaint.setColor(Color.BLUE);
         wallpaint.setStyle(Style.FILL);
 
+        PointF topLeft = new PointF(0, 0);
+        PointF botLeft = new PointF(0, bmpOriginal.getHeight());
+        PointF topRight = new PointF(bmpOriginal.getWidth() , 0);
+        PointF botRight = new PointF(bmpOriginal.getWidth() , bmpOriginal.getHeight());
+        PointF middle = new PointF(bmpOriginal.getWidth() / 2, bmpOriginal.getHeight() / 2);
+        PointF topMid = new PointF(bmpOriginal.getWidth() / 2, 0);
+        PointF botMid = new PointF(bmpOriginal.getWidth() / 2, bmpOriginal.getHeight());
+        PointF leftMid = new PointF(0, bmpOriginal.getHeight() / 2);
+        PointF rightMid = new PointF(bmpOriginal.getWidth(), bmpOriginal.getHeight() / 2);
+        
         Path wallpath = new Path();
-        wallpath.reset(); // only needed when reusing this path for a new build
-        wallpath.moveTo(40, 20); // used for first point
-        wallpath.lineTo(0, 200);
-        wallpath.lineTo(200, 250);
-        wallpath.lineTo(200, 0);
+        wallpath.reset();
+ 
+        if(pieces >= 8)
+        {
+            wallpath.moveTo(topRight.x, topRight.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(rightMid.x, rightMid.y);
+            wallpath.lineTo(topRight.x, topRight.y);            
+        }
+        if(pieces >= 7)
+        {
+            wallpath.moveTo(botLeft.x, botLeft.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(botMid.x, botMid.y);
+            wallpath.lineTo(botLeft.x, botLeft.y);
+        }
+        if(pieces >= 6)
+        {
+            wallpath.moveTo(topLeft.x, topLeft.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(leftMid.x, leftMid.y);
+            wallpath.lineTo(topLeft.x, topLeft.y);
+        }
+        if(pieces >= 5)
+        {
+            wallpath.moveTo(botRight.x, botRight.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(rightMid.x, rightMid.y);
+            wallpath.lineTo(botRight.x, botRight.y);
+        }
+        if(pieces >= 4)
+        {
+            wallpath.moveTo(topRight.x, topRight.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(topMid.x, topMid.y);
+            wallpath.lineTo(topRight.x, topRight.y);
+        }
+        if(pieces >= 3)
+        {
+            wallpath.moveTo(botLeft.x, botLeft.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(leftMid.x, leftMid.y);
+            wallpath.lineTo(botLeft.x, botLeft.y);
+        }
+        if(pieces >= 2)
+        {
+            wallpath.moveTo(botRight.x, botRight.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(botMid.x, botMid.y);
+            wallpath.lineTo(botRight.x, botRight.y);
+        }
+        if(pieces >= 1)
+        {
+            wallpath.moveTo(topLeft.x, topLeft.y);
+            wallpath.lineTo(middle.x, middle.y);
+            wallpath.lineTo(topMid.x, topMid.y);
+            wallpath.lineTo(topLeft.x, topLeft.y);
+        }
         
         canvasOverlay.drawPath(wallpath, wallpaint);
         wallpaint.setXfermode(new PorterDuffXfermode(Mode.SRC_OUT));        

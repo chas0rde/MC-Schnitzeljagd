@@ -27,11 +27,6 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 		return quest;
 	}
 
-	// TODO: @Melanie nur zum testen drin
-	public boolean playNewGame(String name) {
-		return playNewGame(name, quest.getAccessCode());
-	}
-
 	public boolean playNewGame(String name, String code) {
 		boolean loaded = false;
 		this.player = new Player();
@@ -69,10 +64,12 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public Riddle getMandatoryRiddleForCurrentPoint() {
-		for (Riddle riddle : currentPoint.getRiddleList()) {
-			if (riddle.getMandatory()) {
-				currentMandatoryRiddle = riddle;
-				return currentMandatoryRiddle;
+		if (currentPoint != null && currentPoint.getRiddleList() != null) {
+			for (Riddle riddle : currentPoint.getRiddleList()) {
+				if (riddle.getMandatory()) {
+					currentMandatoryRiddle = riddle;
+					return currentMandatoryRiddle;
+				}
 			}
 		}
 		return null;
@@ -80,7 +77,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public Riddle getNextRiddle() {
-		if (currentPoint!=null && currentPoint.getRiddleList() != null) {
+		if (currentPoint != null && currentPoint.getRiddleList() != null) {
 			for (Riddle riddle : currentPoint.getRiddleList()) {
 
 				if (riddle.getSolved() == null || !riddle.getSolved()) {
@@ -111,7 +108,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public List<Hint> getAvailableHintsForCurrentPoint() {
-		if (currentPoint != null) {
+		if (currentPoint != null && currentPoint.getHintList() != null) {
 			for (Hint hint : currentPoint.getHintList()) {
 				// Todo only provide payed hints inside list
 				payHintsForPoint.add(hint);
@@ -126,12 +123,15 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 	 */
 	@Override
 	public int getCurrentPointsForPlayer() {
-		return player.getCurrentPoints();
+		if (player != null) {
+			return player.getCurrentPoints();
+		}
+		return 0;
 	}
 
 	@Override
 	public boolean checkSolutionForMandatoryRiddle(String possibleSolution) {
-		if (possibleSolution.equals(currentMandatoryRiddle.getSolution())) {
+		if (currentMandatoryRiddle!=null && possibleSolution.equals(currentMandatoryRiddle.getSolution())) {
 			currentMandatoryRiddle.setSolved(true);
 			// TODO: calculate Points for Riddle
 			// goToNextPoint();
@@ -142,7 +142,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public boolean checkSolutionForAdditionalRiddle(String possibleSolution) {
-		if (possibleSolution.equals(currentAdditionalRiddle.getSolution())) {
+		if (currentAdditionalRiddle!=null && possibleSolution.equals(currentAdditionalRiddle.getSolution())) {
 			// TODO: calculate Points for Riddle
 			currentAdditionalRiddle.setSolved(true);
 			return true;
@@ -152,7 +152,7 @@ class GameLogicImpl extends AbstractGameLogic implements GameLogic {
 
 	@Override
 	public boolean freeNextHint() {
-		if (currentPoint != null) {
+		if (currentPoint != null && currentPoint.getHintList()!=null) {
 			for (Hint h : currentPoint.getHintList()) {
 				if (!h.getFree()) {
 					h.setFree(true);
