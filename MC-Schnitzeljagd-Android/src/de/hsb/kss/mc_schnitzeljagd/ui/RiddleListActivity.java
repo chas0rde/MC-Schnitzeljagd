@@ -105,5 +105,9 @@ public class RiddleListActivity extends SchnitzelActivity {
 		currentRiddle.setSolved(true);
 		startActivity(new Intent(getApplicationContext(), RiddleListActivity.class));	
 	}
+	
+    public void onBackPressed() {
+    	// to nothing
+   }
 
 }

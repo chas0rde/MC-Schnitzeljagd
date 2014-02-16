@@ -241,5 +241,9 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
 		super.onPause();
 	}
+	
+    public void onBackPressed() {
+    	// to nothing
+   }
 
 }

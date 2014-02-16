@@ -117,4 +117,7 @@ public class OrganizerCreatePoiActivity extends SchnitzelActivity implements OnL
 		
 	}
 
+    public void onBackPressed() {
+    	// to nothing
+   }
 }
