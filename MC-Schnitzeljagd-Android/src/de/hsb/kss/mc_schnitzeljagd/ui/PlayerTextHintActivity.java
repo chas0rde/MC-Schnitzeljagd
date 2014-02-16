@@ -79,7 +79,7 @@ public class PlayerTextHintActivity extends SchnitzelActivity implements OnItemS
  
             // downsizing image as it throws OutOfMemory Exception for larger images
             options.inSampleSize = 8;
- 
+            
             final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
             ImageView imgPreview = (ImageView)findViewById(R.id.image_view_preview);
  

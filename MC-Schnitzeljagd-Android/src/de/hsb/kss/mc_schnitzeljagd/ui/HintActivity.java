@@ -95,8 +95,7 @@ public class HintActivity extends SchnitzelActivity implements OnLocationChanged
 	protected void onStart() {
 		super.onStart();
 		// Set a goal using the (overloaded!) method setGoal
-        locFrag.setGoal("Test", Double.valueOf(currentPoint.getLatitude()), 
-        		Double.valueOf(currentPoint.getLongitude()));
+        locFrag.setGoal("Test", Double.valueOf(currentPoint.getLongitude()), Double.valueOf(currentPoint.getLatitude()));
 	}
 	
 	private void renderHintFlipper()
